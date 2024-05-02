@@ -7,6 +7,11 @@
     padding:0;
 }
 
+:root{
+    --grayish-blue: hsl(220, 15%, 55%);
+    --dark-blue:  hsl(218, 44%, 22%);
+}
+
 body{
   --light-gray: hsl(212, 45%, 89%);
   --outfit-font: "Outfit", sans-serif;
@@ -18,6 +23,8 @@ body{
 main{
     width:100%;
 }
+
+/* Card */
 
 .card{
     --box-shadow: 20px 20px 60px var(--light-gray),
@@ -54,7 +61,6 @@ main{
 }
 
 .card-content p{
-    --grayish-blue: hsl(220, 15%, 55%);
     color:var(--grayish-blue);
     width:25ch;
     font-weight: 400;
@@ -62,3 +68,30 @@ main{
     text-align: center;
     font-size: 0.71rem;
 }
+
+/* Attribution */
+.attribution{
+    color:var(--grayish-blue);
+    text-align:center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0 10px; 
+}
+
+.attribution a{
+    list-style: none;
+    text-decoration: none;
+    border-bottom:1px solid transparent;
+    transition: border-color 200ms ease-in-out;
+}
+
+.attribution a:first-child, 
+.attribution a:last-child{
+    color: var(--dark-blue);
+}
+
+.attribution a:first-child:hover, 
+.attribution a:last-child:hover{
+   border-color: var(--dark-blue)
+}
+
