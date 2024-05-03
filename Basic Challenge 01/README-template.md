@@ -16,7 +16,9 @@ This is a solution to the [QR code component challenge on Frontend Mentor](https
 ## Overview
 
 ### Screenshot
+
 ![basic challenge](images/image-2.png)
+
 ### Links
 
 - Solution URL: [CSS Solution](https://github.com/FengDenny/Frontend-Mentor-Challenges/blob/main/Basic%20Challenge%2001/style.css)
