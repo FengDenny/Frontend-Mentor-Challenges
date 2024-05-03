@@ -58,6 +58,7 @@ main{
   min-width:18ch;
   text-align:center;
   font-weight:700;
+  color:var(--dark-blue);
 }
 
 .card-content p{
