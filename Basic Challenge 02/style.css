@@ -36,6 +36,7 @@ main {
 
 }
 
+/* CARD */
 .card-container {
   --neutralWhite: hsl(0, 0%, 100%);
   --boxShadowHover: 15px 15px 1px 3px var(--neutralBlack);
@@ -134,6 +135,8 @@ main {
   font-weight: 900;
 }
 
+/* Attribution */
+
 .attribution {
   position: relative;
   top: 200px;
@@ -165,6 +168,8 @@ main {
     padding:2px;
     outline: none;
 }
+
+/* MEDIA QUERIES */
 
 @media only screen and (max-width: 397px) {
   .card-content .title {
