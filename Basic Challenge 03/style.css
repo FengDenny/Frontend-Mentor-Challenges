@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap");
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  --bright-cyan-blue: hsl(188, 83%, 70%);
+  --dark-blue-purple: hsl(247, 68%, 51%);
+  --light-blue: hsl(188, 96%, 67%, 20%);
+  font-family: "Exo 2", sans-serif;
+}
