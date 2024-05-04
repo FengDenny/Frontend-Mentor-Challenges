@@ -32,8 +32,6 @@ main {
   height: auto;
   display: flex;
   justify-content: center;
-  align-items: center;
-
 }
 
 /* CARD */
@@ -50,7 +48,6 @@ main {
   margin: 14px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   box-shadow: 9px 9px 1px var(--neutralBlack);
   transition: all 200ms ease-in-out;
@@ -119,7 +116,6 @@ main {
 }
 
 .card-content .author {
-  width: 100%;
   display: flex;
   align-items: center;
   column-gap: 10px;
@@ -127,7 +123,6 @@ main {
 
 .card-content .author img {
   max-width: 40px;
-  height: 100%;
 }
 
 .card-content .title h2,
@@ -149,7 +144,6 @@ main {
     color:var(--neutralBlack);
     list-style:none;
     text-decoration: none;
-    padding-left:5px;
     border-bottom: 2px solid transparent;
     transition: border-color 200ms ease-in-out;
     
