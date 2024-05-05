@@ -164,13 +164,13 @@ main {
 .attribution {
   text-align: center;
   margin-top: 100px;
-  color: var(--light-cyan-blue);
+  --light-blue: hsla(188, 96%, 67%, 0.5);
+  color: var(--light-blue);
   font-size: 1.2rem;
 }
 
 .attribution a {
-  --light-blue: hsla(188, 96%, 67%, 0.5);
-  color: var(--light-blue);
+  color: var(--bright-cyan-blue);
   list-style: none;
   text-decoration: none;
   padding-left: 2px;
@@ -194,6 +194,7 @@ main {
   padding: 3px;
   outline: none;
 }
+
 
 /* Media Queries */
 
