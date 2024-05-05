@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap");
-@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
+
+/* CSS RESET */
 
 html {
   box-sizing: border-box;
@@ -12,9 +13,11 @@ html {
 }
 
 * {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
+
+/* BODY / MAIN */
 
 body {
   --bright-cyan-blue: hsl(188, 83%, 70%);
@@ -26,93 +29,127 @@ body {
   color: var(--bright-cyan-blue);
 }
 
-main{
-  width:100%;
-  display:flex;
+main {
+  width: 100%;
+  display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 20vh;
 }
 
-.card-socials-container{
+/* CARD */
+
+.card-socials-container {
   border: 4px solid var(--light-blue);
   border-radius: 10px;
-  height:auto;
+  height: auto;
   padding: 10px;
 }
 
-.card-content{
-  display:flex;
+.card-content {
+  display: flex;
   flex-direction: column;
   align-items: center;
-  padding:10px;
+  padding: 10px;
 }
 
-
-.card-content img{
-  width:100px;
-  height:100px;
-  border-radius:50%;
+.card-content img {
+  border: 2px solid var(--light-cyan-blue);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 }
 
-.card-content .card-header-description{
-  padding-top:10px;
+.card-content .card-header-description {
+  padding-top: 10px;
   margin: 10px;
-  width:100%;
+  width: 100%;
   text-align: center;
   font-weight: 600;
   font-size: 0.75rem;
   letter-spacing: 1px;
 }
 
+.card-content .card-header-description abbr {
+  border-bottom: 2px solid var(--light-blue);
+  text-decoration: none;
+}
 
-.card-content .card-header-name{
+.card-content .card-header-description abbr:hover {
+  border-bottom-color: var(--bright-cyan-blue);
+}
+
+.card-content .card-header-name {
   font-weight: 900;
   font-size: 2rem;
-
 }
 
-.card-content .card-header-location{
+.card-content .card-header-location {
   font-weight: normal;
   font-size: 1.2rem;
-  padding-top:5px;
-  color:var(--light-cyan-blue)
+  padding-top: 5px;
+  color: var(--light-cyan-blue);
 }
 
-
-.card-content .card-content-button{
+.card-content .card-content-button {
   background-color: var(--light-cyan-blue);
-  width:100%;
-  height:auto;
-  padding:8px;
-  border-radius:5px;
+  width: 100%;
+  height: auto;
+  padding: 8px;
+  border-radius: 5px;
   transition: background-color 250ms linear 0.15s;
 }
-.card-content .card-content-button:hover{
+.card-content .card-content-button:hover {
   --bright-cyan-blue: hsl(188, 100%, 73%);
   background-color: var(--bright-cyan-blue);
 }
 
-.card-content .card-content-button:not(:first-child){
-  margin-top:18px;
+.card-content .card-content-button:not(:first-child) {
+  margin-top: 18px;
 }
-
 
 .card-content .card-content-button a {
-  display:flex;
+  display: flex;
   flex-direction: row;
-  column-gap:10px;
-  justify-content: space-between;
+  column-gap: 10px;
+  justify-content: center;
   list-style: none;
   text-decoration: none;
-  color:var(--dark-blue-purple);
+  color: var(--dark-blue-purple);
 }
-.card-content .card-content-button span{
+
+.card-content .card-content-button span {
+  position: relative;
+  left: 0;
   font-size: 1rem;
-  align-self: center;
   font-weight: bold;
 }
-.card-content .card-content-button .icon{
+
+.card-content .card-content-button .icon {
+  position: relative;
+  right:-100%;
   font-size: 1.2rem;
 }
 
+.card-content .card-content-button:hover span {
+  position: absolute;
+  left: -100%;
+}
+
+.card-content .card-content-button:hover .icon {
+  right:0;
+  width: 100%;
+  text-align: center;
+}
+
+.card-content .card-content-button:hover .icon .fa-brands {
+  font-size: 1.5rem;
+}
+
+.card-content .card-content-button span,
+.card-content .card-content-button .icon,
+.card-content .card-content-button .icon .fa-brands {
+  transition: all 150ms ease-in-out;
+}
+
+/* ATTRIBUTION */
