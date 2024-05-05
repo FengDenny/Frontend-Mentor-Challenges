@@ -98,6 +98,7 @@ main {
   padding: 8px;
   border-radius: 5px;
   transition: background-color 250ms linear 0.15s;
+  overflow-x: hidden;
 }
 .card-content .card-content-button:hover {
   --bright-cyan-blue: hsl(188, 100%, 73%);
@@ -118,6 +119,12 @@ main {
   color: var(--dark-blue-purple);
 }
 
+.card-content .card-content-button a:focus-visible {
+  border: 2px solid var(--dark-blue-purple);
+  padding: 2px;
+  outline: none;
+}
+
 .card-content .card-content-button span {
   position: relative;
   left: 0;
@@ -127,7 +134,7 @@ main {
 
 .card-content .card-content-button .icon {
   position: relative;
-  right:-100%;
+  right: -100%;
   font-size: 1.2rem;
 }
 
@@ -137,7 +144,7 @@ main {
 }
 
 .card-content .card-content-button:hover .icon {
-  right:0;
+  right: 0;
   width: 100%;
   text-align: center;
 }
@@ -153,3 +160,45 @@ main {
 }
 
 /* ATTRIBUTION */
+
+.attribution {
+  text-align: center;
+  margin-top: 100px;
+  color: var(--light-cyan-blue);
+  font-size: 1.2rem;
+}
+
+.attribution a {
+  --light-blue: hsla(188, 96%, 67%, 0.5);
+  color: var(--light-blue);
+  list-style: none;
+  text-decoration: none;
+  padding-left: 2px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 200ms ease-in-out;
+}
+
+.attribution a:visited {
+  --light-blue: hsla(188, 96%, 67%, 0.952);
+  color: var(--light-blue);
+}
+
+.attribution a:hover {
+  --light-blue: hsla(188, 96%, 67%, 0.904);
+  border-color: var(--bright-cyan-blue);
+  color: var(--light-blue);
+}
+
+.attribution a:focus-visible {
+  border: 2px solid var(--bright-cyan-blue);
+  padding: 3px;
+  outline: none;
+}
+
+/* Media Queries */
+
+@media only screen and (max-width: 347px) {
+  .card-socials-container {
+    margin-inline: 8px;
+  }
+}
