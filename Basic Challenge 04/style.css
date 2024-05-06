@@ -1,0 +1,316 @@
+/* FONT IMPORT */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Young+Serif&display=swap");
+
+/* CSS RESET */
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* BODY */
+
+body {
+  --nutmeg: hsl(14, 45%, 36%);
+  --dark-raspberry: hsl(332, 51%, 32%);
+  --white: hsl(0, 0%, 100%);
+  --rose-white: hsl(330, 100%, 98%);
+  --eggshell: hsl(30, 54%, 90%);
+  --light-grey: hsl(30, 18%, 87%);
+  --wenge-brown: hsl(30, 10%, 34%);
+  --dark-charcoal: hsl(24, 5%, 18%);
+  --font-outfit: "Outfit", sans-serif;
+  --font-young-serif: "Young Serif", serif;
+  background-color: var(--eggshell);
+  font-family: var(--font-young-serif);
+}
+
+/* MAIN CONTENT */
+
+main {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* CARD */
+.card-container {
+  position: relative;
+  top: 40px;
+  width: 700px;
+  min-width: 350px;
+  padding: 10px;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  margin-bottom: 80px;
+}
+
+.card-container figure {
+  padding: 20px;
+}
+
+.card-container figure img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.card-content {
+  margin: 20px 0;
+}
+
+.card-content.header h1 {
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+.card-content.header p {
+  margin: 20px 0;
+}
+
+.card-content.preparation {
+  background: var(--rose-white);
+  margin: 10px 20px;
+  border-radius: 5px;
+  padding: 20px;
+}
+.card-content.preparation h2 {
+  font-size: 1.3rem;
+}
+
+.card-content.card-content.preparation ul {
+  margin-top: 15px;
+}
+
+.card-content.preparation ul li {
+  margin: 10px 0;
+  padding-left: 10px;
+}
+
+
+.card-content.ingredients h2,
+.card-content.instructions h2,
+.card-content.nutrition h2 {
+  font-weight: 400;
+  font-size: 1.7rem;
+}
+
+.card-content.ingredients ul li {
+  margin: 10px 0;
+  padding-left: 10px;
+}
+
+
+.card-content.instructions ol li::marker {
+  font-weight: bold;
+}
+
+.card-content.instructions ol li {
+  margin: 10px 0;
+  padding-left: 10px;
+  width: 95%;
+}
+
+.card-content.nutrition p {
+  margin: 15px 0;
+}
+
+.card-content.nutrition table {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.card-content.nutrition tr {
+  display: flex;
+  position: relative;
+  padding: 25px 0;
+}
+
+.card-content.nutrition tr:not(:first-child)::before {
+  content: "";
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  position: absolute;
+  top: 3px;
+}
+
+.card-content.nutrition th {
+  flex: 1;
+  text-align: left;
+  padding-left: 30px;
+}
+
+.card-content.nutrition td {
+  flex: 1;
+  font-weight: bold;
+}
+
+.card-content.instructions::before,
+.card-content.nutrition::before {
+  content: "";
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+}
+
+/* ATTRIBUTION */
+
+.attribution {
+  padding: 10px 0;
+  margin: 70px 0;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.attribution a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--dark-raspberry);
+  transition: all 90ms ease-in 0.2s;
+}
+
+.attribution a:hover {
+  color: var(--white);
+  background-color: var(--dark-raspberry) ;
+  padding: 0 10px;
+  border-radius: 2px;
+}
+
+/* FONTS / COLOR / BORDER STYLING COMBINATION */
+.card-content.header p,
+.card-content.preparation h2,
+.card-content.preparation ul li,
+.card-content.ingredients ul li,
+.card-content.instructions ol li,
+.card-content.nutrition p,
+.card-content.nutrition th,
+.card-content.nutrition td {
+  font-family: var(--font-outfit);
+}
+
+.card-content.preparation ul li span,
+.card-content.instructions ol li span {
+  font-weight: 700;
+}
+
+.card-content.nutrition p,
+.card-content.nutrition th{
+  font-weight: 500;
+}
+
+
+.card-content.ingredients ul li::marker, 
+.card-content.preparation ul li::marker {
+  font-size: 0.8rem;
+}
+
+
+.card-content.nutrition tr:not(:first-child)::before,
+.card-content.instructions::before,
+.card-content.nutrition::before{
+  border-top: 1px solid var(--light-grey);
+}
+
+
+.card-content.header h1,
+.attribution a{
+  color: var(--dark-charcoal);
+}
+
+.attribution,
+.card-content.preparation ul li::marker,
+.card-content.preparation h2 {
+  color: var(--dark-raspberry);
+}
+
+.card-content.ingredients h2,
+.card-content.instructions h2,
+.card-content.nutrition h2,
+.card-content.ingredients ul li::marker,
+.card-content.instructions ol li::marker,
+.card-content.nutrition td {
+  color: var(--nutmeg);
+}
+
+
+.card-content.header p,
+.card-content.preparation ul li,
+.card-content.preparation ul li span,
+.card-content.ingredients ul li,
+.card-content.instructions ol li,
+.card-content.instructions ol li span,
+.card-content.nutrition p ,
+.card-content.nutrition th{
+  color: var(--wenge-brown);
+}
+
+
+.card-content.header,
+.card-content.preparation ul,
+.card-content.ingredients,
+.card-content.ingredients ul,
+.card-content.instructions,
+.card-content.instructions ol,
+.card-content.nutrition {
+  padding-left: 20px;
+}
+
+
+
+/* MEDIA Queries */
+
+@media only screen and (max-width: 797px) {
+  .card-content {
+    margin: 15px;
+  }
+
+  .card-container {
+    border-radius: 0;
+    margin-bottom: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .card-container,
+  .card-container figure {
+    padding: 0;
+  }
+
+  .card-container figure img {
+    border-radius: 0;
+  }
+
+  .card-content.nutrition th {
+    flex: 0.7;
+  }
+
+  .attribution {
+    margin: 10px 0 0 0;
+    padding: 50px 0;
+    background-color: var(--nutmeg);
+    color: var(--rose-white);
+  }
+  .attribution a {
+    background-color: var(--nutmeg);
+    color: var(--rose-white);
+    border-bottom: 1px solid var(--white);
+    transition: all 90ms ease-in;
+  }
+  .attribution a:hover {
+    border-bottom: 1px solid var(--dark-raspberry);
+  }
+}
