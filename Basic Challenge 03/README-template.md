@@ -15,7 +15,7 @@
 
 - Desktop / Mobile
 
-![basic challenge](/assets/images/image.png)
+![basic challenge](/Basic%20Challenge%2003/assets/images/image.png)
 
 - Active States
 
@@ -71,4 +71,4 @@
 
 * The extra feature added was a `hover` effect to show `social icons` using `Font Awesome icons`
 
-![basic challenge active](/assets/images/active.png)
+![basic challenge active](/Basic%20Challenge%2003/assets/images/active.png)
