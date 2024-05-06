@@ -14,7 +14,7 @@
 
 ### Screenshot
 
-![basic challenge](/assets/images/image.png)
+![basic challenge](/Basic%20Challenge%2002/assets/images/image.png)
 
 ### Links
 

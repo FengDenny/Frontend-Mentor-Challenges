@@ -19,7 +19,7 @@
 
 - Active States
 
-![basic challenge active](/assets/images/active.png)
+![basic challenge active](/Basic%20Challenge%2003/assets/images/active.png)
 ### Links
 
 - Solution URL: [CSS Solution](https://github.com/FengDenny/Frontend-Mentor-Challenges/blob/main/Basic%20Challenge%2003/style.css)
