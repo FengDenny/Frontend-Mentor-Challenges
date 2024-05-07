@@ -15,14 +15,15 @@
 #### Desktop
 ![Responsive Desktop Design ](/Responsive%20Design%2001/images/image-desktop-final.png)
 
+
 #### Mobile
 
 ![Responsive Mobile Design ](/Responsive%20Design%2001/images/image-mobile-final.png)
 
 ### Links
 
-- Solution URL: [CSS Solution](https://github.com/FengDenny/Frontend-Mentor-Challenges/tree/main/Responsive%20Design%2001)
-- Live Site URL: [Responsive Design 02](https://responsivedesign01.netlify.app/)
+- Solution URL: [CSS Solution](https://github.com/FengDenny/Frontend-Mentor-Challenges/blob/main/Responsive%20Design%2002/style.scss)
+- Live Site URL: [Responsive Design 02](https://responsivedesign02.netlify.app/)
 
 ## My process
 
@@ -41,7 +42,7 @@
 
 - Learned accessibility
 
-- Learned SASS 
+- Learned SASS /SCSS styling + mixins  
 
 
 
