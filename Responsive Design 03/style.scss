@@ -1,0 +1,238 @@
+// GOOGLE FONT IMPORT
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+// COLORS
+$moderate-violet: hsl(263, 55%, 52%);
+$very-dark-grayish-blue: hsl(217, 19%, 35%);
+$very-dark-blackish-blue: hsl(219, 29%, 14%);
+$White: hsl(0, 0%, 100%);
+$light-gray: hsl(0, 0%, 81%);
+$light-grayish-blue: hsl(210, 46%, 95%);
+
+// FONT
+$font-barlow: "Barlow Semi Condensed", sans-serif;
+
+// CSS RESET
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// MIXINS
+
+@mixin articleBackgroundColor($color) {
+  background-color: $color;
+}
+
+@mixin articleHeaderH2Color($color) {
+  color: $color;
+}
+
+@mixin articleFigureBorderColor($color) {
+  border: 2px solid $color;
+}
+
+@mixin articleTestimonialTextColor($color) {
+  color: $color;
+}
+
+// BODY
+body {
+  --font-barlow: #{$font-barlow};
+  --moderate-violate: #{$moderate-violet};
+  --very-dark-grayish-blue: #{$very-dark-grayish-blue};
+  --very-dark-blackish-blue: #{$very-dark-blackish-blue};
+  --white: #{$White};
+  --light-gray: #{$light-gray};
+  --light-grayish-blue: #{$light-grayish-blue};
+  background-color: var(--light-grayish-blue);
+  font-family: var(--font-barlow);
+}
+
+main {
+  display: grid;
+  width: 100%;
+  article {
+    padding: 10px;
+    margin: 28px auto;
+    position: relative;
+    max-width: 400px;
+    width: 80%;
+    z-index: -1;
+    border-radius: 5px;
+
+    .header-content {
+      display: flex;
+      gap: 17px;
+      padding: 15px;
+      .quotation {
+        position: absolute;
+        top: 2px;
+        right: 47px;
+        width: 121px;
+        z-index: -1;
+      }
+
+      figure {
+        border-radius: 50%;
+        width: 39px;
+        height: 39px;
+        &.light-grayish-blue-border {
+          @include articleFigureBorderColor(var(--light-grayish-blue));
+        }
+        &.moderate-violate {
+          @include articleFigureBorderColor(var(--moderate-violate));
+        }
+        &.light-gray {
+          @include articleFigureBorderColor(var(--light-gray));
+        }
+
+        img {
+          width: 35px;
+          border-radius: 50%;
+        }
+      }
+
+      .header {
+        h2 {
+          font-size: 1rem;
+          font-weight: 600;
+          &.light-grayish-blue {
+            @include articleHeaderH2Color(var(--light-grayish-blue));
+          }
+          &.very-dark-grayish-blue {
+            @include articleHeaderH2Color(var(--very-dark-grayish-blue));
+          }
+        }
+
+        p {
+          padding-top: 2px;
+          font-size: 0.9rem;
+          color: var(--light-gray);
+          font-weight: 500;
+        }
+      }
+
+      figure,
+      .header {
+        margin-top: 8px;
+      }
+    }
+
+    .testimonial-text {
+      font-size: 1.8rem;
+      width: 84%;
+      min-width: 200px;
+      margin-bottom: 30px;
+      position: relative;
+      left: 18px;
+
+      h5 {
+        &.light-grayish-blue {
+          @include articleTestimonialTextColor(var(--light-grayish-blue));
+        }
+        &.very-dark-grayish-blue {
+          @include articleTestimonialTextColor(var(--very-dark-grayish-blue));
+        }
+      }
+
+      blockquote {
+        p {
+          padding-top: 20px;
+          width: 97%;
+          font-size: 0.9rem;
+          color: var(--light-gray);
+          font-weight: 600;
+          line-height: 25px;
+        }
+      }
+    }
+
+    &.moderate-violate {
+      @include articleBackgroundColor(var(--moderate-violate));
+    }
+    &.very-dark-grayish-blue {
+      @include articleBackgroundColor(var(--very-dark-grayish-blue));
+    }
+    &.very-dark-blackish-blue {
+      @include articleBackgroundColor(var(--very-dark-blackish-blue));
+    }
+    &.white {
+      @include articleBackgroundColor(var(--white));
+    }
+  }
+}
+
+// MEIDA QUERY
+
+@media only screen and (min-width: 1024px) {
+  /*
+grid-row-start
+grid-column-start
+grid-row-end
+grid-column-end
+  */
+
+
+ .top-left{
+  grid-area: 1 / 1 / span 1 / span 3;
+ }
+
+ .top-middle{
+    grid-area: 1 / 4 / span 1 / span 1;
+ }
+
+ .far-end{
+  grid-area: 1 / 5 / span 3 / span 1;
+ }
+
+ .bottom-left{
+  grid-area: 2 / 1 / span 2 / span 1;
+ }
+
+ .bottom-middle{
+  grid-area: 2 / 2 / span 2 / span 3;
+ }
+
+  main {
+    grid-template: 52% 25% 20% / 32% 19%;
+    column-gap: 25px;
+    width:65%;
+    height:100%;
+    margin:27px 8%;
+
+
+    article {
+      width: 100%;
+      max-width: 700px;
+      padding:25px;
+
+      .header-content{
+        padding:8px 0;
+      }
+
+      .testimonial-text {
+        left:0;
+        width:100%;
+        font-size: 1.3rem;
+
+        blockquote {
+          p{
+            font-size:  0.75rem;
+          }
+        }
+      }
+    }
+  }
+}
