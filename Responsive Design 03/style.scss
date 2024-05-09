@@ -71,6 +71,7 @@ main {
     width: 80%;
     z-index: -1;
     border-radius: 5px;
+    box-shadow: 2px 2px 10px 2px var(--light-grayish-blue);
 
     .header-content {
       display: flex;
@@ -177,60 +178,74 @@ main {
 // MEIDA QUERY
 
 @media only screen and (min-width: 1024px) {
-  /*
-grid-row-start
-grid-column-start
-grid-row-end
-grid-column-end
-  */
+  .top-left {
+    grid-area: 1 / 1 / span 1 / span 3;
+  }
 
-
- .top-left{
-  grid-area: 1 / 1 / span 1 / span 3;
- }
-
- .top-middle{
+  .top-middle {
     grid-area: 1 / 4 / span 1 / span 1;
- }
+  }
 
- .far-end{
-  grid-area: 1 / 5 / span 3 / span 1;
- }
+  .far-end {
+    grid-area: 1 / 5 / span 3 / span 1;
+  }
 
- .bottom-left{
-  grid-area: 2 / 1 / span 2 / span 1;
- }
+  .bottom-left {
+    grid-area: 2 / 1 / span 2 / span 1;
+  }
 
- .bottom-middle{
-  grid-area: 2 / 2 / span 2 / span 3;
- }
+  .bottom-middle {
+    grid-area: 2 / 2 / span 2 / span 3;
+  }
 
   main {
-    grid-template: 52% 25% 20% / 32% 19%;
-    column-gap: 25px;
-    width:65%;
-    height:100%;
-    margin:27px 8%;
-
+    grid-template: 52% 26% 20% / 28% 20%;
+    column-gap: 20px;
+    width: 67%;
+    height: 100%;
+    margin: 27px 8%;
 
     article {
       width: 100%;
       max-width: 700px;
-      padding:25px;
+      padding: 25px;
 
-      .header-content{
-        padding:8px 0;
+      .header-content {
+        padding: 8px 0;
+        figure {
+          width: 35px;
+          height: 35px;
+          margin-top: 5px;
+
+          img {
+            width: 31px;
+          }
+        }
+
+        .header {
+          margin-top: 0;
+          h2 {
+            font-weight: 500;
+          }
+        }
       }
 
       .testimonial-text {
-        left:0;
-        width:100%;
-        font-size: 1.3rem;
+        left: 0;
+        width: 90%;
+        font-size: 1.5rem;
+        top: 9px;
 
         blockquote {
-          p{
-            font-size:  0.75rem;
+          p {
+            line-height: 20px;
+            font-weight: 450;
           }
+        }
+      }
+      &.bottom-left {
+        h5 {
+          width: 92%;
         }
       }
     }
