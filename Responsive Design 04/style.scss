@@ -1,0 +1,192 @@
+// GOOGLE FONT IMPORT
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap");
+
+// FONT
+$font-league-spartan: "League Spartan", sans-serif;
+
+// COLORS
+$very-dark-magenta: hsl(300, 43%, 22%);
+$soft-pink: hsl(333, 80%, 67%);
+$dark-grayish-magenta: hsl(303, 10%, 53%);
+$light-grayish-magenta: hsl(300, 24%, 96%);
+$white: hsl(0, 0%, 100%);
+
+// CSS RESET
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// MIXINS
+@mixin veryDarkMagentaColor($color: true, $backgroundColor: false) {
+  @if $color {
+    color: $very-dark-magenta;
+  }
+  @if $backgroundColor {
+    background-color: $very-dark-magenta;
+  }
+}
+
+@mixin lightGrayishMagentaColor($color: false, $backgroundColor: false) {
+  @if $color {
+    color: $light-grayish-magenta;
+  }
+  @if $backgroundColor {
+    background-color: $light-grayish-magenta;
+  }
+}
+
+@mixin darkGrayishMagentaColor($color: false, $backgroundColor: false) {
+  @if $color {
+    color: $dark-grayish-magenta;
+  }
+  @if $backgroundColor {
+    background-color: $dark-grayish-magenta;
+  }
+}
+
+// BODY
+
+body {
+  font-family: $font-league-spartan;
+  background-color: $white;
+  font-size: 15px;
+}
+
+// MAIN
+
+main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 22%;
+    background-image: url("./images/bg-pattern-top-desktop.svg");
+    background-size: cover;
+    z-index: -1;
+  }
+  
+  header {
+    position: relative;
+    top:100px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    h1 {
+      @include veryDarkMagentaColor();
+      width: calc(82% + 2.8vw);
+      font-weight: bold;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    p {
+      width: calc(90% + 2.8vw);
+      max-width: 500px;
+      line-height: 25px;
+      font-size: 1.2rem;
+      text-align: center;
+      font-weight: 500;
+      @include darkGrayishMagentaColor($color: true);
+    }
+  }
+
+  .star-ratings {
+    position: relative;
+    top: 120px;
+    width: 90%;
+    max-width: 500px;
+    article {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+
+      @include veryDarkMagentaColor();
+      @include lightGrayishMagentaColor($color: false, $backgroundColor: true);
+
+      figure {
+        img {
+          padding: 2px;
+        }
+      }
+
+      h2 {
+        padding-top: 10px;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .card {
+    position: relative;
+    top:150px;
+    width: 90%;
+    max-width: 500px;
+    margin-bottom: 15rem;
+    article {
+      @include veryDarkMagentaColor($color: false, $backgroundColor: true);
+      width: 100%;
+      padding: 25px;
+      border-radius: 5px;
+      margin-top:15px;
+
+      p{
+        color:$white;
+        padding:1rem 0.3rem;
+        font-size: 1.1rem;
+        line-height: 20px;
+      }
+
+      .card-header {
+        display:flex;
+        align-items: center;
+
+        .card-header-info{
+          position: relative;
+          top:0.5rem;
+          text-align:center;
+        }
+
+        figure > img {
+          width: 62%;
+          height: 100%;
+          border-radius: 50%;
+        }
+        h3{
+          color: $white;
+        }
+        p{
+          padding-top:0.3rem;
+          color:$soft-pink;
+          font-size: 1.1rem;
+          font-weight: 400;
+        }
+      }
+
+    }
+  }
+}
