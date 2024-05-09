@@ -199,6 +199,8 @@ main {
   }
 
   main {
+
+    // 52px 26px 20px (row) / 18.76px 13.4px
     grid-template: 52% 26% 20% / 28% 20%;
     column-gap: 20px;
     width: 67%;
