@@ -71,7 +71,7 @@ main {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  
+
   &::before {
     content: "";
     position: absolute;
@@ -83,10 +83,10 @@ main {
     background-size: cover;
     z-index: -1;
   }
-  
+
   header {
     position: relative;
-    top:100px;
+    top: 100px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -143,7 +143,7 @@ main {
 
   .card {
     position: relative;
-    top:150px;
+    top: 150px;
     width: 90%;
     max-width: 500px;
     margin-bottom: 15rem;
@@ -152,23 +152,23 @@ main {
       width: 100%;
       padding: 25px;
       border-radius: 5px;
-      margin-top:15px;
+      margin-top: 15px;
 
-      p{
-        color:$white;
-        padding:1rem 0.3rem;
+      p {
+        color: $white;
+        padding: 1rem 0.3rem;
         font-size: 1.1rem;
         line-height: 20px;
       }
 
       .card-header {
-        display:flex;
+        display: flex;
         align-items: center;
 
-        .card-header-info{
+        .card-header-info {
           position: relative;
-          top:0.5rem;
-          text-align:center;
+          top: 0.5rem;
+          text-align: center;
         }
 
         figure > img {
@@ -176,17 +176,97 @@ main {
           height: 100%;
           border-radius: 50%;
         }
-        h3{
+        h3 {
           color: $white;
         }
-        p{
-          padding-top:0.3rem;
-          color:$soft-pink;
+        p {
+          padding-top: 0.3rem;
+          color: $soft-pink;
           font-size: 1.1rem;
           font-weight: 400;
         }
       }
+    }
+  }
+}
 
+// MEDIA QUERIES
+
+@media only screen and (min-width: 1024px) {
+  main {
+    display: grid;
+    grid-template: 1fr / repeat(9, 1fr);
+    column-gap: 6px;
+    row-gap: 10px;
+    align-items: flex-start;
+    padding-right: 20px;
+
+    &::before {
+      width: 725px;
+      height: 451px;
+    }
+
+    header {
+      grid-area: 1 / 2 / span 1 / span 3;
+      top: 12rem;
+      align-items: flex-start;
+
+      h1 {
+        width: 428px;
+      }
+
+      p {
+        width: 100%;
+        position: relative;
+        left: 1.5rem;
+        top: 0.5rem;
+        
+      }
+
+      h1,
+      p {
+        text-align: start;
+        left:0;
+      }
+    }
+
+    .star-ratings {
+      grid-area: 1 / 5 / span 2 / span 4;
+      width: 100%;
+      max-width:477px;
+      top:13rem;
+
+      article {
+        position: relative;
+        flex-direction: row;
+        width: 86%;
+        figure {
+          display: flex;
+          margin-inline: 15px;
+        }
+
+        h2 {
+          font-size: 1.1rem;
+          padding-top: 4px;
+        }
+
+        &:nth-of-type(2) {
+          left: 2rem;
+        }
+
+        &:nth-of-type(3) {
+          left: 4.5rem;
+        }
+      }
+    }
+
+    .card {
+      display:flex;
+      gap:1.5rem;
+      grid-area: 2 / 2 / span 1 / span 6;
+      top: 20rem;
+      width:100%;
+      max-width:1100px
     }
   }
 }
