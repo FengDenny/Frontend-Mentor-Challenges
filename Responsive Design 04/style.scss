@@ -195,11 +195,12 @@ main {
 @media only screen and (min-width: 1024px) {
   main {
     display: grid;
-    grid-template: 1fr / repeat(9, 1fr);
+    grid-template: 1fr / repeat(11, 1fr);
     column-gap: 6px;
     row-gap: 10px;
     align-items: flex-start;
     padding-right: 20px;
+    max-width: 1600px;
 
     &::before {
       width: 725px;
@@ -216,57 +217,73 @@ main {
       }
 
       p {
-        width: 100%;
+        width: 450px;
         position: relative;
         left: 1.5rem;
         top: 0.5rem;
-        
+        font-size: 1.1rem;
       }
 
       h1,
       p {
         text-align: start;
-        left:0;
+        left: 0;
       }
     }
 
     .star-ratings {
-      grid-area: 1 / 5 / span 2 / span 4;
+      grid-area: 1 / 6 / span 2 / span 5;
       width: 100%;
-      max-width:477px;
-      top:13rem;
-
-      article {
-        position: relative;
-        flex-direction: row;
-        width: 86%;
-        figure {
-          display: flex;
-          margin-inline: 15px;
-        }
-
-        h2 {
-          font-size: 1.1rem;
-          padding-top: 4px;
-        }
-
+      max-width: 575px;
+      top: 13rem;
+      div {
+        display: flex;
+        padding-left:3px;
         &:nth-of-type(2) {
-          left: 2rem;
+          justify-content: center;
         }
-
         &:nth-of-type(3) {
-          left: 4.5rem;
+          justify-content: flex-end;
+        }
+        article {
+          position: relative;
+          flex-direction: row;
+          width: fit-content;
+   
+          figure {
+            display: flex;
+            margin-inline: 15px;
+          }
+
+          h2 {
+            font-size: 1.1rem;
+            padding-top: 4px;
+            padding-right: inherit;
+            margin-right:15px;
+          }
         }
       }
     }
 
     .card {
-      display:flex;
-      gap:1.5rem;
-      grid-area: 2 / 2 / span 1 / span 6;
+      display: flex;
+      gap: 2.5rem;
+      grid-area: 2 / 2 / span 1 / span 9;
       top: 20rem;
-      width:100%;
-      max-width:1100px
+      width: 100%;
+      max-width: 1148px;
+      article {
+        padding: 16px;
+    
+        &:nth-of-type(2){
+          position: relative;
+          top:20px;
+        }
+        &:nth-of-type(3){
+          position: relative;
+          top:40px;
+        }
+      }
     }
   }
 }
