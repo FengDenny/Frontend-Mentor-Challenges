@@ -55,24 +55,13 @@ html {
   }
 }
 
-
-
 // BODY
 
 body {
   font-family: $font-league-spartan;
   background-color: $white;
   font-size: 15px;
-}
-
-// MAIN
-
-main {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
 
   &::before {
     content: "";
@@ -85,6 +74,35 @@ main {
     background-size: cover;
     z-index: -1;
   }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 70%;
+    background-image: url("./images/bg-pattern-bottom-mobile.svg");
+    background-size: cover;
+    z-index: -1;
+  }
+}
+
+// MAIN
+
+main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
 
   header {
     position: relative;
@@ -195,14 +213,8 @@ main {
 // MEDIA QUERIES
 
 @media only screen and (min-width: 1024px) {
-  main {
-    display: grid;
-    grid-template: repeat(2, 1fr) / repeat(11, 1fr);
-    column-gap: 6px;
-    row-gap: 10px;
-    align-items: flex-start;
-    padding-right: 20px;
-    // max-width: 1600px;
+  body {
+    position: unset;
 
     &::before {
       width: 725px;
@@ -211,20 +223,26 @@ main {
     }
 
     &::after {
-      content: "";
-      position: absolute;
-      bottom: -37px;
-      right: 0;
-      width: 100%;
-      height: 90%;
       background-image: url("./images/bg-pattern-bottom-desktop.svg");
-      background-size: cover;
-      z-index: -1;
+      height:77%;
+    }
   }
+
+  main {
+    column-gap: 6px;
+    row-gap: 10px;
+    align-items: flex-start;
+    padding-right: 20px;
+
+    .container {
+      max-width: 100%;
+      display: grid;
+      grid-template: repeat(1, 1fr) / repeat(11, 1fr);
+    }
 
     header {
       grid-area: 1 / 2 / span 1 / span 3;
-      top: 12rem;
+      top: 5rem;
       align-items: flex-start;
 
       h1 {
@@ -247,13 +265,13 @@ main {
     }
 
     .star-ratings {
-      grid-area: 1 / 6 / span 2 / span 5;
+      grid-area: 1 / 6 / span 1 / span 5;
       width: 100%;
       max-width: 575px;
-      top: 13rem;
+      top: 4rem;
       div {
         display: flex;
-        padding-left:3px;
+        padding-left: 3px;
         &:nth-of-type(2) {
           justify-content: center;
         }
@@ -264,7 +282,7 @@ main {
           position: relative;
           flex-direction: row;
           width: fit-content;
-   
+
           figure {
             display: flex;
             margin-inline: 15px;
@@ -274,7 +292,7 @@ main {
             font-size: 1.1rem;
             padding-top: 4px;
             padding-right: inherit;
-            margin-right:15px;
+            margin-right: 15px;
           }
         }
       }
@@ -284,19 +302,19 @@ main {
       display: flex;
       gap: 2.5rem;
       grid-area: 1 / 2 / span 1 / span 9;
-      top: 32rem;
+      top: 31rem;
       width: 100%;
       max-width: 1160px;
       article {
         padding: 16px;
-    
-        &:nth-of-type(2){
+
+        &:nth-of-type(2) {
           position: relative;
-          top:20px;
+          top: 20px;
         }
-        &:nth-of-type(3){
+        &:nth-of-type(3) {
           position: relative;
-          top:40px;
+          top: 40px;
         }
       }
     }
