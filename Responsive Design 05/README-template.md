@@ -25,7 +25,7 @@
 ### Links
 
 - Solution URL: [CSS Solution](https://github.com/FengDenny/Frontend-Mentor-Challenges/blob/main/Responsive%20Design%2005/style.scss)
-- Live Site URL: [Responsive Design 02](https://responsivedesign05.netlify.app/)
+- Live Site URL: [Responsive Design 05](https://responsivedesign05.netlify.app/)
 
 ## My process
 
