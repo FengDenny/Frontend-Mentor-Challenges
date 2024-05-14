@@ -1,0 +1,43 @@
+// GOOGLE FONT IMPORT
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+// Fonts
+
+/* Body */
+$font-open-sans: "Open Sans", sans-serif;
+
+/*  Headings, Call-to-actions, Header Navigation */
+$font-raleway: "Raleway", sans-serif;
+
+// COLORS
+$very-dark-blue: hsl(243, 87%, 12%);
+$desaturated-blue: hsl(238, 22%, 44%);
+$bright-blue: hsl(224, 93%, 58%);
+$moderate-cyan: hsl(170, 45%, 43%);
+$light-grayish-blue: hsl(240, 75%, 98%);
+$light-gray: hsl(0, 0%, 75%);
+$white: hsl(0, 0%, 100%);
+
+// CSS RESET
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// BODY
+
+body {
+  font-family: $font-raleway;
+  background-color: $white;
+}
