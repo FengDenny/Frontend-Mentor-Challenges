@@ -39,12 +39,15 @@ html {
 
 // MIXINS
 
+@mixin max1600px() {
+  max-width: 1600px;
+}
+
 @mixin cta($invalid-color) {
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
   margin: 15px;
-  max-width: 400px;
 
   input[type="email"] {
     padding: 14px;
@@ -132,8 +135,9 @@ body {
 
     .feature {
       display: flex;
-      flex-direction: column;
       position: relative;
+      flex-direction: column;
+      align-items: center;
 
       .feature-content {
         order: 1;
@@ -157,6 +161,11 @@ body {
 
         form {
           @include cta(red);
+          gap:10px;
+          .email-input-container {
+            display: flex;
+            flex-direction: column;
+          }
         }
       }
       .feature-content-hero-img {
@@ -185,6 +194,7 @@ body {
     .testimonial {
       display: flex;
       flex-direction: column;
+      align-items: center;
       padding-top: 5rem;
       background-color: $light-grayish-blue;
       position: relative;
@@ -202,6 +212,9 @@ body {
       .testimonial-content {
         margin-top: 3rem;
         margin-bottom: 5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         h2 {
           color: $very-dark-blue;
           font-size: 1.2rem;
@@ -277,6 +290,9 @@ body {
     }
 
     .early-access {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       background-color: $desaturated-blue;
       padding: 30px;
 
@@ -301,6 +317,9 @@ body {
   }
 
   footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: $very-dark-blue;
     padding: 30px;
 
@@ -345,6 +364,7 @@ body {
       display: flex;
       gap: 20px;
       justify-content: center;
+      margin: 50px 0;
 
       a {
         width: 30px;
@@ -378,7 +398,180 @@ body {
 
   nav,
   .feature > article,
-  .testimonial > article {
+  .testimonial > .testimonial-container {
     padding: 20px;
+  }
+}
+
+// MEDIA QUERY (Desktop)
+
+@media only screen and (min-width: 1024px) {
+  .container {
+    grid-template: 1fr / 1fr 1fr;
+    grid-template-areas:
+      "head head"
+      "main main"
+      "main main"
+      "main main"
+      "footer footer";
+
+    header {
+      grid-area: head;
+      @include max1600px();
+    }
+
+    main {
+      grid-area: main;
+
+      .feature {
+        .feature-content {
+          grid-area: 1 / 1 / span 1 / span 1;
+
+          h2 {
+            width: 100%;
+            max-width: 500px;
+            font-size: 2rem;
+          }
+
+          p {
+            max-width: 500px;
+          }
+
+          h2,
+          p {
+            text-align: start;
+          }
+
+          form {
+            flex-direction: row;
+            margin: 0;
+            max-width: 500px;
+
+            .email-input-container {
+              width: 100%;
+              flex: 1;
+              input[type="email"] {
+                width: 100%;
+                max-width: 275px;
+                border-radius: 3px;
+                padding: 9px;
+              }
+            }
+
+            button {
+              flex: 2;
+              max-width: 200px;
+              height: 37px;
+              border-radius: 3px;
+              vertical-align: top;
+              position: relative;
+              bottom: 1px;
+            }
+          }
+        }
+
+        .feature-content-hero-img {
+          grid-area: 1 / 2 / span 1 / span 1;
+        }
+
+        &::after {
+          height: 24%;
+          background-image: url("./images/bg-curve-desktop.svg");
+        }
+      }
+
+      .testimonial {
+        align-items:unset;
+        
+        .testimonial-content-img {
+          grid-area: 1 / 2 / span 1 / span 1;
+        }
+        
+        .testimonial-content {
+          grid-area: 1 / 1 / span 1 / span 1;
+          align-items: flex-start;
+
+          p {
+            max-width: 523px;
+          }
+
+          .testimonial-card {
+            max-width:  369px;
+            p{
+              max-width: 341px;;
+            }
+          }
+        }
+      }
+
+      .early-access{
+        align-items: unset;
+        .early-access-content{
+          grid-area: 1 / 1/ span 1 / span 1;
+
+          h2, p{
+            text-align: start;
+          }
+
+          p{
+            max-width: 523px;
+          }
+        }
+        form{
+        grid-area: 1 / 2/ span 1 / span 1;
+        width:clamp(190px, 45%, 417px);
+        margin-right:3rem;
+
+        input[type=email]{
+          width:400px;
+        }
+
+        }
+      }
+
+      .feature,
+      .testimonial-container,
+      .early-access-container{
+        display: grid;
+        grid-template: 1fr / 1fr;
+        gap: 10px;
+      }
+      .feature,
+      .testimonial-container,
+      .early-access-container{
+        @include max1600px();
+      }
+    }
+
+    footer{
+      display:block;
+      grid-area: footer;
+      .footer-container {
+        display: grid;
+        grid-template: 1fr / repeat(3, 1fr);
+  
+        figure{
+          grid-area: 1 / 1 / span 1 / span 1;
+          margin-top:2em;
+        }
+  
+        .links{
+          grid-area: 1 / 2/ span 1 / span 1;
+          display: grid;
+          grid-template: 1fr / 1fr 1fr;
+          position: relative;
+          top:1.2rem;
+          ul:nth-of-type(2){
+              margin-top:0;
+          }
+        }
+  
+        .socials{
+          justify-content: flex-start;
+          align-items: center;
+        }
+      }
+    }
+
   }
 }
