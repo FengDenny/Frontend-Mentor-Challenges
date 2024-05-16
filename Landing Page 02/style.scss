@@ -32,11 +32,13 @@ $strong-cyan: hsl(171, 66%, 44%);
 $light-blue: hsl(233, 100%, 69%);
 $dark-grayish-blue: hsl(210, 10%, 33%);
 $grayish-blue: hsl(201, 11%, 66%);
+$white:hsl(0, 0%, 100%);
 
 // CSS RESET
 
 html {
   box-sizing: border-box;
+  height: 100%;
 }
 
 *,
@@ -50,21 +52,111 @@ html {
   padding: 0;
 }
 
+
+// MIXINS
+
+@mixin glowing-shadow($color){
+  box-shadow: 0 0 10px $color;
+}
+
 // BODY
 body {
   @include bai-jamjuree-regular();
   background-color: #fdfdfd;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
+
+// MAIN
+
 main {
+  position: relative;
   display: flex;
   justify-content: center;
+  width: 100%;
+  flex-grow: 1;
 
   .hero {
-    .hero-container {
+    position: relative;
+    width: 100%;
+    padding: 120px 0;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: url("./images/bg-header-mobile.png") no-repeat center/cover;
+      z-index: -1;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      figure {
+        img {
+          width: 100%;
+          max-width: 90px;
+        }
+      }
       h2 {
         @include bai-jamjuree-semibold();
+        max-width: 270px;
+        color: $dark-grayish-blue;
+        margin-top: 3rem;
+        font-size: 1.7rem;
+      }
+
+      p {
+        max-width: 316px;
+        margin-top: 1rem;
+        padding: 0 12px;
+        font-size: 0.95rem;
+        color: $grayish-blue;
+        line-height: 1.5rem;
+      }
+    }
+
+    .hero-cta{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top:3rem;
+
+      .mac{
+        background-color: $light-blue;
+        @include glowing-shadow($light-blue)
+      }
+
+      .iOS{
+        background-color: $strong-cyan;
+        @include glowing-shadow($strong-cyan);
+      }
+
+      .mac, .iOS{
+        padding:13px;
+        margin-bottom:15px;
+        width:100%;
+        max-width:280px;
+        border-radius:15px;
+        border:none;
+        color: $white;
+        font-size: 1.1rem;
+        cursor:pointer;
       }
     }
   }
+}
+
+// FOOTER
+footer {
+  background-color: #ccc; 
+  padding: 1rem;
+  text-align: center;
 }
