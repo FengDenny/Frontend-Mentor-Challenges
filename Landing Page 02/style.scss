@@ -1,0 +1,70 @@
+// GOOGLE FONT IMPORT
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,400;0,600;1,400;1,600&display=swap");
+
+// Fonts MIXINS
+@mixin bai-jamjuree-regular {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@mixin bai-jamjuree-semibold {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+@mixin bai-jamjuree-regular-italic {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+@mixin bai-jamjuree-semibold-italic {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+// COLOR
+
+$strong-cyan: hsl(171, 66%, 44%);
+$light-blue: hsl(233, 100%, 69%);
+$dark-grayish-blue: hsl(210, 10%, 33%);
+$grayish-blue: hsl(201, 11%, 66%);
+
+// CSS RESET
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// BODY
+body {
+  @include bai-jamjuree-regular();
+  background-color: #fdfdfd;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+
+  .hero {
+    .hero-container {
+      h2 {
+        @include bai-jamjuree-semibold();
+      }
+    }
+  }
+}
