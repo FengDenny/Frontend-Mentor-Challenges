@@ -26,7 +26,7 @@
 
 #### Desktop
 
-![Responsive Desktop Design ](Landing%20Page%2002/design/desktop-design.jpg)
+![Responsive Desktop Design ](design/desktop-design.jpg)
 
 
 #### Mobile
