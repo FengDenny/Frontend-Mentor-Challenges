@@ -66,6 +66,7 @@ html {
 
     .mac {
       background-color: $light-blue;
+
       &:hover {
         @include glowing-shadow($light-blue);
       }
@@ -73,6 +74,7 @@ html {
 
     .iOS {
       background-color: $strong-cyan;
+
       &:hover {
         @include glowing-shadow($strong-cyan);
       }
@@ -91,6 +93,7 @@ html {
       box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2),
         0px 0px 5px rgba(255, 255, 255, 0.5);
       cursor: pointer;
+
       &:hover {
         transform: translateY(-2px);
       }
@@ -103,8 +106,10 @@ html {
   flex-direction: column;
   align-items: center;
 }
+
 @mixin flexRowCentered {
   display: flex;
+  flex-direction: row;
   justify-content: center;
 }
 
@@ -150,6 +155,7 @@ main {
   figure {
     padding: 30px;
     margin-top: 2rem;
+
     img {
       width: calc(100% + 0.2vw);
       max-width: 400px;
@@ -163,6 +169,7 @@ main {
   .hero {
     position: relative;
     width: 100%;
+
     &::before {
       content: "";
       position: absolute;
@@ -184,6 +191,7 @@ main {
           max-width: 126px;
         }
       }
+
       h2 {
         @include bai-jamjuree-semibold();
         max-width: 270px;
@@ -210,6 +218,7 @@ main {
 
     .snippets-content-col-2 {
       @include flexColumnCentered();
+
       .snippets-content-col-1 {
         article {
           margin-top: 2rem;
@@ -220,6 +229,7 @@ main {
 
   .clipboard-access-content {
     @include flexColumnCentered();
+
     h2 {
       text-transform: capitalize;
     }
@@ -228,10 +238,12 @@ main {
   .workflow-article {
     figure {
       @include flexColumnCentered();
+
       img {
         max-width: 60px;
       }
     }
+
     .article-card {
       @include flexColumnCentered();
     }
@@ -245,8 +257,10 @@ main {
     .clipboard-iOS-mac-content {
       @include flexColumnCentered();
     }
+
     @include ctaButtons();
   }
+
   .snippets,
   .clipboard-access,
   .workflow,
@@ -263,21 +277,25 @@ footer {
   background-color: $whiteish-blue-subtle;
   padding: 5rem 0;
   text-align: center;
+  
   figure {
     img {
       max-width: 60px;
     }
   }
-
+  
   ul {
     li {
       list-style: none;
       margin: 2rem;
+      
       a {
         text-decoration: none;
         color: $grayish-blue;
         font-size: 1.1rem;
         font-weight: bold;
+        transition: all 100ms ease-in-out 0.1s;
+
         &:active,
         &:hover,
         &:focus-visible {
@@ -291,10 +309,11 @@ footer {
     @include flexRowCentered();
     margin-top: 5rem;
     gap: 30px;
-
+    
     a {
       svg {
         path {
+          transition: all 100ms ease-in-out;
           &:active,
           &:hover,
           &:focus-visible {
@@ -302,6 +321,211 @@ footer {
           }
         }
       }
+    }
+  }
+}
+
+// MEDIA QUERY (Desktop)
+
+@media only screen and (min-width: 1024px) {
+  main {
+    h2,
+    h3 {
+      max-width: 500px;
+    }
+
+    .clipboard-iOS-mac,
+    .hero {
+      .cta {
+        @include flexRowCentered();
+
+        .iOS,
+        .mac {
+          padding: 14px;
+          margin-bottom: 15px;
+          width: 100%;
+          max-width: 212px;
+          margin-left: 1.2rem;
+        }
+      }
+    }
+
+    .container {
+      margin-top: 2rem;
+    }
+
+    .hero {
+      &::before {
+        height:100%;
+        background: url("./images/bg-header-desktop.png") no-repeat center/cover;
+      }
+
+      .hero-content {
+        figure {
+          padding: 0;
+          margin-top: 3rem;
+
+          img {
+            max-width: 80px;
+          }
+        }
+
+        h2 {
+          max-width: 500px;
+        }
+
+        p {
+          max-width: 535px;
+        }
+      }
+    }
+
+    .snippets {
+      padding: 0;
+      width: 100%;
+
+      .snippets-content {
+        h2 {
+          max-width: 500px;
+        }
+
+        p {
+          max-width: 608px;
+        }
+      }
+
+      .snippets-content-col-2 {
+        @include flexRowCentered();
+        justify-content: flex-start;
+        gap: 3.5rem;
+        width: 100%;
+
+        figure {
+          padding: 0;
+          margin-left: -26px;
+          flex: 3;
+
+          img {
+            max-width: calc(750px + 20vw);
+          }
+        }
+
+        .snippets-content-col-1 {
+          position: relative;
+          bottom: 2rem;
+          flex: 3;
+
+          article {
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+
+            h3 {
+              font-size: 1.2rem;
+            }
+
+            p {
+              max-width: 341px;
+              padding-top: 4px;
+            }
+
+            h3,
+            p {
+              text-align: start;
+            }
+          }
+        }
+      }
+    }
+
+    .clipboard-access-content {
+      h2 {
+        max-width: 500px;
+      }
+
+      p {
+        max-width: 592px;
+      }
+
+      figure {
+        img {
+          max-width: 100%;
+        }
+      }
+    }
+
+    .workflow-content {
+      @include flexColumnCentered();
+
+      h2 {
+        max-width: 500px;
+      }
+
+      p {
+        max-width: 400px;
+      }
+    }
+
+    .workflow-article {
+      @include flexRowCentered();
+      align-items: baseline;
+      gap: 3rem;
+
+      .article-card {
+        figure > img {
+          max-width: 45px;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        p {
+          max-width: 351px;
+        }
+      }
+    }
+
+    .company-logos {
+      @include flexRowCentered();
+      gap: 2rem;
+    }
+
+    .clipboard-iOS-mac {
+      .clipboard-iOS-mac-content {
+        p {
+          max-width: 597px;
+        }
+      }
+    }
+  }
+
+  footer {
+    display: flex;
+    padding: 2rem;
+    align-items: center;
+    justify-content: space-around;
+    height:150px;
+    figure > img{
+      max-width: 45px;;
+    }
+
+    ul {
+      display: flex;
+      gap:4rem;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 1.2rem;
+        li {
+          margin: 0;
+        }
+      }
+    }
+
+    .socials{
+      margin-top:2rem;
     }
   }
 }
