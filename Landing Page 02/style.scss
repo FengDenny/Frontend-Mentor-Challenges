@@ -516,6 +516,8 @@ footer {
     div:not(:last-child){
       position: relative;
       top:1rem;
+      display:flex; 
+      gap:6rem;
     }
 
       ul {
