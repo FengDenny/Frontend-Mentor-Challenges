@@ -277,18 +277,18 @@ footer {
   background-color: $whiteish-blue-subtle;
   padding: 5rem 0;
   text-align: center;
-  
+
   figure {
     img {
       max-width: 60px;
     }
   }
-  
+
   ul {
     li {
       list-style: none;
       margin: 2rem;
-      
+
       a {
         text-decoration: none;
         color: $grayish-blue;
@@ -309,7 +309,7 @@ footer {
     @include flexRowCentered();
     margin-top: 5rem;
     gap: 30px;
-    
+
     a {
       svg {
         path {
@@ -356,7 +356,7 @@ footer {
 
     .hero {
       &::before {
-        height:100%;
+        height: 100%;
         background: url("./images/bg-header-desktop.png") no-repeat center/cover;
       }
 
@@ -502,30 +502,34 @@ footer {
   footer {
     display: flex;
     padding: 2rem;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-around;
-    height:150px;
-    figure > img{
-      max-width: 45px;;
+    height: 150px;
+    figure > img {
+      max-width: 45px;
     }
 
-    ul {
-      display: flex;
-      gap:4rem;
+    figure, .socials{
+      align-self: center;
+    }
 
-      div {
-        display: flex;
-        flex-direction: column;
+    div:not(:last-child){
+      position: relative;
+      top:1rem;
+    }
+
+      ul {
+        @include flexColumnCentered();
         align-items: flex-start;
-        row-gap: 1.2rem;
+        gap: 0.5rem;
+
         li {
           margin: 0;
         }
       }
-    }
-
-    .socials{
-      margin-top:2rem;
+    
+    .socials {
+      margin-top: 0rem;
     }
   }
-}
+  }
