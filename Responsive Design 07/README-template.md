@@ -49,7 +49,7 @@
 
 ### What I learned
 
-- Learned how to use Grid for outer layout with one rows and two columns (desktop) / one row and column (mobile) and Flexbox for inner layout
+- Learned how to use Grid for outer layout and Flexbox for inner layout
 
 - Learned mobile and desktop layout
 
@@ -62,7 +62,7 @@
 
 ### What are you most proud of, and what would you do differently next time?
 
-I did mobile-first approach using Grid with a single row / column and transitioned to desktop with a single row and two columns
+I did mobile-first approach using Grid with a two row / a single column and transitioned to desktop with a single row and two columns
 
 If I were to do this project again, I would use Flexbox instead of Grid.
 
