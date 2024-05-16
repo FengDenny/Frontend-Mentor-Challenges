@@ -49,3 +49,16 @@
 - Learned media queries to layout desktop
 
 
+### What are you most proud of, and what would you do differently next time?
+
+I did mobile-first approach using Grid with row and transitioned to desktop with one row and three columns 
+
+If I were to do this project again, I would use Flexbox instead of Grid.
+
+#### What challenges did you encounter, and how did you overcome them?
+
+For this project, no challenges has been encountered.
+
+### What specific areas of your project would you like help with?
+
+At the moment, none.
