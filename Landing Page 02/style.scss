@@ -32,7 +32,8 @@ $strong-cyan: hsl(171, 66%, 44%);
 $light-blue: hsl(233, 100%, 69%);
 $dark-grayish-blue: hsl(210, 10%, 33%);
 $grayish-blue: hsl(201, 11%, 66%);
-$white:hsl(0, 0%, 100%);
+$whiteish-blue-subtle: hsla(202, 11%, 66%, 0.158);
+$white: hsl(0, 0%, 100%);
 
 // CSS RESET
 
@@ -52,11 +53,59 @@ html {
   padding: 0;
 }
 
-
 // MIXINS
 
-@mixin glowing-shadow($color){
+@mixin glowing-shadow($color) {
   box-shadow: 0 0 10px $color;
+}
+
+@mixin ctaButtons() {
+  .cta {
+    @include flexColumnCentered();
+    padding: 3rem 10px;
+
+    .mac {
+      background-color: $light-blue;
+      &:hover {
+        @include glowing-shadow($light-blue);
+      }
+    }
+
+    .iOS {
+      background-color: $strong-cyan;
+      &:hover {
+        @include glowing-shadow($strong-cyan);
+      }
+    }
+
+    .mac,
+    .iOS {
+      padding: 17px;
+      margin-bottom: 15px;
+      width: 100%;
+      max-width: 280px;
+      border-radius: 50px;
+      border: none;
+      color: $white;
+      font-size: calc(1rem + 0.2vw);
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2),
+        0px 0px 5px rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+@mixin flexColumnCentered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@mixin flexRowCentered {
+  display: flex;
+  justify-content: center;
 }
 
 // BODY
@@ -68,20 +117,52 @@ body {
   flex-direction: column;
 }
 
-
 // MAIN
 
 main {
   position: relative;
-  display: flex;
-  justify-content: center;
+  @include flexColumnCentered();
   width: 100%;
   flex-grow: 1;
+
+  h2,
+  h3 {
+    @include bai-jamjuree-semibold();
+    color: $dark-grayish-blue;
+    font-size: 1.8rem;
+    width: calc(100% + 0.2vw);
+    max-width: 300px;
+  }
+
+  p {
+    padding-top: 1rem;
+    line-height: 1.5rem;
+    max-width: 313px;
+    color: $grayish-blue;
+  }
+
+  h2,
+  h3,
+  p {
+    text-align: center;
+  }
+
+  figure {
+    padding: 30px;
+    margin-top: 2rem;
+    img {
+      width: calc(100% + 0.2vw);
+      max-width: 400px;
+    }
+  }
+
+  .container {
+    margin-top: 6rem;
+  }
 
   .hero {
     position: relative;
     width: 100%;
-    padding: 120px 0;
     &::before {
       content: "";
       position: absolute;
@@ -94,15 +175,13 @@ main {
     }
 
     .hero-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      @include flexColumnCentered();
       text-align: center;
 
       figure {
         img {
           width: 100%;
-          max-width: 90px;
+          max-width: 126px;
         }
       }
       h2 {
@@ -123,40 +202,106 @@ main {
       }
     }
 
-    .hero-cta{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding:3rem 10px;
+    @include ctaButtons();
+  }
 
-      .mac{
-        background-color: $light-blue;
-        @include glowing-shadow($light-blue)
-      }
+  .snippets-content {
+    @include flexColumnCentered();
 
-      .iOS{
-        background-color: $strong-cyan;
-        @include glowing-shadow($strong-cyan);
-      }
-
-      .mac, .iOS{
-        padding:13px;
-        margin-bottom:15px;
-        width:100%;
-        max-width:280px;
-        border-radius:15px;
-        border:none;
-        color: $white;
-        font-size: calc(1rem + 0.2vw);
-        cursor:pointer;
+    .snippets-content-col-2 {
+      @include flexColumnCentered();
+      .snippets-content-col-1 {
+        article {
+          margin-top: 2rem;
+        }
       }
     }
+  }
+
+  .clipboard-access-content {
+    @include flexColumnCentered();
+    h2 {
+      text-transform: capitalize;
+    }
+  }
+
+  .workflow-article {
+    figure {
+      @include flexColumnCentered();
+      img {
+        max-width: 60px;
+      }
+    }
+    .article-card {
+      @include flexColumnCentered();
+    }
+  }
+
+  .company-logos {
+    @include flexColumnCentered();
+  }
+
+  .clipboard-iOS-mac {
+    .clipboard-iOS-mac-content {
+      @include flexColumnCentered();
+    }
+    @include ctaButtons();
+  }
+  .snippets,
+  .clipboard-access,
+  .workflow,
+  .company,
+  .clipboard-iOS-mac {
+    padding: 0 10px;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
   }
 }
 
 // FOOTER
 footer {
-  background-color: #ccc; 
-  padding: 1rem;
+  background-color: $whiteish-blue-subtle;
+  padding: 5rem 0;
   text-align: center;
+  figure {
+    img {
+      max-width: 60px;
+    }
+  }
+
+  ul {
+    li {
+      list-style: none;
+      margin: 2rem;
+      a {
+        text-decoration: none;
+        color: $grayish-blue;
+        font-size: 1.1rem;
+        font-weight: bold;
+        &:active,
+        &:hover,
+        &:focus-visible {
+          color: $strong-cyan;
+        }
+      }
+    }
+  }
+
+  .socials {
+    @include flexRowCentered();
+    margin-top: 5rem;
+    gap: 30px;
+
+    a {
+      svg {
+        path {
+          &:active,
+          &:hover,
+          &:focus-visible {
+            fill: $strong-cyan;
+          }
+        }
+      }
+    }
+  }
 }
