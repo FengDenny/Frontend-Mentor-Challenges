@@ -1,5 +1,5 @@
 // GOOGLE FONT IMPORT
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
 // FONT
 $font-inter: "Inter", sans-serif;
@@ -14,24 +14,103 @@ $very-dark-blue: hsl(240, 100%, 5%);
 
 // CSS RESET
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-*, *::before, *::after{
-    box-sizing: inherit;
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
-*{
-    margin:0;
-    padding:0;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// GLOBAL
+.show {
+  display: block;
+}
+
+.not-show {
+  display: none;
 }
 
 // BODY
 
-body{
-    font-family: $font-inter;
-    background-color: $off-white;
+body {
+  font-family: $font-inter;
+  background-color: $off-white;
 }
 
+// CONTAINER
+.container {
+  display: grid;
+  width: 100%;
+  max-width: 1400px;
+}
+
+// HEADER
+
+header {
+  position: relative;
+  padding: 20px;
+  nav {
+    display: flex;
+    justify-content: space-between; 
+    figure > img {
+      width: 50px;
+    }
+
+    .open-menu,
+    .close-menu {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+
+    .menu-opened {
+      background-color: $off-white;
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 20px;
+      width: 19rem;
+      min-height: 100vh;
+      z-index: 1001;
+
+
+      .close-menu {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+
+      ul > li {
+        list-style-type: none;
+        padding: 0.9rem;
+        margin-top: 1.5rem;
+        position: relative;
+        top: 5rem;
+        a {
+          text-decoration: none;
+          color: $dark-grayish-blue;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
 
 // MAIN
