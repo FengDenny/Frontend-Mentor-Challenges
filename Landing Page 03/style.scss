@@ -112,6 +112,21 @@ header {
           text-decoration: none;
           color: $dark-grayish-blue;
           font-weight: 600;
+
+          &::after {
+            content: "";
+            position: absolute;
+            left: 14px;
+            bottom: 7px;
+            width: 0;
+            height: 2px;
+            background-color: $dark-grayish-blue;
+            transition: width 300ms ease-in-out 0.1s;
+          }
+
+          &:hover::after {
+            width: 100%;
+          }
         }
       }
     }
