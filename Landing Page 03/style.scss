@@ -87,7 +87,7 @@ header {
 
     .menu-opened {
       background-color: $off-white;
-      position: absolute;
+      position: fixed;
       top: 0;
       right: 0;
       padding: 20px;
