@@ -1,25 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
 
-  <link rel="stylesheet" href="./style.scss">
-  
-  <title>Frontend Mentor | News homepage</title>
+    <link rel="stylesheet" href="./style.scss" />
 
+    <script src="./Component/Menu.js" defer></script>
 
-</head>
-<body>
+    <title>Frontend Mentor | News homepage</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <nav>
+          <figure>
+            <img src="./assets/images/logo.svg" alt="Logo" />
+          </figure>
+          <button id="menu-open" class="open-menu">
+            <svg width="40" height="17" xmlns="http://www.w3.org/2000/svg">
+              <g fill="#00001A" fill-rule="evenodd">
+                <path d="M0 0h40v3H0zM0 7h40v3H0zM0 14h40v3H0z" />
+                <path d="M0 0h40v3H0z" />
+              </g>
+            </svg>
+          </button>
+          <div id="overlay" class="overlay not-show"></div>
+          <nav id="opened-menu" class="menu-opened not-show">
+            <button id="menu-close" class="close-menu">
+              <svg width="32" height="31" xmlns="http://www.w3.org/2000/svg">
+                <g fill="#00001A" fill-rule="evenodd">
+                  <path d="m2.919.297 28.284 28.284-2.122 2.122L.797 2.419z" />
+                  <path d="M.797 28.581 29.081.297l2.122 2.122L2.919 30.703z" />
+                </g>
+              </svg>
+            </button>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#new">New</a></li>
+              <li><a href="#popular">Popular</a></li>
+              <li><a href="#trending">Trending</a></li>
+              <li><a href="#categories">Categories</a></li>
+            </ul>
+          </nav>
+        </nav>
+      </header>
+    </div>
 
-  <!-- Home
-  New
-  Popular
-  Trending
-  Categories
-
+    <!-- 
   The Bright Future of Web 3.0?
 
   We dive into the next evolution of the web that claims to put the power of the platforms back into the hands of the people. 
@@ -49,10 +85,10 @@
   03
   The Growth of Gaming
   How the pandemic has sparked fresh opportunities. -->
-  
-  <!-- <div class="attribution">
+
+    <!-- <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
     Coded by <a href="#">Your Name Here</a>.
   </div> -->
-</body>
+  </body>
 </html>
