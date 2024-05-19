@@ -32,7 +32,7 @@
 
 #### Mobile
 
-![Landing Page Mobile Design ](/design/mobile-design.jpg)
+![Landing Page Mobile Design ](/Landing%20Page%2003/design/mobile-design.jpg)
 
 ![Landing Page Mobile Design Menu](/Landing%20Page%2003/assets/images/image-mobile-menu-final.png)
 
