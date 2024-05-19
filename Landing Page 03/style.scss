@@ -216,10 +216,11 @@ main {
     article {
       display: flex;
       padding-bottom: 3rem;
-      gap:12px;
+      gap: 12px;
+      justify-content: space-between;
       figure {
         flex-shrink: 1;
-        width:130px;
+        width: 130px;
         img {
           width: 100%;
         }
@@ -256,11 +257,45 @@ main {
       }
     }
   }
-  .web-3-content > figure > img,
-  .rated-content > article > figure > img,
-  .web-3-content-article h2,
-  .web-3-content-article p,
+  .web-3-content,
+  .rated-content,
   .new-content {
-    max-width: 600px;
+    max-width: 1200px;
   }
+}
+
+// MEDIA QUERY (Desktop / Tablet)
+
+/* Tablet viewport */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  header {
+    max-width: 980px;
+    padding: 24px 16px;
+  }
+
+  main {
+    padding: 20px;
+    .web-3-content,
+    .rated-content,
+    .new-content {
+      max-width: 950px;
+    }
+
+    .rated-content {
+      width: 600px;
+      article {
+        gap: 30px;
+        figure {
+          flex: 1;
+        }
+        .rated-content-text {
+          flex: 2;
+        }
+      }
+    }
+  }
+}
+
+/* Desktop viewport */
+@media screen and (min-width: 1024px) {
 }
