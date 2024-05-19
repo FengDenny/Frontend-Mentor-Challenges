@@ -59,7 +59,7 @@ body {
 
 header {
   position: relative;
-  padding: 20px;
+  padding: 24px 12px;
   nav {
     display: flex;
     justify-content: space-between;
@@ -90,8 +90,9 @@ header {
       position: fixed;
       top: 0;
       right: 0;
-      padding: 20px;
-      width: 19rem;
+      padding: 14px;
+      width: 76%;
+      max-width: 400px;
       min-height: 100vh;
       z-index: 1001;
       transition: opacity 0.2s ease-in-out 0.1s, transform 0.2s ease-in-out 0.1s;
@@ -134,3 +135,132 @@ header {
 }
 
 // MAIN
+main {
+  padding: 12px;
+  .web-3-content {
+    figure > img {
+      width: 100%;
+    }
+
+    .web-3-content-article {
+      padding-top: 1rem;
+      h2 {
+        color: $very-dark-blue;
+        font-size: 2.6rem;
+      }
+
+      p {
+        color: $dark-grayish-blue;
+        font-size: 1.1rem;
+        line-height: 1.8rem;
+        font-weight: 500;
+      }
+
+      h2,
+      p {
+        padding-bottom: 1rem;
+      }
+
+      .web-3-cta {
+        padding: 1rem;
+        color: $off-white;
+        background-color: $doft-red;
+        border: none;
+        width: 190px;
+        height: 50px;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.2rem;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .new-content {
+    background-color: $very-dark-blue;
+    padding: 1rem;
+    margin-top: 4rem;
+
+    .new-content-heading {
+      color: $soft-orange;
+      font-size: 2rem;
+    }
+
+    .new-content-article {
+      position: relative;
+      padding-top: 2rem;
+      padding-bottom: 3rem;
+      h2 {
+        color: $off-white;
+        font-size: 1.4rem;
+      }
+
+      p {
+        color: $grayish-blue;
+        padding-top: 0.8rem;
+      }
+
+      &:not(:last-child):after {
+        content: "";
+        position: absolute;
+        padding-top: 2.2rem;
+        border-bottom: 1px solid $grayish-blue;
+        width: 100%;
+      }
+    }
+  }
+
+  .rated-content {
+    padding-top: 5rem;
+
+    article {
+      display: flex;
+      padding-bottom: 3rem;
+      gap:12px;
+      figure {
+        flex-shrink: 1;
+        width:130px;
+        img {
+          width: 100%;
+        }
+      }
+
+      .rated-content-text {
+        padding-bottom: 1.2rem;
+        flex-shrink: 2;
+        h2 {
+          color: $grayish-blue;
+          font-size: 2rem;
+        }
+        h3 {
+          font-size: 1.2rem;
+          color: $very-dark-blue;
+        }
+        p {
+          color: $dark-grayish-blue;
+          font-size: 1.1rem;
+          max-width: 270px;
+        }
+
+        h3,
+        p {
+          padding-top: 0.75rem;
+        }
+      }
+
+      @media screen and (max-width: 345px) {
+        flex-wrap: wrap;
+        figure {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .web-3-content > figure > img,
+  .rated-content > article > figure > img,
+  .web-3-content-article h2,
+  .web-3-content-article p,
+  .new-content {
+    max-width: 600px;
+  }
+}
