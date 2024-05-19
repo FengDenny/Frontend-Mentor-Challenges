@@ -28,6 +28,32 @@ html {
   padding: 0;
 }
 
+// MIXINS
+@mixin linkBorderBottomHoverEffect($left, $bottom) {
+  &::after {
+    content: "";
+    position: absolute;
+    left: $left;
+    bottom: $bottom;
+    width: 0;
+    height: 2px;
+    background-color: $dark-grayish-blue;
+    transition: width 300ms ease-in-out 0.1s;
+  }
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+@mixin linkColorHoverEffect(){
+  &:hover{
+    color:$doft-red;
+  }
+}
+
+
+
+
 // GLOBAL
 .show {
   opacity: 1;
@@ -51,8 +77,6 @@ body {
 // CONTAINER
 .container {
   display: grid;
-  width: 100%;
-  max-width: 1400px;
 }
 
 // HEADER
@@ -72,6 +96,10 @@ header {
       border: none;
       background-color: transparent;
       cursor: pointer;
+    }
+
+    .nav-desktop-links {
+      display: none;
     }
 
     .overlay {
@@ -114,20 +142,11 @@ header {
           color: $dark-grayish-blue;
           font-weight: 600;
 
-          &::after {
-            content: "";
-            position: absolute;
-            left: 14px;
-            bottom: 7px;
-            width: 0;
-            height: 2px;
-            background-color: $dark-grayish-blue;
-            transition: width 300ms ease-in-out 0.1s;
-          }
+          transition: all 300ms ease-in;
 
-          &:hover::after {
-            width: 100%;
-          }
+          @include linkBorderBottomHoverEffect(14px, 7px);
+
+          @include linkColorHoverEffect()
         }
       }
     }
@@ -172,6 +191,11 @@ main {
         font-weight: 700;
         letter-spacing: 0.2rem;
         cursor: pointer;
+        transition: all 300ms ease-in;
+
+        &:hover{
+          background-color: $very-dark-blue;
+        }
       }
     }
   }
@@ -190,10 +214,18 @@ main {
       position: relative;
       padding-top: 2rem;
       padding-bottom: 3rem;
-      h2 {
-        color: $off-white;
+
+      a{
+        color:$off-white;
+        text-decoration: none;
         font-size: 1.4rem;
+        font-weight: bold;
+        transition: all 300ms ease-in;
+        &:hover{
+          color:$soft-orange;
+        }
       }
+
 
       p {
         color: $grayish-blue;
@@ -217,7 +249,6 @@ main {
       display: flex;
       padding-bottom: 3rem;
       gap: 12px;
-      justify-content: space-between;
       figure {
         flex-shrink: 1;
         width: 130px;
@@ -233,9 +264,19 @@ main {
           color: $grayish-blue;
           font-size: 2rem;
         }
-        h3 {
+        a {
+          position: relative;
+          top:0.3rem;
           font-size: 1.2rem;
           color: $very-dark-blue;
+          font-weight: bold;
+          text-decoration: none;
+          transition:all 300ms ease-in;
+
+          &:hover{
+            color:$doft-red;
+          }
+
         }
         p {
           color: $dark-grayish-blue;
@@ -243,9 +284,9 @@ main {
           max-width: 270px;
         }
 
-        h3,
+        a,
         p {
-          padding-top: 0.75rem;
+          padding-top: 1rem;
         }
       }
 
@@ -264,13 +305,13 @@ main {
   }
 }
 
-// MEDIA QUERY (Desktop / Tablet)
+// MEDIA QUERY (Tablet / Desktop)
 
 /* Tablet viewport */
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   header {
     max-width: 980px;
-    padding: 24px 16px;
+    padding: 24px 20px;
   }
 
   main {
@@ -298,4 +339,127 @@ main {
 
 /* Desktop viewport */
 @media screen and (min-width: 1024px) {
+  .container {
+    grid-template: 1fr / 1fr;
+    grid-template-areas:
+      "head"
+      "main";
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  header {
+    padding: 17px 10px;
+    grid-area: head;
+    nav {
+      position: relative;
+      top: 0.4rem;
+      .open-menu {
+        display: none;
+      }
+
+      .nav-desktop-links {
+        display: block;
+        padding-right: 0.5rem;
+
+        ul {
+          display: flex;
+          gap: 25px;
+
+          li {
+            list-style: none;
+
+            a {
+              position: relative;
+              text-decoration: none;
+              color: $dark-grayish-blue;
+              font-weight: 500;
+              transition: all 300ms ease-in;
+
+              @include linkBorderBottomHoverEffect(0, 0);
+
+              @include linkColorHoverEffect()
+            }
+          }
+        }
+      }
+    }
+  }
+
+  main {
+    grid-area: main;
+    display: grid;
+    grid-template: 1fr / repeat(3, 1fr);
+    column-gap: 23px;
+    row-gap: 3px;
+
+    .web-3-content {
+      grid-area: 1/ 1 / span 1 / span 2;
+      figure {
+        img {
+          content: url("./assets/images/image-web-3-desktop.jpg");
+        }
+      }
+
+      .web-3-content-article {
+        position: relative;
+        display: grid;
+        grid-template: 1fr/ 1fr 1fr;
+        gap: 20px;
+        h2 {
+          font-size: 3.5rem;
+          max-width: 300px;
+        }
+
+        p {
+          max-width: 400px;
+          grid-area: 1 / 2 / span 2 / span 1;
+          font-size: 0.95rem;
+        }
+
+        .web-3-cta {
+          margin-top: 8.7rem;
+          grid-area: 1 / 2 / span 2 / span 1;
+          position: absolute;
+          top:0.5rem;
+        }
+      }
+    }
+    .new-content {
+      grid-area: 1 / 3 / span 1 / span 1;
+      margin-top: 0;
+      height: 93%;
+      .new-content-article {
+        padding-top:1.2rem;
+        a{
+          font-size: 1.2rem;
+        }
+  
+      }
+    }
+
+    .rated-content {
+      grid-area: 2/ 1 / span 1 / span 3;
+      display: grid;
+      grid-template: 1fr / repeat(3, 1fr);
+      max-width: unset;
+      padding-top: 1.2rem;
+
+      article {
+        gap: 0;
+        padding-bottom: 0;
+
+        figure {
+          width: 170px;
+          img{
+            width:85%;
+          }
+        }
+        &:last-child {
+          margin-left: 0.8rem;
+        }
+
+      }
+    }
+  }
 }
