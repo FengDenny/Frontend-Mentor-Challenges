@@ -28,11 +28,13 @@ html {
 
 // MENUS / DROPDOWN TOGGLER
 .expanded {
-  display: block;
+  transition: all 200ms ease-in 0.1s;
+  opacity: 1;
 }
 
 .collapsed {
-  display: none;
+  transition: all 200ms ease-out 0.1s;
+  opacity: 0;
 }
 
 .show {
