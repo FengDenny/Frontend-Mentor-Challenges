@@ -38,7 +38,7 @@ html {
   transition: visibility 1s linear 200ms;
   opacity: 0;
   visibility: hidden;
-  position: absolute; 
+  position: absolute;
 }
 
 .show {
@@ -66,7 +66,7 @@ html {
   }
 }
 
-@mixin buttonArrowUpTransition(){
+@mixin buttonArrowUpTransition() {
   &.expanded svg {
     transition: transform 0.3s ease;
     transform: rotate(180deg);
@@ -151,10 +151,9 @@ header {
             flex-direction: row;
             align-items: center;
             column-gap: 0.5rem;
-            
+
             @include buttons();
-            @include buttonArrowUpTransition()
-          
+            @include buttonArrowUpTransition();
           }
 
           a {
@@ -292,11 +291,10 @@ main {
           max-width: 530px;
         }
       }
-      .company-logos{
-        padding:7px;
+      .company-logos {
+        padding: 7px;
       }
     }
-
   }
 }
 
@@ -327,7 +325,7 @@ main {
               @include buttons();
               @include buttonArrowUpTransition();
 
-              svg{
+              svg {
                 transition: transform 0.3s ease-in;
                 transform: rotate(360deg);
               }
@@ -365,11 +363,10 @@ main {
         }
 
         .dropdown-content {
-          &.collapsed{
+          &.collapsed {
             transition: opacity 200ms ease-out 0.1s, visibility 1s linear 200ms;
           }
         }
-
 
         .desktop-menu-cta {
           display: flex;
@@ -446,7 +443,8 @@ main {
           margin-left: 3.5rem;
           top: 2rem;
           align-self: flex-start;
-          transition: all 300ms ease-in-out 0.1s;
+          transition: background-color 300ms ease-in-out 0.1s,
+            color 300ms ease-in-out 0.1s;
 
           &:active,
           &:hover {
