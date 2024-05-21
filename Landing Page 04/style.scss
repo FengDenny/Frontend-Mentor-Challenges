@@ -48,10 +48,16 @@ html {
 }
 
 // MIXINS
-@mixin buttons() {
+@mixin buttons($register: false) {
   border: none;
   background-color: transparent;
   cursor: pointer;
+
+  @if $register {
+    border: 2px solid $almost-black;
+    border-radius: 15px;
+    padding: 0.5rem;
+  }
 }
 
 // BODY
@@ -63,7 +69,7 @@ body {
 // CONTAINER
 
 .container {
-  max-width: 1400px;
+  max-width: 1600px;
 }
 
 // HEADER
@@ -187,9 +193,7 @@ header {
           }
 
           .register-cta {
-            border: 2px solid $almost-black;
-            border-radius: 15px;
-            padding: 0.5rem;
+            @include buttons(true);
           }
         }
       }
@@ -289,13 +293,13 @@ main {
 @media screen and (min-width: 1024px) {
   header {
     nav {
+      max-width: 1450px;
       .menu-open {
         display: none;
       }
 
       .desktop-links {
         display: flex;
-        justify-content: space-evenly;
         width: 100%;
         padding-left: 3rem;
         ul:not(.dropdown-content) {
@@ -331,13 +335,45 @@ main {
               box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
               padding: 10px;
               border-radius: 10px;
-              width:max-content;
+              width: max-content;
 
               li {
                 padding: 5px;
                 display: flex;
-                gap:15px;
+                gap: 15px;
               }
+            }
+          }
+        }
+
+        .desktop-menu-cta {
+          display: flex;
+          align-items: flex-start;
+          gap: 2.5rem;
+          button {
+            @include buttons();
+            font-size: 1rem;
+            color: $medium-gray;
+            transition: all 0.3s ease-in;
+
+            &:active,
+            &:hover {
+              color: $almost-black;
+            }
+          }
+
+          .register-cta {
+            @include buttons(true);
+            align-self: flex-start;
+            width: 100px;
+            border: 2px solid $medium-gray;
+            position: relative;
+            bottom: 0.6rem;
+            transition: all 0.3s ease-in;
+
+            &:active,
+            &:hover {
+              border: 2px solid $almost-black;
             }
           }
         }
@@ -346,5 +382,58 @@ main {
   }
 
   main {
+    max-width: 1600px;
+
+    .hero {
+      display: grid;
+      grid-template: 1fr/ 50px 500px 1fr;
+      // margin-top:5rem;
+
+      .hero-img {
+        grid-area: 1 / 3 / span 2 / span 1;
+        display: flex;
+        justify-content: center;
+        img {
+          content: url("./images/image-hero-desktop.png");
+          width: 80%;
+          max-width: 500px;
+        }
+      }
+      .hero-content {
+        justify-content: center;
+        grid-area: 1 / 2 / span 1 / span 1;
+
+        h1 {
+          font-size: 3.6rem;
+          width: 400px;
+        }
+
+        p {
+          text-align: start;
+          max-width: 426px;
+          position: relative;
+          top: 1rem;
+          left: 0.5rem;
+        }
+
+        .hero-cta {
+          position: relative;
+          margin-left: 3.5rem;
+          top: 2rem;
+          align-self: flex-start;
+          transition: all 300ms ease-in-out 0.1s;
+
+          &:active,
+          &:hover {
+            background-color: transparent;
+            color: $almost-black;
+          }
+        }
+      }
+
+      .company-logos {
+        grid-area: 2 / 2 / span 1 / span 1;
+      }
+    }
   }
 }
