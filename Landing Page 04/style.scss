@@ -1,0 +1,350 @@
+// GOOGLE FONT IMPORT
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap");
+
+// FONT
+$font-epilogue: "Epilogue", sans-serif;
+
+// COLORs
+$almost-white: hsl(0, 0%, 98%);
+$medium-gray: hsl(0, 0%, 41%);
+$almost-black: hsl(0, 0%, 8%);
+
+// CSS RESET
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// MENUS / DROPDOWN TOGGLER
+.expanded {
+  display: block;
+}
+
+.collapsed {
+  display: none;
+}
+
+.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.not-show {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+}
+
+// MIXINS
+@mixin buttons() {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+// BODY
+body {
+  background-color: $almost-white;
+  font-family: $font-epilogue;
+}
+
+// CONTAINER
+
+.container {
+  max-width: 1400px;
+}
+
+// HEADER
+header {
+  position: relative;
+
+  nav {
+    padding: 1.3rem;
+    display: flex;
+    justify-content: space-between;
+
+    .desktop-links {
+      display: none;
+    }
+
+    .menu-open,
+    .menu-close {
+      align-self: flex-start;
+      @include buttons();
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      transition: opacity 0.2s ease-in-out 0.1s;
+    }
+
+    .menu-opened {
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: $almost-white;
+      padding: 10px;
+      width: 60%;
+      max-width: 400px;
+      min-height: 100vh;
+      z-index: 1001;
+      transition: opacity 0.2s ease-in 0.1s, transform 0.2s ease-in-out 0.1s;
+
+      .menu-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+
+      .menu-opened-content {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding-top: 5rem;
+        padding-left: 0.5rem;
+        width: 100%;
+
+        ul > li {
+          position: relative;
+          list-style: none;
+          padding: 0.8rem 0;
+
+          button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            column-gap: 0.5rem;
+            transition: transform 0.3s ease;
+
+            @include buttons();
+
+            &.expanded svg {
+              transform: rotate(180deg);
+            }
+          }
+
+          a {
+            text-decoration: none;
+          }
+
+          button,
+          a {
+            color: $almost-black;
+            font-size: 1.2rem;
+          }
+
+          .dropdown-content {
+            padding-left: 1rem;
+            padding-top: 0.5rem;
+
+            li {
+              display: flex;
+              gap: 10px;
+
+              svg {
+                width: 20px;
+                height: 20px;
+                path {
+                  transform: scale(1.2);
+                }
+              }
+
+              a {
+                font-size: 1.1rem;
+                align-self: flex-end;
+              }
+            }
+          }
+        }
+        .opened-menu-cta {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding-top: 1rem;
+          button {
+            font-size: 1.1rem;
+            width: 100%;
+            padding: 0.8rem;
+            @include buttons();
+          }
+
+          .register-cta {
+            border: 2px solid $almost-black;
+            border-radius: 15px;
+            padding: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// MAIN
+main {
+  .hero {
+    .hero-img {
+      img {
+        width: 100%;
+        max-width: 800px;
+      }
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 0;
+      h1 {
+        font-size: min(calc(2.1vw + 7vw), 2.5rem);
+        padding: 0 10px;
+      }
+
+      p {
+        width: fit-content;
+        max-width: 500px;
+        padding: 1rem;
+        text-align: center;
+        color: $medium-gray;
+        line-height: 1.4rem;
+        font-weight: 500;
+      }
+
+      .hero-cta {
+        @include buttons();
+        border: 1px solid $almost-black;
+        padding: 10px;
+        border-radius: 10px;
+        width: 120px;
+        background-color: $almost-black;
+        color: $almost-white;
+        font-weight: bold;
+      }
+    }
+
+    .company-logos {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 23px;
+      figure {
+        align-self: center;
+        img {
+          width: calc(100% + 2.2vw);
+          max-width: 100px;
+
+          &[alt="audiophile"] {
+            max-width: 52px;
+          }
+        }
+      }
+
+      @media only screen and (max-width: 347px) {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+// MEDIA QUERY (Desktop / Tablet)
+/* Tablet viewport */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  main {
+    .hero {
+      .hero-img {
+        display: flex;
+        justify-content: center;
+        img {
+          width: 62%;
+        }
+      }
+
+      .hero-content {
+        p {
+          max-width: 530px;
+        }
+      }
+    }
+  }
+}
+
+/* Desktop viewport */
+@media screen and (min-width: 1024px) {
+  header {
+    nav {
+      .menu-open {
+        display: none;
+      }
+
+      .desktop-links {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+        padding-left: 3rem;
+        ul:not(.dropdown-content) {
+          position: relative;
+          flex: 2;
+          display: flex;
+          gap: 2.2rem;
+
+          li {
+            list-style: none;
+            position: relative;
+
+            button {
+              @include buttons();
+              font-size: 1rem;
+            }
+
+            a {
+              text-decoration: none;
+            }
+
+            button,
+            a {
+              color: $medium-gray;
+            }
+
+            .dropdown-content {
+              position: absolute;
+              top: 2rem;
+              right: 0;
+
+              background-color: $almost-white;
+              box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
+              padding: 10px;
+              border-radius: 10px;
+              width:max-content;
+
+              li {
+                padding: 5px;
+                display: flex;
+                gap:15px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  main {
+  }
+}
