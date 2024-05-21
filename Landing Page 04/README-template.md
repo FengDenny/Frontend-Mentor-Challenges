@@ -45,7 +45,7 @@
 
 - Solution URL: [SCSS Solution](https://github.com/FengDenny/Frontend-Mentor-Challenges/blob/main/Landing%20Page%2004/style.scss)
 
-- Live Site URL: [Landing Page 03 ](https://landingpagee04.netlify.app/)
+- Live Site URL: [Landing Page 04 ](https://landingpagee04.netlify.app/)
 
 ## My process
 
