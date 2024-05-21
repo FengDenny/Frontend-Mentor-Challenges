@@ -28,13 +28,17 @@ html {
 
 // MENUS / DROPDOWN TOGGLER
 .expanded {
-  transition: all 200ms ease-in 0.1s;
+  transition: opacity 200ms ease-in 0.1s, visibility 1s linear 0s;
   opacity: 1;
+  visibility: visible;
+  position: relative;
 }
 
 .collapsed {
-  transition: all 200ms ease-out 0.1s;
+  transition: visibility 1s linear 200ms;
   opacity: 0;
+  visibility: hidden;
+  position: absolute; 
 }
 
 .show {
@@ -59,6 +63,13 @@ html {
     border: 2px solid $almost-black;
     border-radius: 15px;
     padding: 0.5rem;
+  }
+}
+
+@mixin buttonArrowUpTransition(){
+  &.expanded svg {
+    transition: transform 0.3s ease;
+    transform: rotate(180deg);
   }
 }
 
@@ -140,13 +151,10 @@ header {
             flex-direction: row;
             align-items: center;
             column-gap: 0.5rem;
-            transition: transform 0.3s ease;
-
+            
             @include buttons();
-
-            &.expanded svg {
-              transform: rotate(180deg);
-            }
+            @include buttonArrowUpTransition()
+          
           }
 
           a {
@@ -316,6 +324,13 @@ main {
 
             button {
               @include buttons();
+              @include buttonArrowUpTransition();
+
+              svg{
+                transition: transform 0.3s ease-in;
+                transform: rotate(360deg);
+              }
+
               font-size: 1rem;
             }
 
@@ -347,6 +362,13 @@ main {
             }
           }
         }
+
+        .dropdown-content {
+          &.collapsed{
+            transition: opacity 200ms ease-out 0.1s, visibility 1s linear 200ms;
+          }
+        }
+
 
         .desktop-menu-cta {
           display: flex;
