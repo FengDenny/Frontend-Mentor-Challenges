@@ -285,9 +285,6 @@ main {
       .hero-img {
         display: flex;
         justify-content: center;
-        img {
-          width: 62%;
-        }
       }
 
       .hero-content {
@@ -295,7 +292,11 @@ main {
           max-width: 530px;
         }
       }
+      .company-logos{
+        padding:7px;
+      }
     }
+
   }
 }
 
