@@ -89,11 +89,12 @@ main {
 
     .accordion-header {
       display: flex;
-      gap: 10px;
+      gap: 1.5rem;
 
       h2 {
         align-self: center;
         color: $dark-purple;
+        font-size: 2rem;
       }
 
       svg {
