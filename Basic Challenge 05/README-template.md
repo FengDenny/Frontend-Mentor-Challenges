@@ -24,21 +24,21 @@
 
 #### Desktop
 
-![Landing Page Desktop Design Final ](/Landing%20Page%2004/images/image-desktop-final.png)
+![Landing Page Desktop Design Final ](/Basic%20Challenge%2005/images/image-desktop-final.png)
 
-![Landing Page Desktop Design Final ](/Landing%20Page%2004/images/image-desktop-desktop-active-final.png)
+![Landing Page Desktop Design Final ](/Basic%20Challenge%2005/images/image-desktop-desktop-active-final.png)
 
 #### Mobile
 
-![Landing Page Mobile Design Final ](/Landing%20Page%2004/assets/images/image-mobile-final.png)
+![Landing Page Mobile Design Final ](/Basic%20Challenge%2005/assets/images/image-mobile-final.png)
 
-![Landing Page Mobile Design Active Accordion](/Landing%20Page%2004/assets/images/image-mobile-menu-active-final.png)
+![Landing Page Mobile Design Active Accordion](/Basic%20Challenge%2005/assets/images/image-mobile-menu-active-final.png)
 
 ### Links
 
-- Solution URL: [SCSS Solution](https://github.com/FengDenny/Frontend-Mentor-Challenges/blob/main/Landing%20Page%2004/style.scss)
+- Solution URL: [SCSS Solution](https://github.com/FengDenny/Frontend-Mentor-Challenges/blob/main/Basic%20Challenge%2005/style.scss)
 
-- Live Site URL: [Landing Page 04 ](https://landingpagee04.netlify.app/)
+- Live Site URL: [Landing Page 04 ](https://basicchallenge05.netlify.app/)
 
 ## My process
 
