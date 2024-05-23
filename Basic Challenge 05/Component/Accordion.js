@@ -4,7 +4,6 @@ export function toggleAccordion() {
 
   if (!accordionContainer) return;
 
-
   accordionContainer.addEventListener("click", (event) => {
     const button = event.target.closest(
       'button[data-role="accordion-toggler"]'
@@ -16,6 +15,10 @@ export function toggleAccordion() {
 
       const accordion = document.querySelector(
         `article[data-role="accordion-toggled"][data-target="${target}"]`
+      );
+
+      const firstAccordion = document.querySelector(
+        `article[data-role="accordion-toggled"][data-target="1"]`
       );
 
       if (accordion) {
@@ -30,18 +33,23 @@ export function toggleAccordion() {
         // Apply the height as max-height to enable transition
         accordion.style.maxHeight = contentHeight;
 
+        if (!firstAccordion.classList.contains("collapsed") && accordion !== firstAccordion) {
+          collapseFirstAccordion();
+        }
+        
         if (previousAccordion && previousAccordion !== accordion) {
           const prevButton =
             previousAccordion.previousElementSibling.querySelector(
               'button[data-role="accordion-toggler"]'
             );
+
           prevButton.classList.remove("expanded");
           previousAccordion.classList.add("collapsed");
           previousAccordion.classList.remove("expanded");
           prevButton.setAttribute("aria-expanded", "false");
           previousAccordion.style.maxHeight = "0";
         }
-        previousAccordion =  accordion 
+        previousAccordion = accordion;
       }
     }
   });
@@ -80,6 +88,6 @@ export function collapseFirstAccordion() {
     firstAccordion.classList.add("collapsed");
     firstAccordion.classList.remove("expanded");
     firstButton.setAttribute("aria-expanded", "false");
-    firstAccordion.style.maxHeight = "0";;
+    firstAccordion.style.maxHeight = "0";
   }
 }
