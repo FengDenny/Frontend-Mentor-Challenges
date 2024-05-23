@@ -18,6 +18,10 @@ function displayFAQ(faqData) {
   accordion.textContent = "";
 
   faqData.forEach((faq, index) => {
+
+    const accordionContainer = document.createElement("div")
+    accordionContainer.classList.add("accordion-content-container")
+
     const contentArticle = document.createElement("article");
     contentArticle.classList.add("accordion-content");
 
@@ -56,9 +60,10 @@ function displayFAQ(faqData) {
     answer.textContent = faq.answer
     toggleArticle.appendChild(answer)
 
+    accordionContainer.appendChild(contentArticle)
+    accordionContainer.appendChild(toggleArticle)
 
-    accordion.appendChild(contentArticle);
-    accordion.appendChild(toggleArticle);
+    accordion.appendChild(accordionContainer);
   });
 }
 
