@@ -8,6 +8,7 @@ $font-work-san: "Work Sans", sans-serif;
 $white: hsl(0, 0%, 100%);
 $light-pink: hsl(275, 100%, 97%);
 $grayish-purple: hsl(292, 16%, 49%);
+$grayish-purple-hover: hsl(293, 46%, 48%);
 $dark-purple: hsl(292, 42%, 14%);
 
 // CSS RESET
@@ -47,6 +48,12 @@ html {
   pointer-events: none;
 }
 
+// MIXINS
+@mixin tabletDesktopImg() {
+  content: url("./assets/images/background-pattern-desktop.svg");
+  max-width: 100%;
+}
+
 //BODY
 body {
   font-family: $font-work-san;
@@ -67,13 +74,18 @@ main {
   .accordion-container {
     background-color: $white;
     position: relative;
-    bottom: 5rem;
+    bottom: 17rem;
     width: fit-content;
     max-width: 1024px;
     margin: 0 auto;
     padding: 1rem 1.5rem;
     border-radius: 5px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    transition: bottom 0.3s ease-in;
+
+    @media screen and (max-width: 497px) {
+      bottom: 5rem;
+    }
 
     .accordion-header {
       display: flex;
@@ -108,6 +120,7 @@ main {
         .accordion-content {
           display: flex;
           justify-content: space-between;
+          align-items: center;
           gap: 2rem;
           padding: 1.5rem 0;
 
@@ -115,6 +128,9 @@ main {
             color: $dark-purple;
             max-width: 220px;
             font-size: 1rem;
+            &:hover {
+              color: $grayish-purple-hover;
+            }
           }
 
           button {
@@ -137,7 +153,7 @@ main {
         }
 
         .accordion-toggle {
-          width:90%;
+          width: 90%;
           max-width: 258px;
           line-height: 1.2rem;
           color: $grayish-purple;
@@ -152,4 +168,47 @@ main {
   }
 }
 
+// MEDIA QUERY (TABLET / DESKTOP)
 
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  main {
+    .hero {
+      figure > img {
+        @include tabletDesktopImg();
+      }
+    }
+
+    .accordion-container {
+      bottom: 4rem;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main {
+    .hero {
+      figure > img {
+        @include tabletDesktopImg();
+      }
+    }
+
+    .accordion-container {
+      bottom: 5rem;
+      .accordion {
+        .accordion-content-container {
+          .accordion-content {
+            gap: 0.7rem;
+
+            h2 {
+              max-width: 100%;
+            }
+          }
+
+          .accordion-toggle {
+            max-width: 432px;
+          }
+        }
+      }
+    }
+  }
+}
