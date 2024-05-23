@@ -32,6 +32,7 @@ function displayFAQ(faqData) {
     const button = document.createElement("button");
     button.setAttribute("data-role", "accordion-toggler");
     button.setAttribute("data-target", index + 1);
+    button.setAttribute("aria-label", `accordion-toggler-${index + 1}`)
 
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("width", "30");
