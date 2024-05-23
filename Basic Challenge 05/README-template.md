@@ -24,9 +24,9 @@
 
 #### Desktop
 
-![Landing Page Desktop Design Final ](/Basic%20Challenge%2005/images/image-desktop-final.png)
+![Landing Page Desktop Design Final ](/Basic%20Challenge%2005/assets/images/image-desktop-final.png)
 
-![Landing Page Desktop Design Final ](/Basic%20Challenge%2005/images/image-desktop-desktop-active-final.png)
+![Landing Page Desktop Design Final ](/Basic%20Challenge%2005/assets/images/image-desktop-desktop-active-final.png)
 
 #### Mobile
 
