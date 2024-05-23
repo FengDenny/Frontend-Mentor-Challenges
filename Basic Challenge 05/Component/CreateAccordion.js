@@ -1,3 +1,5 @@
+
+import {toggleAccordion, openFirstAccordion} from "../Component/Accordion.js";
 async function loadFAQData() {
   try {
     const response = await fetch("../data/faqData.json");
@@ -8,6 +10,8 @@ async function loadFAQData() {
 
     const faqData = await response.json();
     displayFAQ(faqData);
+    openFirstAccordion()
+    toggleAccordion()
   } catch (error) {
     console.error(`Error fetching the data: ${error}`);
   }
@@ -67,5 +71,6 @@ function displayFAQ(faqData) {
     accordion.appendChild(accordionContainer);
   });
 }
+
 
 loadFAQData();
