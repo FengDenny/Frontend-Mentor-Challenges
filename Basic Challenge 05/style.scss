@@ -26,10 +26,11 @@ html {
   padding: 0;
 }
 
-// ACCORDION 
-.expanded{
-  transition: max-height 0.3s ease-in, opacity 0.5s ease-in, transform 0.3s ease-in;
-  &:not(button){
+// ACCORDION
+.expanded {
+  transition: max-height 0.3s ease-in, opacity 0.5s ease-in,
+    transform 0.3s ease-in;
+  &:not(button) {
     transform: translateY(0);
   }
   opacity: 1;
@@ -37,15 +38,14 @@ html {
   max-height: 120px;
 }
 
-
-.collapsed{
-  transition: max-height 0.3s ease-in, opacity 50ms ease-in, transform 0.3s ease-in;
-  transform: translateY(-10px); 
+.collapsed {
+  transition: max-height 0.3s ease-in, opacity 50ms ease-in,
+    transform 0.3s ease-in;
+  transform: translateY(-10px);
   opacity: 0;
-  max-height:0;
+  max-height: 0;
   pointer-events: none;
 }
-
 
 //BODY
 body {
@@ -55,105 +55,101 @@ body {
 
 // MAIN
 
-main{
-width:100%;
-  .hero{
-    figure > img{
-      width:100%;
-      max-width:1024px;
+main {
+  width: 100%;
+  .hero {
+    figure > img {
+      width: 100%;
+      max-width: 1024px;
     }
   }
 
-  .accordion-container{
+  .accordion-container {
     background-color: $white;
     position: relative;
-    bottom:5rem;
-    width:fit-content;
+    bottom: 5rem;
+    width: fit-content;
     max-width: 1024px;
-    margin:0 auto;
+    margin: 0 auto;
     padding: 1rem 1.5rem;
     border-radius: 5px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 
-
-    .accordion-header{
-      display:flex;
+    .accordion-header {
+      display: flex;
       gap: 10px;
 
-      h2{
-        align-self:center;
-        color:$dark-purple;
+      h2 {
+        align-self: center;
+        color: $dark-purple;
       }
 
-      svg{
-        width:20px;
+      svg {
+        width: 20px;
       }
     }
-    
 
-    .accordion{
+    .accordion {
       position: relative;
-      padding-top:1rem;
-      padding-bottom:1.5rem;
+      padding-top: 1rem;
+      padding-bottom: 1.5rem;
 
-      .accordion-content-container{
-        padding-top:1rem;
+      .accordion-content-container {
+        padding-top: 1rem;
 
-        &:not(:last-child)::after{
-          content:"";
-          position:absolute;
-          width:100%;
-          border-bottom:1px solid rgb(238, 238, 238);
-          padding-top:1rem;
+        &:not(:last-child)::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          border-bottom: 1px solid rgb(238, 238, 238);
+          padding-top: 1rem;
         }
 
-        .accordion-content{
+        .accordion-content {
           display: flex;
           justify-content: space-between;
-          gap:2rem;
-          padding:1.5rem 0;
-    
-          h2{
-            color:$dark-purple;
-            max-width:220px;
+          gap: 2rem;
+          padding: 1.5rem 0;
+
+          h2 {
+            color: $dark-purple;
+            max-width: 220px;
             font-size: 1rem;
           }
-  
-          button{
+
+          button {
             background-color: transparent;
-            border:none;
+            border: none;
             cursor: pointer;
 
-            &.expanded{
-                background-image:url("./assets/images/icon-minus.svg");
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: contain; 
-              svg{
-                path{
+            &.expanded {
+              background-image: url("./assets/images/icon-minus.svg");
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: contain;
+              svg {
+                path {
                   display: none;
                 }
               }
-
             }
-
           }
-    
         }
-  
-        .accordion-toggle{
-          width: 258px;
+
+        .accordion-toggle {
+          width:90%;
+          max-width: 258px;
           line-height: 1.2rem;
-          color:$grayish-purple;
+          color: $grayish-purple;
           font-size: 1.2rem;
-  
-          h6{
+
+          h6 {
             font-weight: 550;
           }
         }
       }
-      
     }
   }
-
 }
+
+
