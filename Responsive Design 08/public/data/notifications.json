@@ -1,0 +1,57 @@
+{
+    "notifications": {
+      "unread": [
+        {
+          "name": "Mark Webber",
+          "action": "reacted to your recent post",
+          "post": "My first tournament today!",
+          "time": "1m ago",
+          "avatar": "avatar-mark-webber.webp"
+        },
+        {
+          "name": "Angela Gray",
+          "action": "followed you",
+          "time": "5m ago",
+          "avatar": "avatar-angela-gray.webp"
+        },
+        {
+          "name": "Jacob Thompson",
+          "action": "has joined your group",
+          "group": "Chess Club",
+          "time": "1 day ago",
+          "avatar": "avatar-jacob-thompson.webp"
+        }
+      ],
+      "read": [
+        {
+          "name": "Rizky Hasanuddin",
+          "action": "sent you a private message",
+          "privateMsg": "Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game.",
+          "time": "5 days ago",
+          "avatar": "avatar-rizky-hasanuddin.webp"
+        },
+        {
+          "name": "Kimberly Smith",
+          "action": "commented on your picture",
+          "time": "1 week ago",
+          "avatar": "avatar-kimberly-smith.webp", 
+          "commentedPicture":"image-chess.webp"
+        },
+        {
+          "name": "Nathan Peterson",
+          "action": "reacted to your recent post",
+          "post": "5 end-game strategies to increase your win rate",
+          "time": "2 weeks ago",
+          "avatar": "avatar-nathan-peterson.webp"
+        },
+        {
+          "name": "Anna Kim",
+          "action": "left the group",
+          "group": "Chess Club",
+          "time": "2 weeks ago",
+          "avatar": "avatar-anna-kim.webp"
+        }
+      ]
+    }
+  }
+  
