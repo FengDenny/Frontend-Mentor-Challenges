@@ -7,12 +7,22 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
 
   <link rel="stylesheet" href="./style.scss">
+
+  <script src="./Component/Notifications.js" defer type="module"></script>
   
   <title>Frontend Mentor | Notifications page</title>
 
 
 </head>
 <body>
+  <article id="notification-status" class="notification">
+    <header>
+      <h2>Notifications</h2>
+      <span id="status-unread" class="status-unread"></span>
+    </header>
+    <button aria-label="status-read" class="mark-read-btn">Mark all as read</button>
+  </article>
+
 
   <!-- Notifications 3
   <div class="attribution">
