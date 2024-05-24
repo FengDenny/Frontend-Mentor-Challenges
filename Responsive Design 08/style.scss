@@ -34,3 +34,60 @@ html {
   margin: 0;
   padding: 0;
 }
+
+
+// BODY
+
+body{
+  font-family: $font-plus-jakarta-sans;
+  background-color: $white;
+}
+
+
+// Notification header
+
+.notification{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:20px;
+  flex-wrap:wrap;
+
+  header{
+    display:flex;
+    gap:15px;
+    align-items: center;
+
+    .status-unread{
+      padding:3px;
+      background-color: $blue;
+      color:$white;
+      width:36px;
+      height:36px;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 5px;
+      font-size: 1.4rem;
+    }
+  }
+
+  .mark-read-btn{
+
+    background-color: transparent;
+    border:none;
+    color:$dark-grayish-blue;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  @media screen and (max-width:347px) {
+    justify-content: center;
+    .mark-read-btn{
+      padding-top:0.5rem;
+    }
+  }
+}
+
+
+// MAIN
