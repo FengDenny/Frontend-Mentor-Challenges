@@ -219,6 +219,11 @@ body {
       align-items: center;
       justify-content: center;
       text-align: center;
+
+      &[data-status="read"] {
+        padding: 0;
+      }
+
       .commented-img-container {
         flex-direction: column;
         align-items: center;
