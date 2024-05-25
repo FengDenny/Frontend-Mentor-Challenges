@@ -105,11 +105,11 @@ const notificationsUI = {
       const commentedImgfigure = notificationsUI.createElement("figure", {class: "commented-figure"});
 
       const img = notificationsUI.createElement("img", {
-        src: `./assets/images/${avatar}`,
+        src: `./images/${avatar}`,
         alt: name,
       });
       const commentedImg = notificationsUI.createElement("img", {
-        src: `./assets/images/${pictureCommented}`,
+        src: `./images/${pictureCommented}`,
         ["data-picture-commented"]: pictureCommented,
         alt: name,
       });
