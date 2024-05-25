@@ -6,13 +6,24 @@ const notificationsLogic = {
 
   async fetchNotificationData() {
     try {
-      const response = await fetch("../data/notifications.json");
+      const storedData = localStorage.getItem("notificationsData");
+      if (storedData) {
+        const notificationsData = JSON.parse(storedData);
+        this.displayNotificationData(notificationsData);
+      } else {
+        const response = await fetch("../data/notifications.json");
+        if (!response.ok) {
+          throw new Error("Invalid response");
+        }
+        const notificationsData = await response.json();
 
-      if (!response.ok) {
-        throw new Error("Invalid response");
+        localStorage.setItem(
+          "notificationsData",
+          JSON.stringify(notificationsData)
+        );
+
+        this.displayNotificationData(notificationsData);
       }
-      const notificationsData = await response.json();
-      this.displayNotificationData(notificationsData);
     } catch (error) {
       console.error(`Error retrieving the data: ${error}`);
     }
@@ -25,9 +36,6 @@ const notificationsLogic = {
     console.log("before marked read: ", this.readMsg);
     this.updateUnreadStatus(this.currentUnread);
     this.markAllMsgAsRead(data.notifications);
-
-    /* Changing unread to read */
-    // data.notifications[0].status = "read";
   },
   markAllMsgAsRead(data) {
     const markBtn = document.getElementById("mark-read");
@@ -43,15 +51,18 @@ const notificationsLogic = {
       this.currentUnread = this.unreadMsg.length;
       this.updateUnreadStatus(this.currentUnread);
 
+      const notificationsData = {notifications:data}
+      localStorage.setItem("notificationsData", JSON.stringify(notificationsData))
+
       console.log(this.unreadMsg, this.readMsg);
     });
   },
   filterByStatus(data, status) {
     return data.filter((data) => data.status === `${status}`);
   },
-  updateUnreadStatus(currentUnread){
-    notificationsUI.updateUnreadStatus(currentUnread)
-  }
+  updateUnreadStatus(currentUnread) {
+    notificationsUI.updateUnreadStatus(currentUnread);
+  },
 };
 
 // Presentation Module (encapsulates HTML content manipulation)
@@ -62,12 +73,12 @@ const notificationsUI = {
   },
 };
 
-// Init 
+// Init
 
 const notificationApp = {
-    init(){
-        notificationsLogic.fetchNotificationData()
-    }
-}
+  init() {
+    notificationsLogic.fetchNotificationData();
+  },
+};
 
-notificationApp.init()
+notificationApp.init();
