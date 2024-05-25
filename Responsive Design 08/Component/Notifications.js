@@ -38,17 +38,25 @@ const notificationsLogic = {
     const main = document.getElementById("notifications");
 
     data.notifications.forEach((notification, index) => {
-      const { action, avatar, name, post, group, status, time, privateMsg } =
+      const { action, avatar, name, post, group, status, time, privateMsg,pictureCommented } =
         notification;
       const article = notificationsUI.createElement("article", {
         class: "notification-content",
         ["data-status"]: status,
       });
       const figure = notificationsUI.createElement("figure");
+      const commentedImgfigure = notificationsUI.createElement("figure");
+
       const img = notificationsUI.createElement("img", {
         src: `./assets/images/${avatar}`,
         alt: name,
       });
+      const commentedImg = notificationsUI.createElement("img", {
+        src: `./assets/images/${pictureCommented}`,
+        ['data-picture-commented']: pictureCommented,
+        alt: name,
+      });
+
       const divContainer = notificationsUI.createElement("div", {
         class: "notification-content-container",
       });
@@ -90,6 +98,8 @@ const notificationsLogic = {
       main.appendChild(article);
       article.appendChild(figure);
       article.appendChild(divContainer);
+      pictureCommented && article.appendChild(commentedImgfigure)
+      commentedImg && commentedImgfigure.appendChild(commentedImg)
       figure.appendChild(img);
       divContainer.appendChild(h2);
       divContainer.appendChild(timeElement);
