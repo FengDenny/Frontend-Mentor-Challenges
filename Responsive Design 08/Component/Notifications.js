@@ -35,7 +35,7 @@ const notificationsLogic = {
     this.updateUnreadStatus(this.currentUnread);
     this.markAllMsgAsRead(data.notifications);
 
-    notificationsUI.createDynamicContent(data)
+    notificationsUI.createDynamicContent(data);
   },
   markAllMsgAsRead(data) {
     const localDataKey = "notificationsData";
@@ -102,7 +102,7 @@ const notificationsUI = {
         ["data-status"]: status,
       });
       const figure = notificationsUI.createElement("figure");
-      const commentedImgfigure = notificationsUI.createElement("figure");
+      const commentedImgfigure = notificationsUI.createElement("figure", {class: "commented-figure"});
 
       const img = notificationsUI.createElement("img", {
         src: `./assets/images/${avatar}`,
@@ -152,23 +152,34 @@ const notificationsUI = {
         time
       );
 
-      const commentedImgDiv = notificationsUI.createElement("div");
+      const commentedImgDiv = notificationsUI.createElement("div", {
+        class: "commented-img-container",
+      });
 
+      function pictureCommentedData() {
+        pictureCommented && article.appendChild(commentedImgDiv);
+        pictureCommented && commentedImgDiv.appendChild(figure);
+        pictureCommented && commentedImgDiv.appendChild(divContainer);
+        pictureCommented && divContainer.appendChild(h2);
+        pictureCommented && divContainer.appendChild(timeElement);
+        pictureCommented && article.appendChild(commentedImgfigure);
+        commentedImg && commentedImgfigure.appendChild(commentedImg);
+      }
 
-
-
-      main.appendChild(article);
-      article.appendChild(figure);
-      article.appendChild(divContainer);
-      pictureCommented && article.appendChild(commentedImgfigure);
-      commentedImg && commentedImgfigure.appendChild(commentedImg);
-      figure.appendChild(img);
-      divContainer.appendChild(h2);
-      divContainer.appendChild(timeElement);
-      privateMsg && divContainer.appendChild(spanMsgElement);
-      h2.appendChild(spanActionElement)
-        .appendChild(spanNotificationItemElement)
-        .appendChild(spanUnreadElement);
+      function globalData() {
+        main.appendChild(article);
+        !pictureCommented && article.appendChild(figure);
+        !pictureCommented && article.appendChild(divContainer);
+        !pictureCommented && divContainer.appendChild(h2);
+        !pictureCommented && divContainer.appendChild(timeElement);
+        privateMsg && divContainer.appendChild(spanMsgElement);
+        figure.appendChild(img);
+        h2.appendChild(spanActionElement)
+          .appendChild(spanNotificationItemElement)
+          .appendChild(spanUnreadElement);
+      }
+      globalData();
+      pictureCommentedData();
     });
   },
   updateUnreadClass(status) {
