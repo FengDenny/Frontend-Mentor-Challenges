@@ -32,13 +32,13 @@ html {
 }
 
 // GLOBAL
-.container{
+.container {
   background-color: $white;
   max-width: fit-content;
-  padding:1.2rem;
-  margin:2rem;
+  padding: 1.2rem;
+  margin: 2rem;
   box-shadow: 0 12px 12px rgba(90, 90, 90, 0.2);
-  border-radius:10px;
+  border-radius: 10px;
 }
 
 // BODY
@@ -47,8 +47,6 @@ body {
   font-family: $font-plus-jakarta-sans;
   background-color: $very-light-grayish-blue;
 }
-
-
 
 // Notification header
 
@@ -59,12 +57,18 @@ body {
   padding: 24px;
   gap: 0.5rem;
   flex-wrap: wrap;
-  max-width:768px;
+  max-width: 768px;
 
   header {
     display: flex;
     gap: 15px;
     align-items: center;
+
+    @media screen and (max-width: 347px) {
+      font-size: calc(50% + 3vw);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
     .status-unread {
       padding: 3px;
@@ -88,7 +92,7 @@ body {
     cursor: pointer;
   }
 
-  @media screen and (max-width: 347px) {
+  @media screen and (max-width: 471px) {
     justify-content: center;
     .mark-read-btn {
       padding-top: 0.5rem;
@@ -96,19 +100,31 @@ body {
   }
 }
 
-
-
 // MAIN
 
 .notifications {
-  padding: 24px;
-
   .notification-content {
     padding-top: 1rem;
     display: flex;
     gap: 1rem;
     width: 100%;
-    max-width:720px;
+    max-width: 720px;
+
+    &:has(.commented-img-container) {
+      justify-content: space-between;
+      @media screen and (max-width: 397px) {
+        flex-wrap: wrap;
+
+        .commented-figure {
+          margin: 0.4rem auto;
+        }
+      }
+    }
+
+    .commented-img-container {
+      display: flex;
+      gap: 1rem;
+    }
 
     &:not(:first-child) {
       margin-top: 1rem;
@@ -137,7 +153,7 @@ body {
         padding: 1rem;
         margin-top: 1rem;
         width: 100%;
-        max-width: 400px;
+        max-width: 100%;
         color: $grayish-blue;
         font-weight: 600;
       }
@@ -197,8 +213,23 @@ body {
       color: $grayish-blue;
       font-weight: 500;
     }
+
+    @media screen and (max-width: 347px) {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      .commented-img-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
   }
 }
 
-// MEDIA QUERY (TABLET / DESKTOP)
-// @media only screen and (min-width:)
+// MEDIA QUERY (TABLET AND UP)
+@media only screen and (min-width: 768px) {
+  .container {
+    margin: 1rem auto;
+  }
+}
