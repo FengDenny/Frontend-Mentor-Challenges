@@ -6,8 +6,8 @@ const notificationsLogic = {
 
   async fetchNotificationData() {
     try {
-      const localDataKey = "notificationsData"
-      const storedData = this.checkLocalData(localDataKey)
+      const localDataKey = "notificationsData";
+      const storedData = this.checkLocalData(localDataKey);
       if (storedData) {
         const notificationsData = JSON.parse(storedData);
         this.displayNotificationData(notificationsData);
@@ -18,7 +18,7 @@ const notificationsLogic = {
         }
         const notificationsData = await response.json();
 
-        this.updateLocalData(localDataKey, notificationsData)
+        this.updateLocalData(localDataKey, notificationsData);
 
         this.displayNotificationData(notificationsData);
       }
@@ -34,9 +34,73 @@ const notificationsLogic = {
     console.log("before marked read: ", this.readMsg);
     this.updateUnreadStatus(this.currentUnread);
     this.markAllMsgAsRead(data.notifications);
+
+    const main = document.getElementById("notifications");
+
+    data.notifications.forEach((notification, index) => {
+      const { action, avatar, name, post, group, status, time, privateMsg } =
+        notification;
+      const article = notificationsUI.createElement("article", {
+        class: "notification-content",
+        ["data-status"]: status,
+      });
+      const figure = notificationsUI.createElement("figure");
+      const img = notificationsUI.createElement("img", {
+        src: `./assets/images/${avatar}`,
+        alt: name,
+      });
+      const divContainer = notificationsUI.createElement("div", {
+        class: "notification-content-container",
+      });
+
+      const spanActionElement = notificationsUI.createElement(
+        "span",
+        { class: "notification-action", ["data-action"]: action },
+        action
+      );
+      const spanUnreadElement = notificationsUI.createElement("span", {
+        ["data-status"]: status,
+      });
+
+      const spanMsgElement = notificationsUI.createElement(
+        "span",
+        { class: "notification-message", ["data-message"]: true },
+        privateMsg
+      );
+
+      const spanNotificationItemElement = group
+        ? notificationsUI.createElement(
+            "span",
+            { class: "notification-item", ["data-group"]: group },
+            group
+          )
+        : notificationsUI.createElement(
+            "span",
+            { class: "notification-item", ["data-post"]: post },
+            post
+          );
+
+      const h2 = notificationsUI.createElement("h2", {}, `${name} `);
+      const timeElement = notificationsUI.createElement(
+        "time",
+        { ["data-time"]: time },
+        time
+      );
+
+      main.appendChild(article);
+      article.appendChild(figure);
+      article.appendChild(divContainer);
+      figure.appendChild(img);
+      divContainer.appendChild(h2);
+      divContainer.appendChild(timeElement);
+      privateMsg && divContainer.appendChild(spanMsgElement)
+      h2.appendChild(spanActionElement)
+        .appendChild(spanNotificationItemElement)
+        .appendChild(spanUnreadElement);
+    });
   },
   markAllMsgAsRead(data) {
-    const localDataKey = "notificationsData"
+    const localDataKey = "notificationsData";
     const markBtn = document.getElementById("mark-read");
     markBtn.addEventListener("click", () => {
       data.forEach((messages, _) => {
@@ -50,8 +114,14 @@ const notificationsLogic = {
       this.currentUnread = this.unreadMsg.length;
       this.updateUnreadStatus(this.currentUnread);
 
-      const notificationsData = {notifications:data}
-      this.updateLocalData(localDataKey, notificationsData)
+      const notificationsData = { notifications: data };
+      this.updateLocalData(localDataKey, notificationsData);
+
+      notificationsData.notifications.forEach((element) => {
+        notificationsUI.updateUnreadClass(element.status)
+        
+      })
+
       console.log(this.unreadMsg, this.readMsg);
     });
   },
@@ -61,12 +131,12 @@ const notificationsLogic = {
   updateUnreadStatus(currentUnread) {
     notificationsUI.updateUnreadStatus(currentUnread);
   },
-  checkLocalData(key){
-    return localStorage.getItem(key)
+  checkLocalData(key) {
+    return localStorage.getItem(key);
   },
-  updateLocalData(key,value){
-    localStorage.setItem(key, JSON.stringify(value))
-  }
+  updateLocalData(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  },
 };
 
 // Presentation Module (encapsulates HTML content manipulation)
@@ -74,6 +144,24 @@ const notificationsUI = {
   updateUnreadStatus(currentUnread) {
     const unreadStatus = document.querySelector("#status-unread");
     unreadStatus.textContent = currentUnread;
+  },
+  updateUnreadClass(status){
+    const article  = document.querySelectorAll('article[data-status="unread"]')
+    article.forEach((element, index) => {
+      const redDot = element.querySelector('span[data-status="unread"]')
+      element.setAttribute("data-status", status)
+      redDot.setAttribute("data-status", status)
+    })
+  },
+
+
+  createElement(tagName, attributes = {}, textContent = "") {
+    const element = document.createElement(tagName);
+    Object.keys(attributes).forEach((attribute) => {
+      element.setAttribute(attribute, attributes[attribute]);
+    });
+    element.textContent = textContent;
+    return element;
   },
 };
 
