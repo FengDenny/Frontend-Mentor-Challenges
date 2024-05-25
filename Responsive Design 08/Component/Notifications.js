@@ -6,7 +6,8 @@ const notificationsLogic = {
 
   async fetchNotificationData() {
     try {
-      const storedData = localStorage.getItem("notificationsData");
+      const localDataKey = "notificationsData"
+      const storedData = this.checkLocalData(localDataKey)
       if (storedData) {
         const notificationsData = JSON.parse(storedData);
         this.displayNotificationData(notificationsData);
@@ -17,10 +18,7 @@ const notificationsLogic = {
         }
         const notificationsData = await response.json();
 
-        localStorage.setItem(
-          "notificationsData",
-          JSON.stringify(notificationsData)
-        );
+        this.updateLocalData(localDataKey, notificationsData)
 
         this.displayNotificationData(notificationsData);
       }
@@ -38,6 +36,7 @@ const notificationsLogic = {
     this.markAllMsgAsRead(data.notifications);
   },
   markAllMsgAsRead(data) {
+    const localDataKey = "notificationsData"
     const markBtn = document.getElementById("mark-read");
     markBtn.addEventListener("click", () => {
       data.forEach((messages, _) => {
@@ -52,8 +51,7 @@ const notificationsLogic = {
       this.updateUnreadStatus(this.currentUnread);
 
       const notificationsData = {notifications:data}
-      localStorage.setItem("notificationsData", JSON.stringify(notificationsData))
-
+      this.updateLocalData(localDataKey, notificationsData)
       console.log(this.unreadMsg, this.readMsg);
     });
   },
@@ -63,6 +61,12 @@ const notificationsLogic = {
   updateUnreadStatus(currentUnread) {
     notificationsUI.updateUnreadStatus(currentUnread);
   },
+  checkLocalData(key){
+    return localStorage.getItem(key)
+  },
+  updateLocalData(key,value){
+    localStorage.setItem(key, JSON.stringify(value))
+  }
 };
 
 // Presentation Module (encapsulates HTML content manipulation)
