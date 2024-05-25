@@ -35,11 +35,68 @@ const notificationsLogic = {
     this.updateUnreadStatus(this.currentUnread);
     this.markAllMsgAsRead(data.notifications);
 
+    notificationsUI.createDynamicContent(data)
+  },
+  markAllMsgAsRead(data) {
+    const localDataKey = "notificationsData";
+    const markBtn = document.getElementById("mark-read");
+    markBtn.addEventListener("click", () => {
+      data.forEach((messages, _) => {
+        if (messages.status === "unread") {
+          messages.status = "read";
+          console.log(messages);
+        }
+      });
+      this.unreadMsg = this.filterByStatus(data, "updated unread");
+      this.readMsg = this.filterByStatus(data, "updated read");
+      this.currentUnread = this.unreadMsg.length;
+      this.updateUnreadStatus(this.currentUnread);
+
+      const notificationsData = { notifications: data };
+      this.updateLocalData(localDataKey, notificationsData);
+
+      notificationsData.notifications.forEach((element) => {
+        notificationsUI.updateUnreadClass(element.status);
+      });
+
+      console.log(this.unreadMsg, this.readMsg);
+    });
+  },
+  filterByStatus(data, status) {
+    return data.filter((data) => data.status === `${status}`);
+  },
+  updateUnreadStatus(currentUnread) {
+    notificationsUI.updateUnreadStatus(currentUnread);
+  },
+  checkLocalData(key) {
+    return localStorage.getItem(key);
+  },
+  updateLocalData(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  },
+};
+
+// Presentation Module (encapsulates HTML content manipulation)
+const notificationsUI = {
+  updateUnreadStatus(currentUnread) {
+    const unreadStatus = document.querySelector("#status-unread");
+    unreadStatus.textContent = currentUnread;
+  },
+  createDynamicContent(data) {
     const main = document.getElementById("notifications");
 
     data.notifications.forEach((notification, index) => {
-      const { action, avatar, name, post, group, status, time, privateMsg,pictureCommented } =
-        notification;
+      const {
+        action,
+        avatar,
+        name,
+        post,
+        group,
+        status,
+        time,
+        privateMsg,
+        pictureCommented,
+      } = notification;
       const article = notificationsUI.createElement("article", {
         class: "notification-content",
         ["data-status"]: status,
@@ -53,7 +110,7 @@ const notificationsLogic = {
       });
       const commentedImg = notificationsUI.createElement("img", {
         src: `./assets/images/${pictureCommented}`,
-        ['data-picture-commented']: pictureCommented,
+        ["data-picture-commented"]: pictureCommented,
         alt: name,
       });
 
@@ -95,75 +152,33 @@ const notificationsLogic = {
         time
       );
 
+      const commentedImgDiv = notificationsUI.createElement("div");
+
+
+
+
       main.appendChild(article);
       article.appendChild(figure);
       article.appendChild(divContainer);
-      pictureCommented && article.appendChild(commentedImgfigure)
-      commentedImg && commentedImgfigure.appendChild(commentedImg)
+      pictureCommented && article.appendChild(commentedImgfigure);
+      commentedImg && commentedImgfigure.appendChild(commentedImg);
       figure.appendChild(img);
       divContainer.appendChild(h2);
       divContainer.appendChild(timeElement);
-      privateMsg && divContainer.appendChild(spanMsgElement)
+      privateMsg && divContainer.appendChild(spanMsgElement);
       h2.appendChild(spanActionElement)
         .appendChild(spanNotificationItemElement)
         .appendChild(spanUnreadElement);
     });
   },
-  markAllMsgAsRead(data) {
-    const localDataKey = "notificationsData";
-    const markBtn = document.getElementById("mark-read");
-    markBtn.addEventListener("click", () => {
-      data.forEach((messages, _) => {
-        if (messages.status === "unread") {
-          messages.status = "read";
-          console.log(messages);
-        }
-      });
-      this.unreadMsg = this.filterByStatus(data, "updated unread");
-      this.readMsg = this.filterByStatus(data, "updated read");
-      this.currentUnread = this.unreadMsg.length;
-      this.updateUnreadStatus(this.currentUnread);
-
-      const notificationsData = { notifications: data };
-      this.updateLocalData(localDataKey, notificationsData);
-
-      notificationsData.notifications.forEach((element) => {
-        notificationsUI.updateUnreadClass(element.status)
-        
-      })
-
-      console.log(this.unreadMsg, this.readMsg);
+  updateUnreadClass(status) {
+    const article = document.querySelectorAll('article[data-status="unread"]');
+    article.forEach((element, index) => {
+      const redDot = element.querySelector('span[data-status="unread"]');
+      element.setAttribute("data-status", status);
+      redDot.setAttribute("data-status", status);
     });
   },
-  filterByStatus(data, status) {
-    return data.filter((data) => data.status === `${status}`);
-  },
-  updateUnreadStatus(currentUnread) {
-    notificationsUI.updateUnreadStatus(currentUnread);
-  },
-  checkLocalData(key) {
-    return localStorage.getItem(key);
-  },
-  updateLocalData(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-  },
-};
-
-// Presentation Module (encapsulates HTML content manipulation)
-const notificationsUI = {
-  updateUnreadStatus(currentUnread) {
-    const unreadStatus = document.querySelector("#status-unread");
-    unreadStatus.textContent = currentUnread;
-  },
-  updateUnreadClass(status){
-    const article  = document.querySelectorAll('article[data-status="unread"]')
-    article.forEach((element, index) => {
-      const redDot = element.querySelector('span[data-status="unread"]')
-      element.setAttribute("data-status", status)
-      redDot.setAttribute("data-status", status)
-    })
-  },
-
 
   createElement(tagName, attributes = {}, textContent = "") {
     const element = document.createElement(tagName);
