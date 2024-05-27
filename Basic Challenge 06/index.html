@@ -1,63 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
 
-  <link rel="stylesheet" href="./style.scss">
-  
-  <title>Frontend Mentor | Tier Prices</title>
+    <link rel="stylesheet" href="./style.scss" />
 
-</head>
-<body>
-
-  <main>
-    <section class="pricing-container">
-      <div class="pricing-header-content">
+    <title>Frontend Mentor | Tier Prices</title>
+  </head>
+  <body>
+    <main>
+      <section class="pricing-container">
+        <header>
           <h2>Our Pricing</h2>
-      <div class="pricing-toggler">
-          <input id="toggle" type="checkbox" class="toggle">
-          <label for="toggle" class="toggle-label"><span class="toggle-ball"></span></label>
+        </header>
+        <div class="pricing-toggler">
+          <input id="toggle" type="checkbox" class="toggle" />
+          <label for="toggle" class="toggle-label"
+            ><span class="toggle-ball"></span
+          ></label>
           <span data-role="annually" class="toggle-text">Annually</span>
           <span data-role="monthly" class="toggle-text">Monthly</span>
-      </div>
-      </div>
-    </section>
-  </main>
 
-  <!-- Our Pricing
-  Annually
-  Monthly
+          <div class="pricing-card-container">
+            <article class="pricing-card">
+              <h2>Basic</h2>
+              <div class="price" data-monthly="monthly">
+                <h3>&dollar;19.99</h3>
+              </div>
+              <div class="price" data-annually="annually">
+                <h3>&dollar;199.99</h3>
+              </div>
+              <div class="pricing-card-included">
+                <p><span>500 GB Storage</span></p>
+                <p><span>2 Users Allowed</span></p>
+                <p><span> Send up to 3 GB</span></p>
+              </div>
+              <button class="pricing-cta" aria-label="Learn More">Learn More</button>
+            </article>
+            <article class="pricing-card middle">
+              <h2>Professional</h2>
+              <div class="price" data-monthly="monthly">
+                <h3>&dollar;24.99</h3>
+              </div>
+              <div class="price" data-annually="annually">
+                <h3>&dollar;249.99</h3>
+              </div>
+              <div class="pricing-card-included">
+                <p><span>  1 TB Storage</span></p>
+                <p><span>5 Users Allowed</span></p>
+                <p><span> Send up to 10 GB</span></p>
+              </div>
+              <button class="pricing-cta" aria-label="Learn More">Learn More</button>
+            </article>
+            <article class="pricing-card">
+              <h2>  Master</h2>
+              <div class="price" data-monthly="monthly">
+                <h3>&dollar;39.99</h3>
+              </div>
+              <div class="price" data-annually="annually">
+                <h3>&dollar;399.99</h3>
+              </div>
+              <div class="pricing-card-included">
+                <p><span> 2 TB Storage</span></p>
+                <p><span>10 Users Allowed</span></p>
+                <p><span> Send up to 20 GB</span></p>
+              </div>
+              <button class="pricing-cta" aria-label="Learn More">Learn More</button>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
 
-  Basic
-  &dollar;19.99
-  &dollar;199.99
-  500 GB Storage
-  2 Users Allowed
-  Send up to 3 GB
-  Learn More
-
-  Professional
-  &dollar;24.99
-  &dollar;249.99
-  1 TB Storage
-  5 Users Allowed
-  Send up to 10 GB
-  Learn More
-
-  Master
-  &dollar;39.99
-  &dollar;399.99
-  2 TB Storage
-  10 Users Allowed
-  Send up to 20 GB
-  Learn More
-  
+    <!--  
   <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
     Coded by <a href="#">Your Name Here</a>.
   </div> -->
-</body>
+  </body>
 </html>
