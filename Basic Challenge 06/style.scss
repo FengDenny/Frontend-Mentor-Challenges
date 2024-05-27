@@ -1,0 +1,110 @@
+// GOOGLE FONT IMPORT
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+// FONT
+$font-montserrat: "Montserrat", sans-serif;
+
+// COLORS
+$very-light-grayish-blue: hsl(240, 78%, 98%);
+$light-grayish-blue: hsl(234, 14%, 74%);
+$grayish-blue: hsl(233, 13%, 49%);
+$dark-grayish-blue: hsl(232, 13%, 33%);
+$light-purple: hsla(250, 100%, 69%, 0.877);
+
+// CSS RESET
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// MIXINS
+
+@mixin pricingToggled() {
+  font-weight: 700;
+  color: $dark-grayish-blue;
+  transition: font-weight 0.3s ease-in, color 0.3s ease-in;
+}
+
+// BODY
+body {
+  background-color: $very-light-grayish-blue;
+  font-family: $font-montserrat;
+}
+
+// MAIN
+main {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+
+  .pricing-container {
+    display: grid;
+
+    .pricing-header-content {
+      h2 {
+        color: $grayish-blue;
+        text-align: center;
+      }
+      .pricing-toggler {
+        position: relative;
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        input[type="checkbox"] {
+          display: none;
+          &:checked + .toggle-label .toggle-ball {
+            transform: translateX(-30px);
+          }
+          &:checked ~ .toggle-text[data-role="annually"] {
+            @include pricingToggled();
+          }
+          &:not(:checked) ~ .toggle-text[data-role="monthly"] {
+            @include pricingToggled();
+          }
+        }
+
+        .toggle-label {
+          position: relative;
+          display: inline-block;
+          width: 60px;
+          height: 30px;
+          background-color: $light-purple;
+          cursor: pointer;
+          margin: 0 10px;
+          border-radius: 20px;
+
+          .toggle-ball {
+            position: absolute;
+            content: "";
+            right: 3px;
+            top: 3px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #fff;
+            transition: transform 0.25s ease-in;
+          }
+        }
+      }
+      .toggle-text {
+        align-self: center;
+        color: $light-grayish-blue;
+        font-weight: 600;
+        font-size: 0.8rem;
+        &[data-role="annually"] {
+          order: -1;
+        }
+      }
+    }
+  }
+}
