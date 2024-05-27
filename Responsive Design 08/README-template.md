@@ -94,11 +94,32 @@
 
 ### What are you most proud of, and what would you do differently next time?
 
+I am proud to utilize  `encapsulation` and `closures`  to make a notifications page with persistent data using `localStorage`
+
+**Encapsulation**:
+
+notificationsLogic encapsulates the data handling and processing logic.
+
+notificationsUI encapsulates the presentation and HTML content manipulation logic.
+
+**Closures**:
+
+Closures aren't explicitly shown in this code, but they occur implicitly when functions access variables from their containing scope (e.g., fetchNotificationData accessing `this.checkLocalData`).
+LocalStorage Handling:
+
+**localStorage**
+
+checkLocalData and updateLocalData methods are used to interact with localStorage.
 
 
 ### What challenges did you encounter, and how did you overcome them?
 
+Deploying this site to `Netlify` was a little bit tricky as I am using `Vite`. 
+The starter file `images` were stored in `assets/images` file path, but when deployed to `Netlify`, the images were not dispalying at all
+
+That is because for `Vite`, we needed to store it in the `root` file path or a folder called `public` which acts as the `root` 
 
 
 ### What specific areas of your project would you like help with?
 
+At the moment, none.
