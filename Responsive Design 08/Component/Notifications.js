@@ -143,7 +143,7 @@ const notificationsUI = {
 
       const h2 = this.createElement("h2", {}, `${name} `);
       const timeElement = this.createElement(
-        "time",
+        "div",
         { "data-time": time },
         time
       );
