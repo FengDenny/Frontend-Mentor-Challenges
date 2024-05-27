@@ -35,6 +35,18 @@ html {
   transition: font-weight 0.3s ease-in, color 0.3s ease-in;
 }
 
+
+@mixin borderBottom(){
+  content:"";
+  position: absolute;
+  top:0;
+  left:0;
+  border-bottom:1px solid $light-grayish-blue;
+  width:100%;
+  margin:10px 0;
+  margin-top:3rem;
+}
+
 // BODY
 body {
   background-color: $very-light-grayish-blue;
@@ -46,63 +58,223 @@ main {
   display: flex;
   justify-content: center;
   margin-top: 2rem;
+  &::before {
+    content: "";
+    position: absolute;
+    top: -16px;
+    right: 0;
+    width: 40%;
+    height: 55%;
+    background-image: url("./images/bg-top.svg");
+    background-size: cover;
+    z-index: -1;
+  }
 
   .pricing-container {
+    position: relative;
     display: grid;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 1.5rem;
+    h2 {
+      color: $grayish-blue;
+      text-align: center;
+    }
+    .pricing-toggler {
+      position: relative;
+      margin: 2rem auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap:1rem;
 
-    .pricing-header-content {
-      h2 {
-        color: $grayish-blue;
-        text-align: center;
+      input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+        z-index: -1;
+
+        &:focus + .toggle-label .toggle-ball {
+          transform: translateX(-30px);
+        }
+
+        &:checked + .toggle-label .toggle-ball {
+          transform: translateX(-30px);
+        }
+
+        &:not(:checked) + .toggle-label .toggle-ball {
+          transform: translateX(0);
+        }
+
+        &:checked ~ .toggle-text[data-role ="annually"]{
+          @include pricingToggled()
+        }
+        &:not(:checked) ~ .toggle-text[data-role ="monthly"]{
+          @include pricingToggled()
+        }
+
+        &:focus-visible + .toggle-label {
+          outline: 2px solid $dark-grayish-blue;
+          outline-offset: 4px;
+        }
       }
-      .pricing-toggler {
+
+      .toggle-label {
         position: relative;
-        display: flex;
-        gap: 0.5rem;
-        margin-top: 1rem;
-        input[type="checkbox"] {
-          display: none;
-          &:checked + .toggle-label .toggle-ball {
-            transform: translateX(-30px);
-          }
-          &:checked ~ .toggle-text[data-role="annually"] {
-            @include pricingToggled();
-          }
-          &:not(:checked) ~ .toggle-text[data-role="monthly"] {
-            @include pricingToggled();
-          }
-        }
+        display: inline-block;
+        width: 60px;
+        height: 30px;
+        background-color: $light-purple;
+        cursor: pointer;
+        margin: 0 10px;
+        border-radius: 20px;
 
-        .toggle-label {
-          position: relative;
-          display: inline-block;
-          width: 60px;
-          height: 30px;
-          background-color: $light-purple;
-          cursor: pointer;
-          margin: 0 10px;
-          border-radius: 20px;
-
-          .toggle-ball {
-            position: absolute;
-            content: "";
-            right: 3px;
-            top: 3px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-color: #fff;
-            transition: transform 0.25s ease-in;
-          }
+        .toggle-ball {
+          position: absolute;
+          content: "";
+          right: 3px;
+          top: 3px;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background-color: #fff;
+          transition: transform 0.25s ease-in;
         }
       }
-      .toggle-text {
-        align-self: center;
-        color: $light-grayish-blue;
-        font-weight: 600;
-        font-size: 0.8rem;
-        &[data-role="annually"] {
-          order: -1;
+    }
+    .toggle-text {
+     
+      color: $light-grayish-blue;
+      font-weight: 600;
+      font-size: 0.8rem;
+
+      &[data-role="annually"]{
+        order:-1
+      }
+
+    }
+
+
+    .pricing-card-container{
+      display: contents;
+      .pricing-card {
+        position: relative;
+        background-color: #fff;
+        padding: 15px;
+        width: 80%;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &.middle{
+          background-color:$light-purple;
+          h2 {
+            color: $very-light-grayish-blue;
+          }
+          .price {
+            h3 {
+              color:$very-light-grayish-blue;
+            }
+          }
+
+          .pricing-card-included{
+            p{
+              color:$very-light-grayish-blue;
+            }
+          }
+          
+          .pricing-cta{
+            background-color:$very-light-grayish-blue;
+            color:$light-purple;
+          }
+        }
+        
+        &:first-child{
+          margin-top:3rem;
+        }
+
+        border-radius: 5px;
+        box-shadow: 0 12px 12px rgba(109, 109, 109, 0.1);
+  
+        h2 {
+          font-size: 0.9rem;
+          color: $grayish-blue;
+        }
+  
+        .price {
+          margin-top: 0.5rem;
+          position: relative;
+          h3 {
+            font-size: 2rem;
+            color: $dark-grayish-blue;
+          }
+  
+          &[data-monthly] {
+            opacity: 1;
+            transition: opacity 0.25s ease-in;
+          }
+  
+          &[data-annually] {
+            position: absolute;
+            top: 32px;
+            opacity: 0;
+            transition: opacity 0.25s ease-in;
+          }
+        }
+
+        .pricing-card-included{
+          position: relative;
+          width:100%;
+          p{
+            position: relative;
+            margin-top:1rem;
+            font-size: 1rem;
+            color:$grayish-blue;
+            font-weight: 600;
+            padding: 5px 0;
+            text-align: center;     
+
+            span{
+              position: relative;
+              top:1rem;
+            }
+            
+            &::before{
+              @include borderBottom();
+            }      
+            &:last-child::after{
+             @include borderBottom()
+            }      
+          }
+        }
+
+        .pricing-cta{
+          background-color:$light-purple;
+          color:$very-light-grayish-blue;
+          padding:10px;
+          margin-top:3rem;
+          width:80%;
+          border:none;
+          border-radius:5px;
+          text-transform: uppercase;
+          font-size: 0.75rem;
+          font-weight: bold;
+          letter-spacing: 1px;
+        }
+
+      }
+    }
+
+
+    .pricing-toggler {
+      input[type="checkbox"] {
+        &:checked ~ .pricing-card-container .price[data-annually] {
+          opacity: 1;
+        }
+        &:checked ~ .pricing-card-container .price[data-monthly] {
+          opacity: 0;
         }
       }
     }
