@@ -85,7 +85,7 @@ const notificationsUI = {
   createDynamicContent(data) {
     const main = document.getElementById("notifications");
 
-    data.notifications.forEach((notification, index) => {
+    data.notifications.forEach((notification) => {
       const {
         action,
         avatar,
@@ -97,89 +97,94 @@ const notificationsUI = {
         privateMsg,
         pictureCommented,
       } = notification;
-      const article = notificationsUI.createElement("article", {
-        class: "notification-content",
-        ["data-status"]: status,
-      });
-      const figure = notificationsUI.createElement("figure");
-      const commentedImgfigure = notificationsUI.createElement("figure", {class: "commented-figure"});
 
-      const img = notificationsUI.createElement("img", {
+      const article = this.createElement("article", {
+        class: "notification-content",
+        "data-status": status,
+      });
+
+      const figure = this.createElement("figure");
+      const img = this.createElement("img", {
         src: `./images/${avatar}`,
         alt: name,
       });
-      const commentedImg = notificationsUI.createElement("img", {
-        src: `./images/${pictureCommented}`,
-        ["data-picture-commented"]: pictureCommented,
-        alt: name,
-      });
 
-      const divContainer = notificationsUI.createElement("div", {
+      const divContainer = this.createElement("div", {
         class: "notification-content-container",
       });
 
-      const spanActionElement = notificationsUI.createElement(
+      const spanActionElement = this.createElement(
         "span",
-        { class: "notification-action", ["data-action"]: action },
+        { class: "notification-action", "data-action": action },
         action
       );
-      const spanUnreadElement = notificationsUI.createElement("span", {
-        ["data-status"]: status,
+
+      const spanUnreadElement = this.createElement("span", {
+        "data-status": status,
       });
 
-      const spanMsgElement = notificationsUI.createElement(
+      const spanMsgElement = this.createElement(
         "span",
-        { class: "notification-message", ["data-message"]: true },
+        { class: "notification-message", "data-message": true },
         privateMsg
       );
 
       const spanNotificationItemElement = group
-        ? notificationsUI.createElement(
+        ? this.createElement(
             "span",
-            { class: "notification-item", ["data-group"]: group },
+            { class: "notification-item", "data-group": group },
             group
           )
-        : notificationsUI.createElement(
+        : this.createElement(
             "span",
-            { class: "notification-item", ["data-post"]: post },
+            { class: "notification-item", "data-post": post },
             post
           );
 
-      const h2 = notificationsUI.createElement("h2", {}, `${name} `);
-      const timeElement = notificationsUI.createElement(
+      const h2 = this.createElement("h2", {}, `${name} `);
+      const timeElement = this.createElement(
         "time",
-        { ["data-time"]: time },
+        { "data-time": time },
         time
       );
 
-      const commentedImgDiv = notificationsUI.createElement("div", {
+      const commentedImgDiv = this.createElement("div", {
         class: "commented-img-container",
       });
 
-      function pictureCommentedData() {
-        pictureCommented && article.appendChild(commentedImgDiv);
-        pictureCommented && commentedImgDiv.appendChild(figure);
-        pictureCommented && commentedImgDiv.appendChild(divContainer);
-        pictureCommented && divContainer.appendChild(h2);
-        pictureCommented && divContainer.appendChild(timeElement);
-        pictureCommented && article.appendChild(commentedImgfigure);
-        commentedImg && commentedImgfigure.appendChild(commentedImg);
+      const commentedImgFigure = pictureCommented
+        ? this.createElement("figure", { class: "commented-figure" })
+        : null;
+        
+      const commentedImg = pictureCommented
+        ? this.createElement("img", {
+            src: `./images/${pictureCommented}`,
+            "data-picture-commented": pictureCommented,
+            alt: name,
+          })
+        : null;
+
+      main.appendChild(article);
+      article.appendChild(figure);
+      figure.appendChild(img);
+      article.appendChild(divContainer);
+      divContainer.appendChild(h2);
+      h2.appendChild(spanActionElement);
+      h2.appendChild(spanNotificationItemElement);
+      h2.appendChild(spanUnreadElement);
+      divContainer.appendChild(timeElement);
+
+      if (privateMsg) {
+        divContainer.appendChild(spanMsgElement);
       }
 
-      function globalData() {
-        main.appendChild(article);
-        !pictureCommented && article.appendChild(figure);
-        !pictureCommented && article.appendChild(divContainer);
-        !pictureCommented && divContainer.appendChild(h2);
-        !pictureCommented && divContainer.appendChild(timeElement);
-        privateMsg && divContainer.appendChild(spanMsgElement);
-        figure.appendChild(img);
-        h2.appendChild(spanActionElement)
-          .appendChild(spanNotificationItemElement)
-          .appendChild(spanUnreadElement);
+      if (pictureCommented) {
+        article.appendChild(commentedImgDiv);
+        commentedImgDiv.appendChild(figure);
+        commentedImgDiv.appendChild(divContainer);
+        article.appendChild(commentedImgFigure);
+        commentedImgFigure.appendChild(commentedImg);
       }
-      globalData();
-      pictureCommentedData();
     });
   },
   updateUnreadClass(status) {
