@@ -1,0 +1,38 @@
+// GOOGLE FONT IMPORT
+@import url('https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&display=swap');
+
+// FONT
+$font-commissioner: "Commissioner", sans-serif;
+
+// COLORS
+$moderate-cyan: hsl(176, 50%, 47%);
+$dark-cyan: hsl(176, 72%, 28%);
+$black: hsl(0, 0%, 0%);
+$dark-gray: hsl(0, 0%, 48%);
+$very-light-gray-white: hsl(0, 0%, 98%);
+$white:hsl(0, 0%, 100%);
+
+// CSS RESET
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// BODY
+
+body{
+  font-family: $font-commissioner;
+  background-color: $very-light-gray-white;
+}
