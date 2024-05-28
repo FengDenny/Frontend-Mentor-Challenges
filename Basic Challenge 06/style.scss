@@ -35,16 +35,15 @@ html {
   transition: font-weight 0.3s ease-in, color 0.3s ease-in;
 }
 
-
-@mixin borderBottom(){
-  content:"";
+@mixin borderBottom($top: 0) {
+  content: "";
   position: absolute;
-  top:0;
-  left:0;
-  border-bottom:1px solid $light-grayish-blue;
-  width:100%;
-  margin:10px 0;
-  margin-top:3rem;
+  top: $top;
+  left: 0;
+  border-bottom: 1px solid $light-grayish-blue;
+  width: 100%;
+  margin: 10px 0;
+  margin-top: 3rem;
 }
 
 // BODY
@@ -87,7 +86,6 @@ main {
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
-      gap:1rem;
 
       input[type="checkbox"] {
         position: absolute;
@@ -106,11 +104,11 @@ main {
           transform: translateX(0);
         }
 
-        &:checked ~ .toggle-text[data-role ="annually"]{
-          @include pricingToggled()
+        &:checked ~ .toggle-text[data-role="annually"] {
+          @include pricingToggled();
         }
-        &:not(:checked) ~ .toggle-text[data-role ="monthly"]{
-          @include pricingToggled()
+        &:not(:checked) ~ .toggle-text[data-role="monthly"] {
+          @include pricingToggled();
         }
 
         &:focus-visible + .toggle-label {
@@ -143,66 +141,64 @@ main {
       }
     }
     .toggle-text {
-     
       color: $light-grayish-blue;
       font-weight: 600;
       font-size: 0.8rem;
 
-      &[data-role="annually"]{
-        order:-1
+      &[data-role="annually"] {
+        order: -1;
       }
-
     }
 
-
-    .pricing-card-container{
+    .pricing-card-container {
       display: contents;
       .pricing-card {
         position: relative;
         background-color: #fff;
         padding: 15px;
-        width: 80%;
-        max-width: 500px;
+        width: 85%;
+        max-width:415px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        border-radius: 5px;
+        box-shadow: 0 12px 12px rgba(109, 109, 109, 0.1);
+        margin:18px 0;
 
-        &.middle{
-          background-color:$light-purple;
+        &.middle {
+          background-color: $light-purple;
           h2 {
             color: $very-light-grayish-blue;
           }
           .price {
             h3 {
-              color:$very-light-grayish-blue;
+              color: $very-light-grayish-blue;
             }
           }
 
-          .pricing-card-included{
-            p{
-              color:$very-light-grayish-blue;
+          .pricing-card-included {
+            p {
+              color: $very-light-grayish-blue;
             }
           }
-          
-          .pricing-cta{
-            background-color:$very-light-grayish-blue;
-            color:$light-purple;
+
+          .pricing-cta {
+            background-color: $very-light-grayish-blue;
+            color: $light-purple;
           }
         }
-        
-        &:first-child{
-          margin-top:3rem;
+
+        &:first-child {
+          margin-top: 3rem;
         }
 
-        border-radius: 5px;
-        box-shadow: 0 12px 12px rgba(109, 109, 109, 0.1);
-  
+
         h2 {
           font-size: 0.9rem;
           color: $grayish-blue;
         }
-  
+
         .price {
           margin-top: 0.5rem;
           position: relative;
@@ -210,12 +206,12 @@ main {
             font-size: 3rem;
             color: $dark-grayish-blue;
           }
-  
+
           &[data-monthly] {
             opacity: 1;
             transition: opacity 0.25s ease-in;
           }
-  
+
           &[data-annually] {
             position: absolute;
             top: 32px;
@@ -224,49 +220,48 @@ main {
           }
         }
 
-        .pricing-card-included{
+        .pricing-card-included {
           position: relative;
-          width:100%;
-          p{
+          width: 100%;
+          p {
             position: relative;
-            margin-top:1rem;
-            font-size: 1rem;
-            color:$grayish-blue;
+            margin-top: 1rem;
+            color: $grayish-blue;
             font-weight: 600;
-            padding: 5px 0;
-            text-align: center;     
+            padding: 9px 0;
+            text-align: center;
 
-            span{
+            span {
               position: relative;
-              top:1rem;
+              top: 1rem;
+              font-size: 0.9rem;
             }
-            
-            &::before{
-              @include borderBottom();
-            }      
-            &:last-child::after{
-             @include borderBottom()
-            }      
+
+            &::before {
+              @include borderBottom(-39px);
+            }
+            &:last-child::after {
+              @include borderBottom(7px);
+            }
           }
         }
 
-        .pricing-cta{
-          background-color:$light-purple;
-          color:$very-light-grayish-blue;
-          padding:10px;
-          margin-top:3rem;
-          width:80%;
-          border:none;
-          border-radius:5px;
+        .pricing-cta {
+          background-color: $light-purple;
+          color: $very-light-grayish-blue;
+          padding: 10px;
+          margin-top: 3rem;
+          width: 80%;
+          border: none;
+          border-radius: 5px;
           text-transform: uppercase;
           font-size: 0.75rem;
           font-weight: bold;
           letter-spacing: 1px;
+          cursor: pointer;
         }
-
       }
     }
-
 
     .pricing-toggler {
       input[type="checkbox"] {
@@ -278,5 +273,19 @@ main {
         }
       }
     }
+  }
+}
+
+// MEDIA QUERY (TABLE/ DESKTOP)
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  main {
+    &::before {
+      top: 0;
+    right: 0;
+    width: 40%;
+    height: 77%;
+    }
+
   }
 }
