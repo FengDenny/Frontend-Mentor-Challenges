@@ -62,8 +62,8 @@ main {
     position: absolute;
     top: -16px;
     right: 0;
-    width: 40%;
-    height: 55%;
+    width: 120px;
+    height: 447px;
     background-image: url("./images/bg-top.svg");
     background-size: cover;
     z-index: -1;
@@ -157,14 +157,14 @@ main {
         background-color: #fff;
         padding: 15px;
         width: 85%;
-        max-width:415px;
+        max-width: 415px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        border-radius: 5px;
+        border-radius: 10px;
         box-shadow: 0 12px 12px rgba(109, 109, 109, 0.1);
-        margin:18px 0;
+        margin: 18px 0;
 
         &.middle {
           background-color: $light-purple;
@@ -186,13 +186,17 @@ main {
           .pricing-cta {
             background-color: $very-light-grayish-blue;
             color: $light-purple;
+            &:hover{
+              background-color: transparent;
+              color: $very-light-grayish-blue;
+              border:1px solid $very-light-grayish-blue;
+            }
           }
         }
 
         &:first-child {
           margin-top: 3rem;
         }
-
 
         h2 {
           font-size: 0.9rem;
@@ -210,11 +214,14 @@ main {
           &[data-monthly] {
             opacity: 1;
             transition: opacity 0.25s ease-in;
+            width:200px;
+            text-align: center;
           }
+
 
           &[data-annually] {
             position: absolute;
-            top: 32px;
+            top: 39px;
             opacity: 0;
             transition: opacity 0.25s ease-in;
           }
@@ -250,15 +257,22 @@ main {
           background-color: $light-purple;
           color: $very-light-grayish-blue;
           padding: 10px;
-          margin-top: 3rem;
+          margin-top: 3.5rem;
           width: 80%;
-          border: none;
+          border: 1px solid transparent;
           border-radius: 5px;
           text-transform: uppercase;
           font-size: 0.75rem;
           font-weight: bold;
           letter-spacing: 1px;
           cursor: pointer;
+          transition:all 0.3s ease-in;
+
+          &:hover{
+            background:transparent;
+            border:1px solid $light-purple;
+            color:$light-purple;
+          }
         }
       }
     }
@@ -278,14 +292,87 @@ main {
 
 // MEDIA QUERY (TABLE/ DESKTOP)
 
-@media screen and (min-width: 768px) and (max-width: 1023px) {
+@media screen and (min-width: 768px) {
   main {
     &::before {
       top: 0;
-    right: 0;
-    width: 40%;
-    height: 77%;
+      width: 259px;
+      height: 729px;
     }
 
+
+    @media screen and (max-width:1023px){
+      .pricing-container{
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: -86px;
+          width: 400px;
+          height: 300px;
+          background-image: url("./images/bg-bottom.svg");
+          background-size: cover;
+          z-index: -1;
+        }
+      }
+    }
+   
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main {
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 400px;
+      height: 300px;
+      background-image: url("./images/bg-bottom.svg");
+      background-size: cover;
+      z-index: -1;
+    }
+    .pricing-container {
+      grid: 1fr / 1fr 1fr;
+      max-width: 100%;
+
+      header {
+        grid-area: 1 / 1 / span 1 / span 2;
+      }
+
+      .pricing-toggler {
+        grid-area: 2 / 1 / span 1 / span 2;
+      }
+
+      .pricing-card-container {
+        display: flex;
+        width: 100%;
+
+        .pricing-card {
+          margin: 50px 0;
+          padding:36px;
+
+          &.middle {
+            margin: 35px 0;
+
+            .price[data-annually] {
+              h3 {
+                position: relative;
+                top: 1rem;
+              }
+            }
+          }
+
+          .price {
+        
+            &[data-annually] {
+              top: 50px;
+            }
+          }
+        }
+      }
+    }
   }
 }
