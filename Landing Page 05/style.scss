@@ -123,12 +123,15 @@ main {
       background-color: $very-light-gray-white;
       border-radius: 15px;
       margin: 0 25px;
+      box-shadow: 0 12px 12px rgba(0, 0, 0, 0.233);
       ul {
         li {
           position: relative;
           list-style: none;
-          padding: 20px 0;
+          padding: 32px 0;
           a {
+            position: relative;
+            bottom:0.8rem;
             text-decoration: none;
             color: $black;
             font-size: 1.2rem;
@@ -138,7 +141,7 @@ main {
           &:not(:last-child)::after {
             content: "";
             position: absolute;
-            margin-top: 3.6rem;
+            margin-top: 4.4rem;
             top: 0;
             left: 0;
             width: 100%;
