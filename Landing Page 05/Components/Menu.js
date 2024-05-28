@@ -8,9 +8,15 @@ const menuLogic = {
   handleOpenMenu() {
     this.openMenu.addEventListener("click", () => {
       const show = this.openMenu.classList.toggle("show");
-      this.menuOpened.classList.toggle("not-show", !show);
+      const contentHeight = show ? this.menuOpened.scrollHeight + "px" : "0";
+      console.log(contentHeight);
+      this.menuOpened.style.maxHeight = contentHeight;
+      this.menuOpened.classList.toggle("collapsed", !show);
       this.overlay.classList.toggle("not-show", !show);
+      this.menuOpened.classList.toggle("expanded", show);
+      this.overlay.classList.toggle("show", show);
       this.isDefault = !this.isDefault;
+
       menuUI.handleUpdateIcon(this.isDefault);
     });
   },
