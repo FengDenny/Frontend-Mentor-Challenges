@@ -126,6 +126,11 @@ main {
         cursor: pointer;
         margin: 0 10px;
         border-radius: 20px;
+        transition: background-color 0.3s ease-in;
+
+        &:hover{
+          background-color:hsla(250, 96%, 78%, 0.801);
+        }
 
         .toggle-ball {
           position: absolute;
@@ -213,7 +218,7 @@ main {
 
           &[data-monthly] {
             opacity: 1;
-            transition: opacity 0.25s ease-in;
+            transition: opacity 0.25s ease-in-out 20ms;
             width:200px;
             text-align: center;
           }
@@ -223,7 +228,7 @@ main {
             position: absolute;
             top: 39px;
             opacity: 0;
-            transition: opacity 0.25s ease-in;
+            transition: opacity 0.25s ease-in-out 20ms;
           }
         }
 
@@ -360,15 +365,17 @@ main {
             .price[data-annually] {
               h3 {
                 position: relative;
-                top: 1rem;
+                top: 2rem;
               }
             }
           }
 
+          &:not(.middle) {
           .price {
         
-            &[data-annually] {
-              top: 50px;
+              &[data-annually] {
+                top: 3.5rem;
+              }
             }
           }
         }
