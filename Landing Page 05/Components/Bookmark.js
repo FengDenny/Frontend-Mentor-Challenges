@@ -30,15 +30,7 @@ const bookmarkUI = {
       bookmarkLogic.bookmarkedCircle.setAttribute("fill", "hsl(176, 72%, 28%)");
       bookmarkLogic.bookmarkedPath.setAttribute("fill", "hsl(0, 0%, 98%)");
     }
-  },
-  createElement(tagName, attributes = {}, textContent = "") {
-    const element = document.createElement(tagName);
-    Object.keys(attributes).forEach((attribute) => {
-      element.setAttribute(attribute, attributes[attribute]);
-    });
-    element.textContent = textContent;
-    return element;
-  },
+  }
 };
 
 bookmarkLogic.handleBookmarkClicked();
