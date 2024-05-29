@@ -4,17 +4,19 @@ const menuLogic = {
   menuOpened: document.getElementById("menu"),
   overlay: document.getElementById("overlay"),
   isDefault: true,
-
+  
   handleOpenMenu() {
+    const secondaryNavUl = this.menuOpened.querySelector("ul");
     this.openMenu.addEventListener("click", () => {
       const show = this.openMenu.classList.toggle("show");
       const contentHeight = show ? this.menuOpened.scrollHeight + "px" : "0";
-      console.log(contentHeight);
       this.menuOpened.style.maxHeight = contentHeight;
       this.menuOpened.classList.toggle("collapsed", !show);
-      this.overlay.classList.toggle("not-show", !show);
       this.menuOpened.classList.toggle("expanded", show);
+      this.overlay.classList.toggle("not-show", !show);
       this.overlay.classList.toggle("show", show);
+      secondaryNavUl.classList.toggle("not-show", !show)
+      secondaryNavUl.classList.toggle("show", show)
       this.isDefault = !this.isDefault;
 
       menuUI.handleUpdateIcon(this.isDefault);
