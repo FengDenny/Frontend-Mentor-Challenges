@@ -1,1 +1,44 @@
-console.log("BackedProject.js")
+const backedProjectModalLogic = {
+  backProjectClicked: document.getElementById("back-project"),
+
+  handleBackProjectClicked() {
+    this.backProjectClicked.addEventListener("click", () => {
+      if (!document.getElementById("open-modal")) {
+        backedProjectModalUI.createModalContent();
+        backedProjectModalUI.modalContainer.style.opacity = "1";
+      }
+    });
+  },
+};
+
+const backedProjectModalUI = {
+  modalContainer: document.getElementById("modal-container"),
+
+  createElement(tagName, attributes = {}, textContent = "") {
+    const element = document.createElement(tagName);
+    Object.keys(attributes).forEach((attribute) => {
+      element.setAttribute(attribute, attributes[attribute]);
+    });
+    element.textContent = textContent;
+    return element;
+  },
+  createHeadingH2(attributes) {
+    return this.createElement("h2", attributes);
+  },
+
+  createModalContent() {
+    const modal = this.createElement("div", {
+      id: "open-modal",
+      class: "modal",
+    });
+
+    const modalHeading = this.createHeadingH2({ class: "modalHeading"});
+    modalHeading.textContent = "Back this project";
+
+    modal.appendChild(modalHeading);
+
+    this.modalContainer.appendChild(modal);
+  },
+};
+
+backedProjectModalLogic.handleBackProjectClicked();
