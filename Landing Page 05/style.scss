@@ -66,8 +66,6 @@ body {
 .not-show {
   opacity: 0;
   pointer-events: none;
-
-
 }
 
 // MAIN
@@ -262,33 +260,34 @@ main {
       height: 300px;
       border-radius: 5px;
 
-      .modal-heading{
-        padding:20px;
+      .modal-heading {
+        padding: 20px;
         font-size: 1.2rem;
       }
 
-      .modal-paragraph{
-        padding:0 20px;
-        color:$dark-gray;
-        line-height:1.5rem;
-        width:100%;
+      .modal-paragraph {
+        padding: 0 20px;
+        color: $dark-gray;
+        line-height: 1.5rem;
+        width: 100%;
         max-width: 400px;
       }
 
-     .modal-close{
-      position: absolute;
-      right:1rem;
-      top:1.5rem;
-      cursor: pointer;
+      .modal-close {
+        position: absolute;
+        right: 1rem;
+        top: 1.5rem;
+        cursor: pointer;
 
-
-      &:where(:hover, :active, :focus-visible){
-
-        path{
-          fill:$black;
+        path {
+          &:hover,
+          &:active,
+          &:focus-visible {
+            fill: $black;
+            opacity:1
+          }
         }
       }
-     }
     }
   }
 }
