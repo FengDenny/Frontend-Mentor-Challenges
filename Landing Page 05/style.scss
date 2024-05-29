@@ -223,6 +223,13 @@ main {
             background-color: transparent;
             position: relative;
             bottom: 10px;
+
+            svg{
+              circle, path{
+                transition: fill 0.4s ease;
+              }
+            }
+
           }
         }
       }
