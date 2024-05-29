@@ -264,7 +264,6 @@ main {
 
       .modal-heading{
         padding:20px;
-
         font-size: 1.2rem;
       }
 
@@ -276,10 +275,20 @@ main {
         max-width: 400px;
       }
 
-      // .modal-heading,
-      // .modal-paragraph{
-      //   padding:20px;
-      // }
+     .modal-close{
+      position: absolute;
+      right:1rem;
+      top:1.5rem;
+      cursor: pointer;
+
+
+      &:where(:hover, :active, :focus-visible){
+
+        path{
+          fill:$black;
+        }
+      }
+     }
     }
   }
 }
