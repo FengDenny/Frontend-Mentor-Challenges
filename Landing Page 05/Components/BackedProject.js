@@ -7,18 +7,20 @@ const backedProjectModalLogic = {
         backedProjectModalUI.createModalContent();
         backedProjectModalUI.modalContainer.style.opacity = "1";
         backedProjectModalUI.modalContainer.style.pointerEvents = "auto";
-        this.handleModalClose()
+        this.handleModalClose();
       }
     });
   },
   handleModalClose() {
-    const closeButton = document.getElementById("close-modal")
+    const closeButton = document.getElementById("close-modal");
     if (closeButton) {
       closeButton.addEventListener("click", () => {
-        backedProjectModalUI.modalContainer.style.opacity= "0";
-        backedProjectModalUI.modalContainer.style.pointerEvents= "none";
+        backedProjectModalUI.modalContainer.style.opacity = "0";
+        backedProjectModalUI.modalContainer.style.pointerEvents = "none";
         while (backedProjectModalUI.modalContainer.firstChild) {
-          backedProjectModalUI.modalContainer.removeChild(backedProjectModalUI.modalContainer.firstChild);
+          backedProjectModalUI.modalContainer.removeChild(
+            backedProjectModalUI.modalContainer.firstChild
+          );
         }
       });
     }
@@ -38,10 +40,7 @@ const backedProjectModalUI = {
 
   createSVGElementNS(qualifiedName, attributes = {}, textContent = "") {
     const URI = "http://www.w3.org/2000/svg";
-    const nsElement = document.createElementNS(
-      URI,
-      qualifiedName
-    );
+    const nsElement = document.createElementNS(URI, qualifiedName);
     Object.keys(attributes).forEach((attribute) => {
       nsElement.setAttribute(attribute, attributes[attribute]);
     });
@@ -49,25 +48,33 @@ const backedProjectModalUI = {
     return nsElement;
   },
 
+  createDiv(attributes) {
+    return this.createElement("div", attributes);
+  },
   createHeadingH2(attributes) {
     return this.createElement("h2", attributes);
   },
   createParagraph(attributes) {
     return this.createElement("p", attributes);
   },
+  createInputTypeRadio(attribute) {
+    return this.createElement("input", attribute);
+  },
+  createLabel(attribute, textContent) {
+    return this.createElement("label", attribute, textContent);
+  },
 
-  createModalContent() {
-    const modal = this.createElement("div", {
-      id: "open-modal",
-      class: "modal",
-    });
-
+  createModalHeaderContent() {
     const modalHeading = this.createHeadingH2({ class: "modal-heading" });
     modalHeading.textContent = "Back this project";
-    const modalParagrapgh = this.createParagraph({ class: "modal-paragraph" });
-    modalParagrapgh.textContent =
+    const modalParagraph = this.createParagraph({ class: "modal-paragraph" });
+    modalParagraph.textContent =
       "Want to support us in bringing Mastercraft Bamboo Monitor Riser out in the world?";
 
+    return { modalHeading, modalParagraph };
+  },
+
+  createCloseModalButton() {
     const closeModalSVG = this.createSVGElementNS("svg", {
       id: "close-modal",
       class: "modal-close",
@@ -83,9 +90,42 @@ const backedProjectModalUI = {
     });
 
     closeModalSVG.appendChild(path);
+
+    return { closeModalSVG };
+  },
+
+  createModalBackedCard(id, dataTarget, value, labelFor, textContent) {
+    const cardContainer = this.createDiv({ class: "modal-card-container" });
+    const inputLabelContainer = this.createDiv({class:"input-label-container"});
+    const createInputRadio = this.createInputTypeRadio({
+      type: "radio",
+      id,
+      ["data-target"]: dataTarget,
+      value
+    });
+    const createLabel = this.createLabel({ for:labelFor}, textContent);
+
+    inputLabelContainer.appendChild(createInputRadio)
+    inputLabelContainer.appendChild(createLabel);
+    cardContainer.appendChild(inputLabelContainer)
+
+    return cardContainer
+
+  },
+  createModalContent() {
+    const modal = this.createElement("div", {
+      id: "open-modal",
+      class: "modal",
+    });
+    const { modalHeading, modalParagraph } = this.createModalHeaderContent();
+    const { closeModalSVG } = this.createCloseModalButton();
+    const noReward = this.createModalBackedCard("reward-none", "no-reward", "Pledge with no reward", "reward-none", "Pledge with no reward")
+
+
     modal.appendChild(closeModalSVG);
     modal.appendChild(modalHeading);
-    modal.appendChild(modalParagrapgh);
+    modal.appendChild(modalParagraph);
+    modal.appendChild(noReward)
 
     this.modalContainer.appendChild(modal);
   },
