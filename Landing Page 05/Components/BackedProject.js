@@ -25,6 +25,9 @@ const backedProjectModalUI = {
   createHeadingH2(attributes) {
     return this.createElement("h2", attributes);
   },
+  createParagraph(attributes) {
+    return this.createElement("p", attributes);
+  },
 
   createModalContent() {
     const modal = this.createElement("div", {
@@ -32,10 +35,14 @@ const backedProjectModalUI = {
       class: "modal",
     });
 
-    const modalHeading = this.createHeadingH2({ class: "modalHeading"});
+    const modalHeading = this.createHeadingH2({ class: "modal-heading" });
     modalHeading.textContent = "Back this project";
+    const modalParagrapgh = this.createParagraph({ class: "modal-paragraph" });
+    modalParagrapgh.textContent =
+      "Want to support us in bringing Mastercraft Bamboo Monitor Riser out in the world?";
 
     modal.appendChild(modalHeading);
+    modal.appendChild(modalParagrapgh);
 
     this.modalContainer.appendChild(modal);
   },
