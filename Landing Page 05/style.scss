@@ -255,11 +255,31 @@ main {
     transition: opacity 0.3s ease-in-out;
 
     .modal {
+      position: relative;
       background-color: $very-light-gray-white;
       width: 90%;
       max-width: 500px;
       height: 300px;
       border-radius: 5px;
+
+      .modal-heading{
+        padding:20px;
+
+        font-size: 1.2rem;
+      }
+
+      .modal-paragraph{
+        padding:0 20px;
+        color:$dark-gray;
+        line-height:1.5rem;
+        width:100%;
+        max-width: 400px;
+      }
+
+      // .modal-heading,
+      // .modal-paragraph{
+      //   padding:20px;
+      // }
     }
   }
 }
