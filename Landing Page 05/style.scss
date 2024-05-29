@@ -66,6 +66,8 @@ body {
 .not-show {
   opacity: 0;
   pointer-events: none;
+
+
 }
 
 // MAIN
@@ -176,6 +178,7 @@ main {
 
     &.main-section {
       margin: -2rem auto;
+      position: relative;
 
       figure {
         position: relative;
@@ -224,15 +227,39 @@ main {
             position: relative;
             bottom: 10px;
 
-            svg{
-              circle, path{
+            svg {
+              circle,
+              path {
                 transition: fill 0.4s ease;
               }
             }
-
           }
         }
       }
+    }
+  }
+
+  .modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+
+    .modal {
+      background-color: $very-light-gray-white;
+      width: 90%;
+      max-width: 500px;
+      height: 300px;
+      border-radius: 5px;
     }
   }
 }
