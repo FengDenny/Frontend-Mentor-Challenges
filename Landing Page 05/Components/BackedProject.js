@@ -29,17 +29,29 @@ const backedProjectModalLogic = {
   handlePledgeClicked() {
     const pledge = document.querySelector("input[data-target='pledge']")
     const modalCardContainer = document.getElementById("modal-card-container");
+    const pledgeContentContainer = document.getElementById("pledge-content-container")
 
     pledge.addEventListener('click', () => {
+      let pledgeChecked =  pledge.checked
       if(pledge.checked && pledge.hasAttribute("data-was-checked")){
         pledge.checked = false
+        pledgeChecked = pledge.checked
         modalCardContainer.style.border = ""
+        pledgeContentContainer.classList.add("collapsed")
+        pledgeContentContainer.classList.remove("expanded")
         pledge.removeAttribute("data-was-checked")
       }else{
         pledge.checked = true
+        pledgeChecked = pledge.checked
         modalCardContainer.style.border = "2px solid hsl(176, 72%, 28%)"
+        pledgeContentContainer.classList.remove("collapsed")
+        pledgeContentContainer.classList.add("expanded")
         pledge.setAttribute("data-was-checked", true)
       }
+
+      const contentHeight = pledgeChecked ? pledgeContentContainer.scrollHeight + "px" : "0";
+      console.log(contentHeight)
+      pledgeContentContainer.style.maxHeight = contentHeight;
     })
   },
 };
@@ -119,7 +131,7 @@ const backedProjectModalUI = {
 
   createPledgeNoReward() {
     const noReward = this.createModalBackedCard(
-      "reward-none",
+      "no-reward",
       "pledge",
       "Pledge with no reward",
       "reward-none",
@@ -164,6 +176,7 @@ const backedProjectModalUI = {
 
     const pledgeContentContainer = this.createDiv({
       class: "pledge-content-container collapsed",
+      id:"pledge-content-container"
     });
     const pledgeContent = this.createDiv({
       class: "pledge-content",
