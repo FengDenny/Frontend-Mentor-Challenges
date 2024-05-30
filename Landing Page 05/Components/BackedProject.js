@@ -18,11 +18,11 @@ export const backedProjectModalLogic = {
     const closeButton = document.getElementById("close-modal");
     if (closeButton) {
       closeButton.addEventListener("click", () => {
-       this.handleModalOnClose()
+        this.handleModalOnClose();
       });
     }
   },
-  handleModalOnClose(){
+  handleModalOnClose() {
     backedProjectModalUI.modalContainer.style.opacity = "0";
     backedProjectModalUI.modalContainer.style.pointerEvents = "none";
     while (backedProjectModalUI.modalContainer.firstChild) {
@@ -32,34 +32,84 @@ export const backedProjectModalLogic = {
     }
   },
 
-
   handlePledgeClicked() {
-    const pledge = document.querySelector("input[data-target='pledge']")
-    const modalCardContainer = document.getElementById("modal-card-container");
-    const pledgeContentContainer = document.getElementById("pledge-content-container")
-   const  continuePledgeBtn = document.getElementById("continue-pledge")
-    pledge.addEventListener('click', () => {
-      let pledgeChecked =  pledge.checked
-      if(pledge.checked && pledge.hasAttribute("data-was-checked")){
-        pledge.checked = false
-        pledgeChecked = pledge.checked
-        modalCardContainer.style.border = ""
-        pledgeContentContainer.classList.add("collapsed")
-        pledgeContentContainer.classList.remove("expanded")
-        pledge.removeAttribute("data-was-checked")
-      }else{
-        pledge.checked = true
-        pledgeChecked = pledge.checked
-        modalCardContainer.style.border = "2px solid hsl(176, 72%, 28%)"
-        pledgeContentContainer.classList.remove("collapsed")
-        pledgeContentContainer.classList.add("expanded")
-        backedProjectModalCompletedLogic.handleContinuePledge(continuePledgeBtn, "open-modal")
-        pledge.setAttribute("data-was-checked", true)
-      }
+    const modalCardContainer = document.querySelectorAll(
+      ".modal-card-container[data-modal-container]"
+    );
 
-      const contentHeight = pledgeChecked ? pledgeContentContainer.scrollHeight + "px" : "0";
-      pledgeContentContainer.style.maxHeight = contentHeight;
-    })
+    // First iteration to close other inputs
+    modalCardContainer.forEach((otherContainer) => {
+      const otherPledgeInput = otherContainer.querySelector(
+        "input[data-target='pledge']"
+      );
+
+      otherPledgeInput.addEventListener("click", () => {
+        if (!otherPledgeInput.checked) return; // Exit if already unchecked
+
+        modalCardContainer.forEach((container) => {
+          if (container !== otherContainer) {
+            const pledgeInput = container.querySelector(
+              "input[data-target='pledge']"
+            );
+            const targetContainer = container.querySelector(
+              `.pledge-content-container[data-target-id='${pledgeInput.id}']`
+            );
+
+            pledgeInput.checked = false;
+            targetContainer.classList.add("collapsed");
+            targetContainer.classList.remove("expanded");
+            delete pledgeInput.dataset.wasChecked;
+            container.style.border = ""; 
+            targetContainer.style.maxHeight = "0";
+          }
+        });
+      });
+    });
+
+    // Second iteration to handle the current input's border change
+    modalCardContainer.forEach((modalContainer) => {
+      modalContainer.addEventListener("click", (event) => {
+        if (event.target.matches("input[data-target='pledge']")) {
+          const pledgeInput = event.target;
+          const targetId = pledgeInput.id;
+          const targetContainer = document.querySelector(
+            `.pledge-content-container[data-target-id='${targetId}']`
+          );
+          const continuePledgeBtn = targetContainer.querySelector(
+            `button[data-complete-id='${targetId}']`
+          );
+
+          let pledgeChecked = pledgeInput.checked;
+          if (pledgeInput.checked && pledgeInput.dataset.wasChecked) {
+            pledgeInput.checked = false;
+            pledgeChecked = pledgeInput.checked;
+            modalContainer.style.border = "";
+            targetContainer.classList.add("collapsed");
+            targetContainer.classList.remove("expanded");
+            delete pledgeInput.dataset.wasChecked;
+          } else {
+            pledgeInput.checked = true;
+            pledgeChecked = pledgeInput.checked;
+            modalContainer.style.border = "2px solid hsl(176, 72%, 28%)";
+            targetContainer.classList.remove("collapsed");
+            targetContainer.classList.add("expanded");
+            pledgeInput.dataset.wasChecked = "true";
+
+            if (continuePledgeBtn) {
+              backedProjectModalCompletedLogic.handleContinuePledge(
+                continuePledgeBtn,
+                "open-modal"
+              );
+            }
+          }
+
+          const contentHeight = pledgeChecked
+            ? targetContainer.scrollHeight + "px"
+            : "0";
+          targetContainer.style.maxHeight = contentHeight;
+        }
+      });
+    });
   },
 };
 
@@ -136,12 +186,11 @@ export const backedProjectModalUI = {
     return { closeModalSVG };
   },
 
-  createPledgeNoReward() {
+  createPledgeNoReward(id) {
     const noReward = this.createModalBackedCard(
-      "no-reward",
+      id,
       "pledge",
       "Pledge with no reward",
-      "reward-none",
       "Pledge with no reward"
     );
     const noRewardP = this.createParagraph(
@@ -150,16 +199,38 @@ export const backedProjectModalUI = {
       As a backer, you will be signed up to receive product updates via email.`
     );
 
- 
-
-    const pledgeContent = this.createPledgeCTA("bamboo-stand", "25", "25");
+    const pledgeContent = this.createPledgeCTA(id, "0", "0", "0", true);
 
     noReward.appendChild(noRewardP);
     noReward.appendChild(pledgeContent);
     return { noReward };
   },
 
-  createPledgeCTA(id, min, value) {
+  createPledgeBamboo(id) {
+    // Pledge $25 or more
+    // 101 left
+
+    const bamboo = this.createModalBackedCard(
+      id,
+      "pledge",
+      "Bamboo Stand",
+      "Bamboo Stand"
+    );
+    const bambooP = this.createParagraph(
+      { class: "backed-p" },
+      `You get an ergonomic stand made of natural bamboo. 
+      You've helped us launch our promotional campaign, and
+      you’ll be added to a special Backer member list.`
+    );
+
+    const pledgeContent = this.createPledgeCTA(id, "25", "74", "25");
+
+    bamboo.appendChild(bambooP);
+    bamboo.appendChild(pledgeContent);
+    return { bamboo };
+  },
+
+  createPledgeCTA(id = "", min = "", max = "", value = "", noReward = false) {
     const pledgeAmountContainer = this.createDiv({
       class: "pledge-input-container",
     });
@@ -173,17 +244,18 @@ export const backedProjectModalUI = {
 
     const pledgeAmountInput = this.createInputType({
       type: "number",
-      id,
+      name: id,
+      ["data-input-id"]: id,
+      ["aria-label"]: "Pledge amount",
       min,
+      max,
       value,
       step: 1,
     });
 
-   
-
     const pledgeContentContainer = this.createDiv({
       class: "pledge-content-container collapsed",
-      id:"pledge-content-container"
+      ["data-target-id"]: id,
     });
     const pledgeContent = this.createDiv({
       class: "pledge-content",
@@ -191,8 +263,8 @@ export const backedProjectModalUI = {
 
     const pledgeAmountCTA = this.createCTA(
       {
-        id: "continue-pledge",
         class: "pledge-amount-cta",
+        ["data-complete-id"]: id,
       },
       "Continue"
     );
@@ -204,19 +276,38 @@ export const backedProjectModalUI = {
       "Enter your pledge"
     );
 
-    pledgeContentContainer.appendChild(pleadgeAmountHeader);
-    pledgeContentContainer.appendChild(pledgeContent);
-    pledgeAmountContainer.appendChild(dollarSignSpan);
-    pledgeAmountContainer.appendChild(pledgeAmountInput);
-    pledgeContent.appendChild(pledgeAmountContainer);
-    pledgeContent.appendChild(pledgeAmountCTA);
-    pledgeContentContainer.appendChild(pledgeContent);
+    if (noReward) {
+      const pledgeContent = this.createDiv({
+        class: "pledge-content-no-reward",
+      });
+      const pledgeAmountCTA = this.createCTA(
+        {
+          class: "pledge-no-reward-cta",
+          ["data-complete-id"]: id,
+        },
+        "Continue"
+      );
+      pledgeContent.appendChild(pledgeAmountContainer);
+      pledgeContent.appendChild(pledgeAmountCTA);
+      pledgeContentContainer.appendChild(pledgeContent);
+    } else {
+      pledgeContentContainer.appendChild(pleadgeAmountHeader);
+      pledgeContentContainer.appendChild(pledgeContent);
+      pledgeAmountContainer.appendChild(dollarSignSpan);
+      pledgeAmountContainer.appendChild(pledgeAmountInput);
+      pledgeContent.appendChild(pledgeAmountContainer);
+      pledgeContent.appendChild(pledgeAmountCTA);
+      pledgeContentContainer.appendChild(pledgeContent);
+    }
 
     return pledgeContentContainer;
   },
 
-  createModalBackedCard(id, dataTarget, value, labelFor, textContent) {
-    const cardContainer = this.createDiv({ class: "modal-card-container", id:"modal-card-container" });
+  createModalBackedCard(id, dataTarget, value, textContent) {
+    const cardContainer = this.createDiv({
+      class: "modal-card-container",
+      ["data-modal-container"]: "modal-card-container",
+    });
     const inputLabelContainer = this.createDiv({
       class: "input-label-container",
     });
@@ -226,17 +317,16 @@ export const backedProjectModalUI = {
       ["data-target"]: dataTarget,
       value,
     });
-    const createLabel = this.createLabel({ for: labelFor }, textContent);
+    const createLabel = this.createSpan({ class: "span-label" }, textContent);
     const customRadio = this.createLabel({
-      class:"custom-radio"
-    })
+      class: "custom-radio",
+    });
     const innerRaidioCircle = this.createSpan({
-      class:"inner-circle"
-    })
+      class: "inner-circle",
+    });
 
-
-    customRadio.appendChild(createInputRadio)
-    customRadio.appendChild(innerRaidioCircle)
+    customRadio.appendChild(createInputRadio);
+    customRadio.appendChild(innerRaidioCircle);
     inputLabelContainer.appendChild(customRadio);
     inputLabelContainer.appendChild(createLabel);
     cardContainer.appendChild(inputLabelContainer);
@@ -251,12 +341,14 @@ export const backedProjectModalUI = {
     });
     const { modalHeading, modalParagraph } = this.createModalHeaderContent();
     const { closeModalSVG } = this.createCloseModalButton();
-    const { noReward } = this.createPledgeNoReward();
+    const { noReward } = this.createPledgeNoReward("no-reward");
+    const { bamboo } = this.createPledgeBamboo("bamboo-stand");
 
     modal.appendChild(closeModalSVG);
     modal.appendChild(modalHeading);
     modal.appendChild(modalParagraph);
     modal.appendChild(noReward);
+    modal.appendChild(bamboo);
 
     this.modalContainer.appendChild(modal);
   },
