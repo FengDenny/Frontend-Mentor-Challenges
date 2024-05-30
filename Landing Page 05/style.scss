@@ -203,7 +203,7 @@ main {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 8px;
         margin-top: 1rem;
         margin-bottom: 10px;
 
@@ -290,75 +290,137 @@ main {
       }
 
       .modal-card-container {
-        padding: 20px;
         border: 1px solid $light-gray;
         width: 85%;
 
         margin: 20px 15px;
         border-radius: 5px;
 
+        .input-label-container,
+        .backed-p {
+          padding: 20px;
+        }
+
         .input-label-container {
           display: flex;
           gap: 20px;
+          cursor: pointer;
 
-          input[type="radio"] {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            width: 25px;
-            height: 25px;
-            border: 1px solid $light-gray;
-            border-radius: 50%;
-            position: relative;
+          &:hover {
+            color: $moderate-cyan;
 
-            &:checked::before {
-              content: "";
-              width: 12px;
-              height: 12px;
-              background-color: $moderate-cyan;
-              border-radius: 50%;
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
+            .custom-radio input[type="radio"] {
+              border: 1px solid $moderate-cyan;
             }
+          }
+
+          label,
+          .inner-circle,
+          input[type="radio"] {
+            cursor: pointer;
           }
 
           label {
             font-weight: bold;
             align-self: center;
           }
+
+          .custom-radio {
+            position: relative;
+            .inner-circle {
+              content: "";
+              width: 12px;
+              height: 12px;
+              background-color: transparent;
+              border-radius: 50%;
+              position: absolute;
+              top: 47%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              transition: background-color 0.3s;
+            }
+
+            input[type="radio"] {
+              appearance: none;
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              width: 25px;
+              height: 25px;
+              border: 1px solid $light-gray;
+              border-radius: 50%;
+              position: relative;
+
+              &:checked + .inner-circle {
+                background-color: $moderate-cyan;
+              }
+            }
+          }
         }
 
-        .backed-p{
-          padding-top:2rem;
-          color:$dark-gray;
+        .backed-p {
+          padding-top: 2rem;
+          color: $dark-gray;
           line-height: 1.5rem;
         }
 
-
-        .pledge-input-container{
+        .pledge-content-container {
           position: relative;
-          margin:10px 0;
-
-          .dollar-sign{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          &::before {
+            content: "";
             position: absolute;
-            left:5px;
-            top:14px;
-            padding-left:10px;
-            color:$light-gray;
+            width: 100%;
+            border-bottom: 1px solid $light-gray;
           }
-          
-          input[type="number"]{
-            padding:15px 25px;
-            width:90px;
+        }
+
+        .pledge-content {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          padding: 0 18px;
+        }
+
+        .pledge-content-heading {
+          margin-top: 2rem;
+          font-size: 1rem;
+          color: $dark-gray;
+          font-weight: 500;
+        }
+
+        .pledge-input-container {
+          position: relative;
+          margin: 30px 0px;
+
+          .dollar-sign {
+            position: absolute;
+            left: 5px;
+            top: 14px;
+            padding-left: 10px;
+            color: $light-gray;
+          }
+
+          input[type="number"] {
+            padding: 15px 25px;
+            width: 93px;
             border-radius: 20px;
-            border:1px solid $light-gray;
+            border: 1px solid $light-gray;
             font-weight: bold;
             font-size: 1rem;
             text-align: center;
           }
-
+        }
+        .pledge-amount-cta {
+          align-self: center;
+          width: 130px;
+          height: 50px;
+          border-radius: 20px;
+          border: 1px solid $moderate-cyan;
+          background-color: $moderate-cyan;
+          color: $very-light-gray-white;
+          font-weight: bold;
         }
       }
     }
