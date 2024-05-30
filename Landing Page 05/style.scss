@@ -42,14 +42,14 @@ body {
 .expanded {
   opacity: 1;
   pointer-events: auto;
-  transition: max-height 0.3s ease-in, opacity 0.3s ease-in,
-    transform 0.5s ease-out;
+  transition: max-height 200ms ease-in, opacity 250ms ease-in,
+    transform 300ms ease-in;
   max-height: 120px;
   transform: translateY(0);
 }
 
 .collapsed {
-  transition: max-height 0.3s ease-out, opacity 0.3s ease-out,
+  transition: max-height 0.3s ease-out, 
     transform 0.3s ease-out;
   transform: translateY(-10px);
   opacity: 0;
@@ -296,15 +296,11 @@ main {
         margin: 20px 15px;
         border-radius: 5px;
 
-        .input-label-container,
-        .backed-p {
-          padding: 20px;
-        }
-
         .input-label-container {
           display: flex;
           gap: 20px;
-          cursor: pointer;
+          padding-inline: 20px;
+          padding-top: 10px;
 
           &:hover {
             color: $moderate-cyan;
@@ -314,7 +310,6 @@ main {
             }
           }
 
-          label,
           .inner-circle,
           input[type="radio"] {
             cursor: pointer;
@@ -358,7 +353,7 @@ main {
         }
 
         .backed-p {
-          padding-top: 2rem;
+          padding: 20px;
           color: $dark-gray;
           line-height: 1.5rem;
         }
