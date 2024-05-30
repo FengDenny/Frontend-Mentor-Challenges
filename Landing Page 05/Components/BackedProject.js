@@ -1,4 +1,6 @@
-const backedProjectModalLogic = {
+import { backedProjectModalCompletedLogic } from "./BackedProjectCompleted";
+
+export const backedProjectModalLogic = {
   backProjectClicked: document.getElementById("back-project"),
 
   handleBackProjectClicked() {
@@ -16,21 +18,26 @@ const backedProjectModalLogic = {
     const closeButton = document.getElementById("close-modal");
     if (closeButton) {
       closeButton.addEventListener("click", () => {
-        backedProjectModalUI.modalContainer.style.opacity = "0";
-        backedProjectModalUI.modalContainer.style.pointerEvents = "none";
-        while (backedProjectModalUI.modalContainer.firstChild) {
-          backedProjectModalUI.modalContainer.removeChild(
-            backedProjectModalUI.modalContainer.firstChild
-          );
-        }
+       this.handleModalOnClose()
       });
     }
   },
+  handleModalOnClose(){
+    backedProjectModalUI.modalContainer.style.opacity = "0";
+    backedProjectModalUI.modalContainer.style.pointerEvents = "none";
+    while (backedProjectModalUI.modalContainer.firstChild) {
+      backedProjectModalUI.modalContainer.removeChild(
+        backedProjectModalUI.modalContainer.firstChild
+      );
+    }
+  },
+
+
   handlePledgeClicked() {
     const pledge = document.querySelector("input[data-target='pledge']")
     const modalCardContainer = document.getElementById("modal-card-container");
     const pledgeContentContainer = document.getElementById("pledge-content-container")
-
+   const  continuePledgeBtn = document.getElementById("continue-pledge")
     pledge.addEventListener('click', () => {
       let pledgeChecked =  pledge.checked
       if(pledge.checked && pledge.hasAttribute("data-was-checked")){
@@ -46,17 +53,17 @@ const backedProjectModalLogic = {
         modalCardContainer.style.border = "2px solid hsl(176, 72%, 28%)"
         pledgeContentContainer.classList.remove("collapsed")
         pledgeContentContainer.classList.add("expanded")
+        backedProjectModalCompletedLogic.handleContinuePledge(continuePledgeBtn, "open-modal")
         pledge.setAttribute("data-was-checked", true)
       }
 
       const contentHeight = pledgeChecked ? pledgeContentContainer.scrollHeight + "px" : "0";
-      console.log(contentHeight)
       pledgeContentContainer.style.maxHeight = contentHeight;
     })
   },
 };
 
-const backedProjectModalUI = {
+export const backedProjectModalUI = {
   modalContainer: document.getElementById("modal-container"),
   createElement(tagName, attributes = {}, textContent = "") {
     const element = document.createElement(tagName);
