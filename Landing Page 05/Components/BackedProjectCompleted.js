@@ -97,4 +97,3 @@ const backedProjectModalCompletedUI = {
   }
 };
 
-// backedProjectModalCompletedLogic.handleCompletedClick()
