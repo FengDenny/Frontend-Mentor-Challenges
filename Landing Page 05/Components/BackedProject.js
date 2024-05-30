@@ -48,20 +48,23 @@ const backedProjectModalUI = {
     return nsElement;
   },
 
-  createDiv(attributes) {
-    return this.createElement("div", attributes);
+  createDiv(attributes, textContent) {
+    return this.createElement("div", attributes, textContent);
   },
-  createHeadingH2(attributes) {
-    return this.createElement("h2", attributes);
+  createHeadingH2(attributes, textContent) {
+    return this.createElement("h2", attributes, textContent);
   },
-  createParagraph(attributes) {
-    return this.createElement("p", attributes);
+  createParagraph(attributes, textContent) {
+    return this.createElement("p", attributes, textContent);
   },
-  createInputTypeRadio(attribute) {
-    return this.createElement("input", attribute);
+  createInputType(attribute, textContent) {
+    return this.createElement("input", attribute, textContent);
   },
   createLabel(attribute, textContent) {
     return this.createElement("label", attribute, textContent);
+  },
+  createSpan(attribute, textContent){
+    return this.createElement("span", attribute, textContent)
   },
 
   createModalHeaderContent() {
@@ -88,44 +91,85 @@ const backedProjectModalUI = {
       ["fill-rule"]: "evenodd",
       opacity: ".4",
     });
-
+    
     closeModalSVG.appendChild(path);
-
+    
     return { closeModalSVG };
+  },
+  
+  createPledgeNoReward(){
+    const noReward = this.createModalBackedCard(
+      "reward-none",
+      "no-reward",
+      "Pledge with no reward",
+      "reward-none",
+      "Pledge with no reward"
+    );
+    const noRewardP = this.createParagraph(
+      {class:"backed-p"},
+      `Choose to support us without a reward if you simply believe in our project. 
+      As a backer, you will be signed up to receive product updates via email.`
+    );
+
+    const pledgeAmountContainer = this.createDiv({
+      class:"pledge-input-container"
+    })
+
+    const dollarSignSpan = this.createSpan({
+      class:"dollar-sign"
+    }, "$")
+
+    const pledgeAmountInput = this.createInputType({
+      type: "number",
+      id:"bamboo-stand",
+      ["data-target"]: "bamboo-stand-pledge",
+      min:"25",
+      value:"25",
+      step:"1", 
+    })
+
+    pledgeAmountContainer.appendChild(dollarSignSpan)
+    pledgeAmountContainer.appendChild(pledgeAmountInput)
+    noReward.appendChild(noRewardP)
+    noReward.appendChild(pledgeAmountContainer)
+    return {noReward}
   },
 
   createModalBackedCard(id, dataTarget, value, labelFor, textContent) {
     const cardContainer = this.createDiv({ class: "modal-card-container" });
-    const inputLabelContainer = this.createDiv({class:"input-label-container"});
-    const createInputRadio = this.createInputTypeRadio({
+    const inputLabelContainer = this.createDiv({
+      class: "input-label-container",
+    });
+    const createInputRadio = this.createInputType({
       type: "radio",
       id,
       ["data-target"]: dataTarget,
-      value
+      value,
     });
-    const createLabel = this.createLabel({ for:labelFor}, textContent);
+    const createLabel = this.createLabel({ for: labelFor }, textContent);
 
-    inputLabelContainer.appendChild(createInputRadio)
+    inputLabelContainer.appendChild(createInputRadio);
     inputLabelContainer.appendChild(createLabel);
-    cardContainer.appendChild(inputLabelContainer)
+    cardContainer.appendChild(inputLabelContainer);
 
-    return cardContainer
-
+    return cardContainer;
   },
+
+
+
   createModalContent() {
-    const modal = this.createElement("div", {
+    const modal = this.createDiv({
       id: "open-modal",
       class: "modal",
     });
     const { modalHeading, modalParagraph } = this.createModalHeaderContent();
     const { closeModalSVG } = this.createCloseModalButton();
-    const noReward = this.createModalBackedCard("reward-none", "no-reward", "Pledge with no reward", "reward-none", "Pledge with no reward")
-
+    const {noReward} = this.createPledgeNoReward()
 
     modal.appendChild(closeModalSVG);
     modal.appendChild(modalHeading);
     modal.appendChild(modalParagraph);
-    modal.appendChild(noReward)
+    modal.appendChild(noReward);
 
     this.modalContainer.appendChild(modal);
   },
