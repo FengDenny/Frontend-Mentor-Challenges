@@ -165,7 +165,7 @@ main {
     position: relative;
     background-color: $white;
     padding: 25px;
-    width: 100%;
+    width: 90%;
     max-width: 373px;
     border-radius: 5px;
     margin: 10px;
@@ -255,22 +255,22 @@ main {
     .modal {
       position: relative;
       background-color: $very-light-gray-white;
-      width: 90%;
+      width: 95%;
       max-width: 500px;
       height: auto;
       border-radius: 5px;
 
       .modal-heading {
-        padding: 20px;
+        padding: 20px 15px;
         font-size: 1.2rem;
       }
 
       .modal-paragraph {
-        padding: 0 20px;
+        padding: 0 14px;
         color: $dark-gray;
         line-height: 1.5rem;
         width: 100%;
-        max-width: 400px;
+        max-width: 530px;
       }
 
       .modal-close {
@@ -284,20 +284,82 @@ main {
           &:active,
           &:focus-visible {
             fill: $black;
-            opacity:1
+            opacity: 1;
           }
         }
       }
 
-      .modal-card-container{
-        padding:20px;
-        border:1px solid $light-gray;
-        width:85%;
-        // max-width:400px;
-        margin:10px 20px;
-        border-radius:5px;
-       
-        
+      .modal-card-container {
+        padding: 20px;
+        border: 1px solid $light-gray;
+        width: 85%;
+
+        margin: 20px 15px;
+        border-radius: 5px;
+
+        .input-label-container {
+          display: flex;
+          gap: 20px;
+
+          input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 25px;
+            height: 25px;
+            border: 1px solid $light-gray;
+            border-radius: 50%;
+            position: relative;
+
+            &:checked::before {
+              content: "";
+              width: 12px;
+              height: 12px;
+              background-color: $moderate-cyan;
+              border-radius: 50%;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+          }
+
+          label {
+            font-weight: bold;
+            align-self: center;
+          }
+        }
+
+        .backed-p{
+          padding-top:2rem;
+          color:$dark-gray;
+          line-height: 1.5rem;
+        }
+
+
+        .pledge-input-container{
+          position: relative;
+          margin:10px 0;
+
+          .dollar-sign{
+            position: absolute;
+            left:5px;
+            top:14px;
+            padding-left:10px;
+            color:$light-gray;
+          }
+          
+          input[type="number"]{
+            padding:15px 25px;
+            width:90px;
+            border-radius: 20px;
+            border:1px solid $light-gray;
+            font-weight: bold;
+            font-size: 1rem;
+            text-align: center;
+          }
+
+        }
       }
     }
   }
