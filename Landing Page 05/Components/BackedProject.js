@@ -32,53 +32,32 @@ export const backedProjectModalLogic = {
     }
   },
 
+  
   handlePledgeClicked() {
-    const modalCardContainer = document.querySelectorAll(
-      ".modal-card-container[data-modal-container]"
-    );
-
-    // First iteration to close other inputs
-    modalCardContainer.forEach((otherContainer) => {
-      const otherPledgeInput = otherContainer.querySelector(
-        "input[data-target='pledge']"
-      );
-
-      otherPledgeInput.addEventListener("click", () => {
-        if (!otherPledgeInput.checked) return; // Exit if already unchecked
-
-        modalCardContainer.forEach((container) => {
-          if (container !== otherContainer) {
-            const pledgeInput = container.querySelector(
-              "input[data-target='pledge']"
-            );
-            const targetContainer = container.querySelector(
-              `.pledge-content-container[data-target-id='${pledgeInput.id}']`
-            );
-
-            pledgeInput.checked = false;
-            targetContainer.classList.add("collapsed");
-            targetContainer.classList.remove("expanded");
-            delete pledgeInput.dataset.wasChecked;
-            container.style.border = ""; 
-            targetContainer.style.maxHeight = "0";
-          }
-        });
-      });
-    });
-
-    // Second iteration to handle the current input's border change
-    modalCardContainer.forEach((modalContainer) => {
+    const modalCardContainers = document.querySelectorAll(".modal-card-container[data-modal-container]");
+    let currentPledgeInput = null;
+    let currentContainer = null;
+    let currentModalContainer = null;
+  
+    modalCardContainers.forEach((modalContainer) => {
       modalContainer.addEventListener("click", (event) => {
         if (event.target.matches("input[data-target='pledge']")) {
           const pledgeInput = event.target;
           const targetId = pledgeInput.id;
-          const targetContainer = document.querySelector(
-            `.pledge-content-container[data-target-id='${targetId}']`
-          );
-          const continuePledgeBtn = targetContainer.querySelector(
-            `button[data-complete-id='${targetId}']`
-          );
-
+          const targetContainer = document.querySelector(`.pledge-content-container[data-target-id='${targetId}']`);
+          const continuePledgeBtn = targetContainer.querySelector(`button[data-complete-id='${targetId}']`);
+  
+          // Close the previously opened container
+          if (currentPledgeInput && currentPledgeInput !== pledgeInput) {
+            currentPledgeInput.checked = false;
+            currentContainer.classList.add("collapsed");
+            currentContainer.classList.remove("expanded");
+            delete currentPledgeInput.dataset.wasChecked;
+            currentContainer.style.maxHeight = "0";
+            currentModalContainer.style.border = "";
+          }
+  
+          // Toggle the current input
           let pledgeChecked = pledgeInput.checked;
           if (pledgeInput.checked && pledgeInput.dataset.wasChecked) {
             pledgeInput.checked = false;
@@ -94,23 +73,24 @@ export const backedProjectModalLogic = {
             targetContainer.classList.remove("collapsed");
             targetContainer.classList.add("expanded");
             pledgeInput.dataset.wasChecked = "true";
-
+  
             if (continuePledgeBtn) {
-              backedProjectModalCompletedLogic.handleContinuePledge(
-                continuePledgeBtn,
-                "open-modal"
-              );
+              backedProjectModalCompletedLogic.handleContinuePledge(continuePledgeBtn, "open-modal");
             }
           }
-
-          const contentHeight = pledgeChecked
-            ? targetContainer.scrollHeight + "px"
-            : "0";
+  
+          // Update the current input and container
+          currentPledgeInput = pledgeInput;
+          currentContainer = targetContainer;
+          currentModalContainer = modalContainer;
+  
+          const contentHeight = pledgeChecked ? targetContainer.scrollHeight + "px" : "0";
           targetContainer.style.maxHeight = contentHeight;
         }
       });
     });
-  },
+  }
+  
 };
 
 export const backedProjectModalUI = {
