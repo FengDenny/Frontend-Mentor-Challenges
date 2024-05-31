@@ -1,4 +1,5 @@
 import { backedProjectModalCompletedLogic } from "./BackedProjectCompleted";
+import { Helpers } from "./Helpers";
 
 export const backedProjectModalLogic = {
   backProjectClicked: document.getElementById("back-project"),
@@ -32,7 +33,7 @@ export const backedProjectModalLogic = {
     }
   },
 
-  
+
   handlePledgeClicked() {
     const modalCardContainers = document.querySelectorAll(".modal-card-container[data-modal-container]");
     let currentPledgeInput = null;
@@ -83,6 +84,8 @@ export const backedProjectModalLogic = {
           currentPledgeInput = pledgeInput;
           currentContainer = targetContainer;
           currentModalContainer = modalContainer;
+
+          Helpers.validateNumberInput()
   
           const contentHeight = pledgeChecked ? targetContainer.scrollHeight + "px" : "0";
           targetContainer.style.maxHeight = contentHeight;
@@ -98,7 +101,12 @@ export const backedProjectModalUI = {
   createElement(tagName, attributes = {}, textContent = "") {
     const element = document.createElement(tagName);
     Object.keys(attributes).forEach((attribute) => {
-      element.setAttribute(attribute, attributes[attribute]);
+      if(attribute === 'required' && attributes[attribute]){
+        element.required = true;
+      }else{
+
+        element.setAttribute(attribute, attributes[attribute]);
+      }
     });
     element.textContent = textContent;
     return element;
@@ -231,6 +239,7 @@ export const backedProjectModalUI = {
       max,
       value,
       step: 1,
+      required:true
     });
 
     const pledgeContentContainer = this.createDiv({
