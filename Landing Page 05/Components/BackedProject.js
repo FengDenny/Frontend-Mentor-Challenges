@@ -3,6 +3,20 @@ import { Helpers } from "./Helpers";
 
 export const backedProjectModalLogic = {
   backProjectClicked: document.getElementById("back-project"),
+  leftData: [
+    {
+      id: "bamboo-stand",
+      amountLeft: 101,
+    },
+    {
+      id: "black-edition-stand",
+      amountLeft: 64,
+    },
+    {
+      id: "mahogany-special-stand",
+      amountLeft: 0,
+    },
+  ],
 
   handleBackProjectClicked() {
     this.backProjectClicked.addEventListener("click", () => {
@@ -12,6 +26,7 @@ export const backedProjectModalLogic = {
         backedProjectModalUI.modalContainer.style.pointerEvents = "auto";
         this.handleModalClose();
         this.handlePledgeClicked();
+        this.handlePledgeLeft();
       }
     });
   },
@@ -32,22 +47,62 @@ export const backedProjectModalLogic = {
       );
     }
   },
+  handlePledgeLeft() {
+    const modalCardContainers = document.querySelectorAll(
+      "div[data-modal-container]"
+    );
+    modalCardContainers.forEach((card) => {
+      const input = card.querySelector(`input[type="radio"]`);
+      const inputID = input.id;
+      const divElement = card.querySelector(`div[data-pledge-id]`);
+      const pledgeID = inputID !== "no-reward" && divElement.dataset.pledgeId;
 
+      const updateData = this.leftData.map((item) => {
+        if (item.id === pledgeID) {
+          const headingH2 = backedProjectModalUI.createHeadingH2(
+            {
+              class: "pledge-amount",
+            },
+            `${item.amountLeft}`
+          );
+
+          const span = backedProjectModalUI.createSpan(
+            {
+              class: "pledge-amount-span",
+            },
+            "left"
+          );
+
+          divElement.appendChild(headingH2);
+          divElement.appendChild(span);
+
+          return divElement;
+        }
+      });
+      return updateData;
+    });
+  },
 
   handlePledgeClicked() {
-    const modalCardContainers = document.querySelectorAll(".modal-card-container[data-modal-container]");
+    const modalCardContainers = document.querySelectorAll(
+      ".modal-card-container[data-modal-container]"
+    );
     let currentPledgeInput = null;
     let currentContainer = null;
     let currentModalContainer = null;
-  
+
     modalCardContainers.forEach((modalContainer) => {
       modalContainer.addEventListener("click", (event) => {
         if (event.target.matches("input[data-target='pledge']")) {
           const pledgeInput = event.target;
           const targetId = pledgeInput.id;
-          const targetContainer = document.querySelector(`.pledge-content-container[data-target-id='${targetId}']`);
-          const continuePledgeBtn = targetContainer.querySelector(`button[data-complete-id='${targetId}']`);
-  
+          const targetContainer = document.querySelector(
+            `.pledge-content-container[data-target-id='${targetId}']`
+          );
+          const continuePledgeBtn = targetContainer.querySelector(
+            `button[data-complete-id='${targetId}']`
+          );
+
           // Close the previously opened container
           if (currentPledgeInput && currentPledgeInput !== pledgeInput) {
             currentPledgeInput.checked = false;
@@ -57,7 +112,7 @@ export const backedProjectModalLogic = {
             currentContainer.style.maxHeight = "0";
             currentModalContainer.style.border = "";
           }
-  
+
           // Toggle the current input
           let pledgeChecked = pledgeInput.checked;
           if (pledgeInput.checked && pledgeInput.dataset.wasChecked) {
@@ -74,26 +129,30 @@ export const backedProjectModalLogic = {
             targetContainer.classList.remove("collapsed");
             targetContainer.classList.add("expanded");
             pledgeInput.dataset.wasChecked = "true";
-  
+
             if (continuePledgeBtn) {
-              backedProjectModalCompletedLogic.handleContinuePledge(continuePledgeBtn, "open-modal");
+              backedProjectModalCompletedLogic.handleContinuePledge(
+                continuePledgeBtn,
+                "open-modal"
+              );
             }
           }
-  
+
           // Update the current input and container
           currentPledgeInput = pledgeInput;
           currentContainer = targetContainer;
           currentModalContainer = modalContainer;
 
-          Helpers.validateNumberInput()
-  
-          const contentHeight = pledgeChecked ? targetContainer.scrollHeight + "px" : "0";
+          Helpers.validateNumberInput();
+
+          const contentHeight = pledgeChecked
+            ? targetContainer.scrollHeight + "px"
+            : "0";
           targetContainer.style.maxHeight = contentHeight;
         }
       });
     });
-  }
-  
+  },
 };
 
 export const backedProjectModalUI = {
@@ -101,10 +160,9 @@ export const backedProjectModalUI = {
   createElement(tagName, attributes = {}, textContent = "") {
     const element = document.createElement(tagName);
     Object.keys(attributes).forEach((attribute) => {
-      if(attribute === 'required' && attributes[attribute]){
+      if (attribute === "required" && attributes[attribute]) {
         element.required = true;
-      }else{
-
+      } else {
         element.setAttribute(attribute, attributes[attribute]);
       }
     });
@@ -173,6 +231,13 @@ export const backedProjectModalUI = {
 
     return { closeModalSVG };
   },
+  createPledgeLeftAmount(id) {
+    const pledgeAmount = this.createDiv({
+      ["data-pledge-id"]: id,
+    });
+
+    return pledgeAmount;
+  },
 
   createPledgeNoReward(id) {
     const noReward = this.createModalBackedCard(
@@ -195,14 +260,12 @@ export const backedProjectModalUI = {
   },
 
   createPledgeBamboo(id) {
-    // Pledge $25 or more
-    // 101 left
-
     const bamboo = this.createModalBackedCard(
       id,
       "pledge",
       "Bamboo Stand",
-      "Bamboo Stand"
+      "Bamboo Stand",
+      "25"
     );
     const bambooP = this.createParagraph(
       { class: "backed-p" },
@@ -211,11 +274,60 @@ export const backedProjectModalUI = {
       you’ll be added to a special Backer member list.`
     );
 
+    const pledgeAmount = this.createPledgeLeftAmount(id);
+
     const pledgeContent = this.createPledgeCTA(id, "25", "74", "25");
 
     bamboo.appendChild(bambooP);
+    bamboo.appendChild(pledgeAmount);
     bamboo.appendChild(pledgeContent);
     return { bamboo };
+  },
+  createPledgeBlackEdition(id) {
+    const blackEdition = this.createModalBackedCard(
+      id,
+      "pledge",
+      "Black Edition Stand",
+      "Black Edition Stand",
+      "75"
+    );
+    const blackEditionP = this.createParagraph(
+      { class: "backed-p" },
+      `  You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer 
+      member list. Shipping is included.`
+    );
+
+    const pledgeAmount = this.createPledgeLeftAmount(id);
+
+    const pledgeContent = this.createPledgeCTA(id, "75", "199", "75");
+
+    blackEdition.appendChild(blackEditionP);
+    blackEdition.appendChild(pledgeAmount);
+    blackEdition.appendChild(pledgeContent);
+    return { blackEdition };
+  },
+  createPledgeMahogany(id) {
+    const mahogany = this.createModalBackedCard(
+      id,
+      "pledge",
+      "Mahogany Special Edition",
+      "Mahogany Special Edition",
+      "200"
+    );
+    const mahoganyP = this.createParagraph(
+      { class: "backed-p" },
+      `  You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added 
+      to our Backer member list. Shipping is included.`
+    );
+
+    const pledgeAmount = this.createPledgeLeftAmount(id);
+
+    const pledgeContent = this.createPledgeCTA(id, "200", "300", "200");
+
+    mahogany.appendChild(mahoganyP);
+    mahogany.appendChild(pledgeAmount);
+    mahogany.appendChild(pledgeContent);
+    return { mahogany };
   },
 
   createPledgeCTA(id = "", min = "", max = "", value = "", noReward = false) {
@@ -239,7 +351,7 @@ export const backedProjectModalUI = {
       max,
       value,
       step: 1,
-      required:true
+      required: true,
     });
 
     const pledgeContentContainer = this.createDiv({
@@ -292,14 +404,25 @@ export const backedProjectModalUI = {
     return pledgeContentContainer;
   },
 
-  createModalBackedCard(id, dataTarget, value, textContent) {
-    const cardContainer = this.createDiv({
-      class: "modal-card-container",
-      ["data-modal-container"]: "modal-card-container",
-    });
+  createModalBackedCard(id, dataTarget, value, textContent, dollarAmount = "") {
+    const cardContainer =
+      id === "mahogany-special-stand"
+        ? this.createDiv({
+            class: "modal-card-container mahogany-special",
+            ["data-modal-container"]: "modal-card-container",
+          })
+        : this.createDiv({
+            class: "modal-card-container",
+            ["data-modal-container"]: "modal-card-container",
+          });
     const inputLabelContainer = this.createDiv({
       class: "input-label-container",
     });
+
+    const headerContainer = this.createDiv({
+      class: "header-container",
+    });
+
     const createInputRadio = this.createInputType({
       type: "radio",
       id,
@@ -307,19 +430,33 @@ export const backedProjectModalUI = {
       value,
     });
     const createLabel = this.createSpan({ class: "span-label" }, textContent);
-    const customRadio = this.createLabel({
-      class: "custom-radio",
-    });
+    const customRadio =
+      id === "no-reward"
+        ? this.createLabel({
+            class: "custom-radio",
+          })
+        : this.createLabel({
+            class: "custom-radio-others",
+          });
+
     const innerRaidioCircle = this.createSpan({
       class: "inner-circle",
     });
+
+    const pledgeAmountHeading = this.createHeadingH2(
+      {
+        class: "pledge-amount-heading",
+      },
+      `Pledge $${dollarAmount} or more`
+    );
 
     customRadio.appendChild(createInputRadio);
     customRadio.appendChild(innerRaidioCircle);
     inputLabelContainer.appendChild(customRadio);
     inputLabelContainer.appendChild(createLabel);
-    cardContainer.appendChild(inputLabelContainer);
-
+    headerContainer.appendChild(inputLabelContainer);
+    dollarAmount && headerContainer.appendChild(pledgeAmountHeading);
+    cardContainer.appendChild(headerContainer);
     return cardContainer;
   },
 
@@ -332,12 +469,18 @@ export const backedProjectModalUI = {
     const { closeModalSVG } = this.createCloseModalButton();
     const { noReward } = this.createPledgeNoReward("no-reward");
     const { bamboo } = this.createPledgeBamboo("bamboo-stand");
+    const { blackEdition } = this.createPledgeBlackEdition(
+      "black-edition-stand"
+    );
+    const { mahogany } = this.createPledgeMahogany("mahogany-special-stand");
 
     modal.appendChild(closeModalSVG);
     modal.appendChild(modalHeading);
     modal.appendChild(modalParagraph);
     modal.appendChild(noReward);
     modal.appendChild(bamboo);
+    modal.appendChild(blackEdition);
+    modal.appendChild(mahogany);
 
     this.modalContainer.appendChild(modal);
   },
