@@ -21,7 +21,7 @@ const progressLogic = {
     this.progressData.map((item) => {
       if (item) {    
         this.handleLocalStorageUpdates(item)     
-        // this.handleProgressNumberUpdates("100,000", "5,008")
+        // this.handleProgressNumberUpdates("98,000", "5,008")
         progressUI.createArticle(item);
       }
     });
