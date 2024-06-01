@@ -39,17 +39,17 @@ html {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: $very-light-gray-white 
+  background: $very-light-gray-white;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: $dark-gray; 
+  background: $dark-gray;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: $dark-gray; 
+  background: $dark-gray;
 }
 
 /* Corner */
@@ -65,12 +65,12 @@ progress {
 
 ::-webkit-progress-bar {
   background-color: $very-light-gray-white;
-  border-radius:10px;
+  border-radius: 10px;
 }
 
 ::-webkit-progress-value {
   background-color: $moderate-cyan;
-  border-radius:10px;
+  border-radius: 10px;
 }
 
 // BODY
@@ -92,8 +92,7 @@ body {
 }
 
 .collapsed {
-  transition: max-height 0.3s ease-out, 
-    transform 0.3s ease-out;
+  transition: max-height 0.3s ease-out, transform 0.3s ease-out;
   transform: translateY(-10px);
   opacity: 0;
   max-height: 0;
@@ -279,38 +278,37 @@ main {
       }
     }
 
-    &.progress-section{
-
-      article{
+    &.progress-section {
+      article {
         position: relative;
-        display:flex;
+        display: flex;
         flex-direction: column;
-        gap:5px;
-        padding:20px;
-        align-items:center ;
-        width:100%;
+        gap: 5px;
+        padding: 20px;
+        align-items: center;
+        width: 100%;
 
-        &:not(:last-child)::after{
+        &:not(:last-child)::after {
           position: absolute;
-          content:"";
-          width:28%;
-          top:92px;
-          border-bottom:1px solid $light-gray;
+          content: "";
+          width: 28%;
+          top: 92px;
+          border-bottom: 1px solid $light-gray;
         }
-        
-        h4{
+
+        h4 {
           font-size: 1.8rem;
         }
 
-        span{
+        span {
           font-size: 0.9rem;
-          color:$dark-gray;
+          color: $dark-gray;
           font-weight: 450;
         }
       }
 
-      progress{
-        width:100%;
+      progress {
+        width: 100%;
         margin: 30px 0;
       }
     }
@@ -339,7 +337,7 @@ main {
       max-width: 500px;
       height: auto;
       border-radius: 5px;
-      top:22rem;
+      top: 22rem;
 
       .modal-heading {
         padding: 20px 15px;
@@ -377,33 +375,31 @@ main {
         margin: 20px 15px;
         border-radius: 5px;
 
-        &.mahogany-special{
-          pointer-events: none; 
-          opacity: 0.5; 
+        &.mahogany-special {
+          pointer-events: none;
+          opacity: 0.5;
           background-color: $very-light-gray-white;
         }
 
-        .header-container{
-          display:flex;
+        .header-container {
+          display: flex;
           flex-direction: column;
           row-gap: 10px;
 
-          .pledge-amount-heading{
-            padding-left:4rem;
+          .pledge-amount-heading {
+            padding-left: 4rem;
             font-size: 0.95rem;
-            color:$moderate-cyan;
+            color: $moderate-cyan;
             font-weight: 600;
           }
-
-          
         }
-        
-        div[data-pledge-id]{
+
+        div[data-pledge-id] {
           display: flex;
-          gap:10px;
-          padding:0 20px;
-          margin-bottom:20px;
-          .pledge-amount-span{
+          gap: 10px;
+          padding: 0 20px;
+          margin-bottom: 20px;
+          .pledge-amount-span {
             align-self: center;
             font-size: 1.1rem;
             font-weight: 450;
@@ -428,23 +424,21 @@ main {
             cursor: pointer;
           }
 
-          .span-label{
+          .span-label {
             font-weight: bold;
             align-self: center;
             cursor: default;
             font-size: 1.1rem;
           }
 
-          .custom-radio-others{
-            top:1rem;
+          .custom-radio-others {
+            top: 1rem;
           }
 
           .custom-radio-others,
           .custom-radio {
-            position: relative; 
+            position: relative;
 
-            
-    
             .inner-circle {
               content: "";
               width: 12px;
@@ -456,8 +450,6 @@ main {
               left: 50%;
               transform: translate(-50%, -50%);
               transition: background-color 0.3s;
-
-             
             }
 
             input[type="radio"] {
@@ -488,7 +480,7 @@ main {
           display: flex;
           flex-direction: column;
           align-items: center;
-          margin-bottom:1rem;
+          margin-bottom: 1rem;
           &::before {
             content: "";
             position: absolute;
@@ -546,38 +538,97 @@ main {
           cursor: pointer;
         }
 
-        .pledge-content-no-reward{
-          .pledge-no-reward-cta{
-           position: relative;
-           bottom:10px;
+        .pledge-content-no-reward {
+          .pledge-no-reward-cta {
+            position: relative;
+            bottom: 10px;
+          }
+        }
+
+        @media only screen and (max-width: 297px) {
+          width: 90%;
+
+          .header-container{
+            row-gap: 2px;
+          }
+
+          .backed-p {
+            padding: 7.5px;
+            text-align: center;
+            margin-top:0.9rem;
+          }
+
+          .pledge-content{
+            flex-wrap:wrap;
+            justify-content: center;
+
+            .pledge-input-container{
+              .dollar-sign{
+                left:6px;
+              }
+
+              input[type=number]{
+                width:134px;
+              }
+            }
+          }
+
+          div[data-pledge-id] {
+            padding: 0 7px;
+            justify-content: center;
+          }
+
+          .input-label-container {
+            padding-inline: 7px;
+            gap:14px;
+            .custom-radio-others,
+            .custom-radio {
+
+              input[type="radio"][id="no-reward"] {
+
+                &:checked + .inner-circle {
+                  top:28%
+                }
+              }
+
+              .inner-circle {
+                top: 43%;
+              }
+            }
+          }
+
+          .header-container {
+            .pledge-amount-heading {
+              padding-left: 3rem;
+            }
           }
         }
       }
 
-      .pledge-completed-container{
-        display:flex;
+      .pledge-completed-container {
+        display: flex;
         flex-direction: column;
         align-items: center;
-        padding:30px;
-    
-        .pledge-complete-description{
-          padding-top:1rem;
+        padding: 30px;
+
+        .pledge-complete-description {
+          padding-top: 1rem;
           max-width: 390px;
           line-height: 1.7rem;
           text-align: center;
-          color:$dark-gray;
+          color: $dark-gray;
           font-size: 1.15rem;
           font-weight: 450;
         }
 
-        .close-completed-modal{
+        .close-completed-modal {
           background-color: $moderate-cyan;
-          color:$very-light-gray-white;
-          border:1px solid $moderate-cyan;
-          border-radius:28px;
-          margin:1.5rem 0;
-          width:130px;
-          height:60px;
+          color: $very-light-gray-white;
+          border: 1px solid $moderate-cyan;
+          border-radius: 28px;
+          margin: 1.5rem 0;
+          width: 130px;
+          height: 60px;
           font-weight: bold;
           font-size: 1rem;
           cursor: pointer;
