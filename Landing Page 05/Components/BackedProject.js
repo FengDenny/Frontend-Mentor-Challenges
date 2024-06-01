@@ -7,7 +7,7 @@ export const backedProjectLogic = {
   leftData: [
     {
       id: "bamboo-stand",
-      ["project-about-id"]:"bamboo-select",      
+      ["project-about-id"]: "bamboo-select",
       amountLeft: 101,
     },
     {
@@ -61,8 +61,6 @@ export const backedProjectLogic = {
         inputID !== "no-reward" &&
         inputID !== "no-reward-select" &&
         divElement.dataset.pledgeId;
-      
-        console.log(pledgeID)
 
       const updateData = this.leftData.map((item) => {
         if (item.id === pledgeID || item["project-about-id"] === pledgeID) {
@@ -209,7 +207,7 @@ export const backedProjectUI = {
     return pledgeAmount;
   },
 
-  createPledgeNoReward(id, container= "modal-container") {
+  createPledgeNoReward(id, container = "modal-container") {
     const noReward = this.createBackedCard(
       id,
       "pledge",
@@ -232,7 +230,7 @@ export const backedProjectUI = {
     return { noReward };
   },
 
-  createPledgeBamboo(id, container= "modal-container") {
+  createPledgeBamboo(id, container = "modal-container") {
     const bamboo = this.createBackedCard(
       id,
       "pledge",
@@ -259,7 +257,7 @@ export const backedProjectUI = {
     bamboo.appendChild(pledgeContent);
     return { bamboo };
   },
-  createPledgeBlackEdition(id, container= "modal-container") {
+  createPledgeBlackEdition(id, container = "modal-container") {
     const blackEdition = this.createBackedCard(
       id,
       "pledge",
@@ -285,7 +283,7 @@ export const backedProjectUI = {
     blackEdition.appendChild(pledgeContent);
     return { blackEdition };
   },
-  createPledgeMahogany(id, container= "modal-container") {
+  createPledgeMahogany(id, container = "modal-container") {
     const mahogany = this.createBackedCard(
       id,
       "pledge",
@@ -388,7 +386,7 @@ export const backedProjectUI = {
 
   createBackedCard(id, dataTarget, value, textContent, dollarAmount = "") {
     const cardContainer =
-     ( id === "mahogany-special-stand" || id ==="mahogany-special-select")
+      id === "mahogany-special-stand" || id === "mahogany-special-select"
         ? this.createDiv({
             class: "card-container mahogany-special",
             ["data-container"]: "card-container",
@@ -451,12 +449,10 @@ export const backedProjectUI = {
     });
     const { modalHeading, modalParagraph } = this.createModalHeaderContent();
     const { closeModalSVG } = this.createCloseModalButton();
-    const { noReward } = this.createPledgeNoReward(
-      "no-reward",
-    );
+    const { noReward } = this.createPledgeNoReward("no-reward");
     const { bamboo } = this.createPledgeBamboo("bamboo-stand");
     const { blackEdition } = this.createPledgeBlackEdition(
-      "black-edition-stand",
+      "black-edition-stand"
     );
     const { mahogany } = this.createPledgeMahogany("mahogany-special-stand");
 
