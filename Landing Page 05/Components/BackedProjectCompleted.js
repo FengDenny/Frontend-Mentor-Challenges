@@ -1,4 +1,4 @@
-import {backedProjectModalLogic, backedProjectModalUI } from "./BackedProject";
+import {backedProjectLogic, backedProjectUI } from "./BackedProject";
 
 export const backedProjectModalCompletedLogic = {
   handleContinuePledge(continuePledge, id) {
@@ -13,7 +13,7 @@ export const backedProjectModalCompletedLogic = {
     const modal = document.getElementById(id);
     completeClose.addEventListener("click", () => {
         modal.classList.add("not-show")
-       backedProjectModalLogic.handleModalOnClose()
+       backedProjectLogic.handleModalOnClose()
     })
   },
 
@@ -23,18 +23,18 @@ export const backedProjectModalCompletedLogic = {
     while (modal.firstChild) {
       modal.removeChild(modal.firstChild);
     }
-    const pledgeCompletedContainer = backedProjectModalUI.createDiv({
+    const pledgeCompletedContainer = backedProjectUI.createDiv({
       class: "pledge-completed-container",
     });
 
-    const thankYouMessage = backedProjectModalUI.createHeadingH2(
+    const thankYouMessage = backedProjectUI.createHeadingH2(
       {
         class: "pledge-completed-heading",
       },
       "Thanks for your support!"
     );
 
-    const thankYouDescription = backedProjectModalUI.createParagraph(
+    const thankYouDescription = backedProjectUI.createParagraph(
       {
         class: "pledge-complete-description",
       },
@@ -56,25 +56,25 @@ export const backedProjectModalCompletedLogic = {
 
 const backedProjectModalCompletedUI = {
   createCompletedIcon() {
-    const checkIcon = backedProjectModalUI.createSVGElementNS("svg", {
+    const checkIcon = backedProjectUI.createSVGElementNS("svg", {
       class: "check-icon",
       width: "85",
       height: "85",
     });
 
-    const group = backedProjectModalUI.createSVGElementNS("g", {
+    const group = backedProjectUI.createSVGElementNS("g", {
       fill: "none",
       ["fill-rule"]: "evenodd",
     });
 
-    const circle = backedProjectModalUI.createSVGElementNS("circle", {
+    const circle = backedProjectUI.createSVGElementNS("circle", {
       fill: "#3CB3AB",
       cx: "40",
       cy: "40",
       r: "40",
     });
 
-    const path = backedProjectModalUI.createSVGElementNS("path", {
+    const path = backedProjectUI.createSVGElementNS("path", {
       d: "M26 34.86L35.093 46 55 26",
       stroke: "#FFF",
       ["stroke-width"]: "6",
@@ -88,7 +88,7 @@ const backedProjectModalCompletedUI = {
   },
 
   createCompletedCloseCTA(){
-    const closeCTA = backedProjectModalUI.createCTA({
+    const closeCTA = backedProjectUI.createCTA({
         id:"close-completed",
         class:"close-completed-modal"
     }, "Got it!")

@@ -2,19 +2,22 @@ import { backedProjectModalCompletedLogic } from "./BackedProjectCompleted";
 import { Helpers, createElementsHelpers } from "./Helpers";
 import { LocalStorage } from "./LocalStorage";
 
-export const backedProjectModalLogic = {
+export const backedProjectLogic = {
   backProjectClicked: document.getElementById("back-project"),
   leftData: [
     {
       id: "bamboo-stand",
+      ["project-about-id"]:"bamboo-select",      
       amountLeft: 101,
     },
     {
       id: "black-edition-stand",
+      ["project-about-id"]: "black-edition-select",
       amountLeft: 64,
     },
     {
       id: "mahogany-special-stand",
+      ["project-about-id"]: "mahogany-special-select",
       amountLeft: 0,
     },
   ],
@@ -22,12 +25,12 @@ export const backedProjectModalLogic = {
   handleBackProjectClicked() {
     this.backProjectClicked.addEventListener("click", () => {
       if (!document.getElementById("open-modal")) {
-        backedProjectModalUI.createModalContent();
-        backedProjectModalUI.modalContainer.style.opacity = "1";
-        backedProjectModalUI.modalContainer.style.pointerEvents = "auto";
+        backedProjectUI.createCardContent(backedProjectUI.modalContainer);
+        backedProjectUI.modalContainer.style.opacity = "1";
+        backedProjectUI.modalContainer.style.pointerEvents = "auto";
         this.handleModalClose();
-        this.handlePledgeClicked();
-        this.handlePledgeLeft();
+        this.handlePledgeClicked(".card-container[data-container]");
+        this.handlePledgeLeft("div[data-container]");
       }
     });
   },
@@ -40,34 +43,37 @@ export const backedProjectModalLogic = {
     }
   },
   handleModalOnClose() {
-    backedProjectModalUI.modalContainer.style.opacity = "0";
-    backedProjectModalUI.modalContainer.style.pointerEvents = "none";
-    while (backedProjectModalUI.modalContainer.firstChild) {
-      backedProjectModalUI.modalContainer.removeChild(
-        backedProjectModalUI.modalContainer.firstChild
+    backedProjectUI.modalContainer.style.opacity = "0";
+    backedProjectUI.modalContainer.style.pointerEvents = "none";
+    while (backedProjectUI.modalContainer.firstChild) {
+      backedProjectUI.modalContainer.removeChild(
+        backedProjectUI.modalContainer.firstChild
       );
     }
   },
-  handlePledgeLeft() {
-    const modalCardContainers = document.querySelectorAll(
-      "div[data-modal-container]"
-    );
-    modalCardContainers.forEach((card) => {
+  handlePledgeLeft(query) {
+    const cardContainer = document.querySelectorAll(query);
+    cardContainer.forEach((card) => {
       const input = card.querySelector(`input[type="radio"]`);
       const inputID = input.id;
       const divElement = card.querySelector(`div[data-pledge-id]`);
-      const pledgeID = inputID !== "no-reward" && divElement.dataset.pledgeId;
+      const pledgeID =
+        inputID !== "no-reward" &&
+        inputID !== "no-reward-select" &&
+        divElement.dataset.pledgeId;
+      
+        console.log(pledgeID)
 
       const updateData = this.leftData.map((item) => {
-        if (item.id === pledgeID) {
-          const headingH2 = backedProjectModalUI.createHeadingH2(
+        if (item.id === pledgeID || item["project-about-id"] === pledgeID) {
+          const headingH2 = backedProjectUI.createHeadingH2(
             {
               class: "pledge-amount",
             },
             `${item.amountLeft}`
           );
 
-          const span = backedProjectModalUI.createSpan(
+          const span = backedProjectUI.createSpan(
             {
               class: "pledge-amount-span",
             },
@@ -84,15 +90,13 @@ export const backedProjectModalLogic = {
     });
   },
 
-  handlePledgeClicked() {
-    const modalCardContainers = document.querySelectorAll(
-      ".modal-card-container[data-modal-container]"
-    );
+  handlePledgeClicked(query) {
+    const cardContainer = document.querySelectorAll(query);
     let currentPledgeInput = null;
     let currentContainer = null;
     let currentModalContainer = null;
 
-    modalCardContainers.forEach((modalContainer) => {
+    cardContainer.forEach((modalContainer) => {
       modalContainer.addEventListener("click", (event) => {
         if (event.target.matches("input[data-target='pledge']")) {
           const pledgeInput = event.target;
@@ -156,7 +160,7 @@ export const backedProjectModalLogic = {
   },
 };
 
-export const backedProjectModalUI = {
+export const backedProjectUI = {
   modalContainer: document.getElementById("modal-container"),
   createSVGElementNS: createElementsHelpers.createSVGElementNS,
   createElement: createElementsHelpers.createElement,
@@ -205,8 +209,8 @@ export const backedProjectModalUI = {
     return pledgeAmount;
   },
 
-  createPledgeNoReward(id) {
-    const noReward = this.createModalBackedCard(
+  createPledgeNoReward(id, container= "modal-container") {
+    const noReward = this.createBackedCard(
       id,
       "pledge",
       "Pledge with no reward",
@@ -218,15 +222,18 @@ export const backedProjectModalUI = {
       As a backer, you will be signed up to receive product updates via email.`
     );
 
-    const pledgeContent = this.createPledgeCTA(id, "0", "0", "0", true);
+    const pledgeContent =
+      container !== "project-about"
+        ? this.createPledgeCTA(id, "0", "0", "0", true)
+        : this.createSelectReward();
 
     noReward.appendChild(noRewardP);
     noReward.appendChild(pledgeContent);
     return { noReward };
   },
 
-  createPledgeBamboo(id) {
-    const bamboo = this.createModalBackedCard(
+  createPledgeBamboo(id, container= "modal-container") {
+    const bamboo = this.createBackedCard(
       id,
       "pledge",
       "Bamboo Stand",
@@ -242,15 +249,18 @@ export const backedProjectModalUI = {
 
     const pledgeAmount = this.createPledgeLeftAmount(id);
 
-    const pledgeContent = this.createPledgeCTA(id, "25", "74", "25");
+    const pledgeContent =
+      container !== "project-about"
+        ? this.createPledgeCTA(id, "25", "74", "25")
+        : this.createSelectReward();
 
     bamboo.appendChild(bambooP);
     bamboo.appendChild(pledgeAmount);
     bamboo.appendChild(pledgeContent);
     return { bamboo };
   },
-  createPledgeBlackEdition(id) {
-    const blackEdition = this.createModalBackedCard(
+  createPledgeBlackEdition(id, container= "modal-container") {
+    const blackEdition = this.createBackedCard(
       id,
       "pledge",
       "Black Edition Stand",
@@ -265,15 +275,18 @@ export const backedProjectModalUI = {
 
     const pledgeAmount = this.createPledgeLeftAmount(id);
 
-    const pledgeContent = this.createPledgeCTA(id, "75", "199", "75");
+    const pledgeContent =
+      container !== "project-about"
+        ? this.createPledgeCTA(id, "75", "199", "75")
+        : this.createSelectReward();
 
     blackEdition.appendChild(blackEditionP);
     blackEdition.appendChild(pledgeAmount);
     blackEdition.appendChild(pledgeContent);
     return { blackEdition };
   },
-  createPledgeMahogany(id) {
-    const mahogany = this.createModalBackedCard(
+  createPledgeMahogany(id, container= "modal-container") {
+    const mahogany = this.createBackedCard(
       id,
       "pledge",
       "Mahogany Special Edition",
@@ -288,7 +301,10 @@ export const backedProjectModalUI = {
 
     const pledgeAmount = this.createPledgeLeftAmount(id);
 
-    const pledgeContent = this.createPledgeCTA(id, "200", "300", "200");
+    const pledgeContent =
+      container !== "project-about"
+        ? this.createPledgeCTA(id, "200", "300", "200")
+        : this.createSelectReward();
 
     mahogany.appendChild(mahoganyP);
     mahogany.appendChild(pledgeAmount);
@@ -370,16 +386,16 @@ export const backedProjectModalUI = {
     return pledgeContentContainer;
   },
 
-  createModalBackedCard(id, dataTarget, value, textContent, dollarAmount = "") {
+  createBackedCard(id, dataTarget, value, textContent, dollarAmount = "") {
     const cardContainer =
-      id === "mahogany-special-stand"
+     ( id === "mahogany-special-stand" || id ==="mahogany-special-select")
         ? this.createDiv({
-            class: "modal-card-container mahogany-special",
-            ["data-modal-container"]: "modal-card-container",
+            class: "card-container mahogany-special",
+            ["data-container"]: "card-container",
           })
         : this.createDiv({
-            class: "modal-card-container",
-            ["data-modal-container"]: "modal-card-container",
+            class: "card-container",
+            ["data-container"]: "card-container",
           });
     const inputLabelContainer = this.createDiv({
       class: "input-label-container",
@@ -397,12 +413,14 @@ export const backedProjectModalUI = {
     });
     const createLabel = this.createSpan({ class: "span-label" }, textContent);
     const customRadio =
-      id === "no-reward"
+      id === "no-reward" && id == "no-reward-select"
         ? this.createLabel({
             class: "custom-radio",
+            ["data-id"]: id,
           })
         : this.createLabel({
             class: "custom-radio-others",
+            ["data-id"]: id,
           });
 
     const innerRaidioCircle = this.createSpan({
@@ -426,17 +444,19 @@ export const backedProjectModalUI = {
     return cardContainer;
   },
 
-  createModalContent() {
+  createCardContent(container) {
     const modal = this.createDiv({
       id: "open-modal",
       class: "modal",
     });
     const { modalHeading, modalParagraph } = this.createModalHeaderContent();
     const { closeModalSVG } = this.createCloseModalButton();
-    const { noReward } = this.createPledgeNoReward("no-reward");
+    const { noReward } = this.createPledgeNoReward(
+      "no-reward",
+    );
     const { bamboo } = this.createPledgeBamboo("bamboo-stand");
     const { blackEdition } = this.createPledgeBlackEdition(
-      "black-edition-stand"
+      "black-edition-stand",
     );
     const { mahogany } = this.createPledgeMahogany("mahogany-special-stand");
 
@@ -448,13 +468,26 @@ export const backedProjectModalUI = {
     modal.appendChild(blackEdition);
     modal.appendChild(mahogany);
 
-    this.modalContainer.appendChild(modal);
+    container.appendChild(modal);
+  },
+
+  createSelectReward() {
+    const selectRewardBtn = this.createElement(
+      "button",
+      {
+        class: "select-reward-button",
+        ["data-select-reward"]: "select-reward",
+      },
+      "select reward"
+    );
+
+    return selectRewardBtn;
   },
 };
 
 const modal = {
   init() {
-    backedProjectModalLogic.handleBackProjectClicked();
+    backedProjectLogic.handleBackProjectClicked();
   },
 };
 
