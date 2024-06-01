@@ -73,6 +73,210 @@ progress {
   border-radius: 10px;
 }
 
+
+// MIXINS
+@mixin cardContainer($width : 85%, $margin: 20px 15px, $padding-left: 4rem, $gap:10px){
+  .card-container {
+    border: 1px solid $light-gray;
+    width:$width;
+      margin: $margin;
+    border-radius: 5px;
+
+  
+    &.mahogany-special {
+      pointer-events: none;
+      opacity: 0.5;
+      background-color: $very-light-gray-white;
+    }
+
+    .header-container {
+      display: flex;
+      flex-direction: column;
+      row-gap: $gap;
+
+      .pledge-amount-heading {
+        padding-left: $padding-left;
+        font-size: 0.95rem;
+        color: $moderate-cyan;
+        font-weight: 600;
+      }
+    }
+
+    div[data-pledge-id] {
+      display: flex;
+      gap: 10px;
+      padding: 0 20px;
+      margin-bottom: 20px;
+      .pledge-amount-span {
+        align-self: center;
+        font-size: 1.1rem;
+        font-weight: 450;
+      }
+    }
+    .input-label-container {
+      display: flex;
+      gap: 20px;
+      padding-inline: 20px;
+      padding-top: 10px;
+
+      &:hover {
+        color: $moderate-cyan;
+
+        .custom-radio input[type="radio"] {
+          border: 1px solid $moderate-cyan;
+        }
+      }
+
+      .inner-circle,
+      input[type="radio"] {
+        cursor: pointer;
+      }
+
+      .span-label {
+        font-weight: bold;
+        align-self: center;
+        cursor: default;
+        font-size: 1.1rem;
+      }
+
+      .custom-radio-others {
+        top: 1rem;
+      }
+
+      .custom-radio-others,
+      .custom-radio {
+        position: relative;
+
+        // select all data-id attribute value that ends with "select".
+        &[data-id$="select"]{
+          display:none;
+        }
+
+        .inner-circle {
+          content: "";
+          width: 12px;
+          height: 12px;
+          background-color: transparent;
+          border-radius: 50%;
+          position: absolute;
+          top: 47%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          transition: background-color 0.3s;
+        }
+
+        input[type="radio"] {
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          width: 25px;
+          height: 25px;
+          border: 1px solid $light-gray;
+          border-radius: 50%;
+          position: relative;
+
+          &:checked + .inner-circle {
+            background-color: $moderate-cyan;
+          }
+        }
+      }
+    }
+
+    .backed-p {
+      padding: 20px;
+      color: $dark-gray;
+      line-height: 1.5rem;
+    }
+
+      .select-reward-button {
+      width: 130px;
+      height: 50px;
+      border-radius: 20px;
+      border: 1px solid $moderate-cyan;
+      background-color: $moderate-cyan;
+      color: $very-light-gray-white;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+      bottom: 10px;
+      margin-left:15px;   
+      text-transform: capitalize;
+    }
+
+    .pledge-content-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1rem;
+      &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        border-bottom: 1px solid $light-gray;
+      }
+    }
+
+    .pledge-content {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 18px;
+    }
+
+    .pledge-content-heading {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: $dark-gray;
+      font-weight: 500;
+    }
+
+    .pledge-input-container {
+      position: relative;
+      margin: 30px 0px;
+
+      .dollar-sign {
+        position: absolute;
+        left: 5px;
+        top: 14px;
+        padding-left: 10px;
+        color: $light-gray;
+      }
+
+      input[type="number"] {
+        padding: 15px 25px;
+        width: 93px;
+        border-radius: 20px;
+        border: 1px solid $light-gray;
+        font-weight: bold;
+        font-size: 1rem;
+        text-align: center;
+      }
+    }
+    .pledge-no-reward-cta,
+    .pledge-amount-cta {
+      align-self: center;
+      width: 130px;
+      height: 50px;
+      border-radius: 20px;
+      border: 1px solid $moderate-cyan;
+      background-color: $moderate-cyan;
+      color: $very-light-gray-white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .pledge-content-no-reward {
+      .pledge-no-reward-cta {
+        position: relative;
+        bottom: 10px;
+      }
+    }
+
+}
+
+}
+
 // BODY
 
 body {
@@ -207,7 +411,7 @@ main {
     position: relative;
     background-color: $white;
     padding: 25px;
-    width: 90%;
+    width: 95%;
     max-width: 373px;
     border-radius: 5px;
     margin: 10px;
@@ -312,6 +516,26 @@ main {
         margin: 30px 0;
       }
     }
+
+    &.project-about-section{
+
+      align-items: flex-start;
+
+      h2{
+        font-size: 1.35rem;
+        margin:6px 0;
+        font-weight: bold;
+      }
+
+      p{
+        margin:10px 0;
+        font-weight: 450;
+        color:$dark-gray;
+        line-height:1.6rem;
+        padding-bottom: 15px;
+        
+      }
+    }
   }
 
   .modal-container {
@@ -339,6 +563,10 @@ main {
       border-radius: 5px;
       top: 22rem;
 
+      @include cardContainer();
+
+    
+      
       .modal-heading {
         padding: 20px 15px;
         font-size: 1.2rem;
@@ -367,250 +595,13 @@ main {
           }
         }
       }
-
-      .modal-card-container {
-        border: 1px solid $light-gray;
-        width: 85%;
-
-        margin: 20px 15px;
-        border-radius: 5px;
-
-        &.mahogany-special {
-          pointer-events: none;
-          opacity: 0.5;
-          background-color: $very-light-gray-white;
-        }
-
-        .header-container {
-          display: flex;
-          flex-direction: column;
-          row-gap: 10px;
-
-          .pledge-amount-heading {
-            padding-left: 4rem;
-            font-size: 0.95rem;
-            color: $moderate-cyan;
-            font-weight: 600;
-          }
-        }
-
-        div[data-pledge-id] {
-          display: flex;
-          gap: 10px;
-          padding: 0 20px;
-          margin-bottom: 20px;
-          .pledge-amount-span {
-            align-self: center;
-            font-size: 1.1rem;
-            font-weight: 450;
-          }
-        }
-        .input-label-container {
-          display: flex;
-          gap: 20px;
-          padding-inline: 20px;
-          padding-top: 10px;
-
-          &:hover {
-            color: $moderate-cyan;
-
-            .custom-radio input[type="radio"] {
-              border: 1px solid $moderate-cyan;
-            }
-          }
-
-          .inner-circle,
-          input[type="radio"] {
-            cursor: pointer;
-          }
-
-          .span-label {
-            font-weight: bold;
-            align-self: center;
-            cursor: default;
-            font-size: 1.1rem;
-          }
-
-          .custom-radio-others {
-            top: 1rem;
-          }
-
-          .custom-radio-others,
-          .custom-radio {
-            position: relative;
-
-            .inner-circle {
-              content: "";
-              width: 12px;
-              height: 12px;
-              background-color: transparent;
-              border-radius: 50%;
-              position: absolute;
-              top: 47%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-              transition: background-color 0.3s;
-            }
-
-            input[type="radio"] {
-              appearance: none;
-              -webkit-appearance: none;
-              -moz-appearance: none;
-              width: 25px;
-              height: 25px;
-              border: 1px solid $light-gray;
-              border-radius: 50%;
-              position: relative;
-
-              &:checked + .inner-circle {
-                background-color: $moderate-cyan;
-              }
-            }
-          }
-        }
-
-        .backed-p {
-          padding: 20px;
-          color: $dark-gray;
-          line-height: 1.5rem;
-        }
-
-        .pledge-content-container {
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin-bottom: 1rem;
-          &::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            border-bottom: 1px solid $light-gray;
-          }
-        }
-
-        .pledge-content {
-          display: flex;
-          justify-content: space-between;
-          width: 100%;
-          padding: 0 18px;
-        }
-
-        .pledge-content-heading {
-          margin-top: 1rem;
-          font-size: 1rem;
-          color: $dark-gray;
-          font-weight: 500;
-        }
-
-        .pledge-input-container {
-          position: relative;
-          margin: 30px 0px;
-
-          .dollar-sign {
-            position: absolute;
-            left: 5px;
-            top: 14px;
-            padding-left: 10px;
-            color: $light-gray;
-          }
-
-          input[type="number"] {
-            padding: 15px 25px;
-            width: 93px;
-            border-radius: 20px;
-            border: 1px solid $light-gray;
-            font-weight: bold;
-            font-size: 1rem;
-            text-align: center;
-          }
-        }
-        .pledge-no-reward-cta,
-        .pledge-amount-cta {
-          align-self: center;
-          width: 130px;
-          height: 50px;
-          border-radius: 20px;
-          border: 1px solid $moderate-cyan;
-          background-color: $moderate-cyan;
-          color: $very-light-gray-white;
-          font-weight: bold;
-          cursor: pointer;
-        }
-
-        .pledge-content-no-reward {
-          .pledge-no-reward-cta {
-            position: relative;
-            bottom: 10px;
-          }
-        }
-
-        @media only screen and (max-width: 297px) {
-          width: 90%;
-
-          .header-container{
-            row-gap: 2px;
-          }
-
-          .backed-p {
-            padding: 7.5px;
-            text-align: center;
-            margin-top:0.9rem;
-          }
-
-          .pledge-content{
-            flex-wrap:wrap;
-            justify-content: center;
-
-            .pledge-input-container{
-              .dollar-sign{
-                left:6px;
-              }
-
-              input[type=number]{
-                width:134px;
-              }
-            }
-          }
-
-          div[data-pledge-id] {
-            padding: 0 7px;
-            justify-content: center;
-          }
-
-          .input-label-container {
-            padding-inline: 7px;
-            gap:14px;
-            .custom-radio-others,
-            .custom-radio {
-
-              input[type="radio"][id="no-reward"] {
-
-                &:checked + .inner-circle {
-                  top:28%
-                }
-              }
-
-              .inner-circle {
-                top: 43%;
-              }
-            }
-          }
-
-          .header-container {
-            .pledge-amount-heading {
-              padding-left: 3rem;
-            }
-          }
-        }
-      }
-
+      
       .pledge-completed-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 30px;
-
+        
         .pledge-complete-description {
           padding-top: 1rem;
           max-width: 390px;
@@ -634,8 +625,13 @@ main {
           cursor: pointer;
         }
       }
+
+      
     }
+    
   }
+
+  @include cardContainer(100% , 7px, 1.2rem, 0)
 }
 
 // MEDIA QUERY (TABLET / DESKTOP)
