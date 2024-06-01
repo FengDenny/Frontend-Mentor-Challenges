@@ -1,5 +1,6 @@
 import { backedProjectModalCompletedLogic } from "./BackedProjectCompleted";
-import { Helpers } from "./Helpers";
+import { Helpers, createElementsHelpers } from "./Helpers";
+import { LocalStorage } from "./LocalStorage";
 
 export const backedProjectModalLogic = {
   backProjectClicked: document.getElementById("back-project"),
@@ -157,50 +158,15 @@ export const backedProjectModalLogic = {
 
 export const backedProjectModalUI = {
   modalContainer: document.getElementById("modal-container"),
-  createElement(tagName, attributes = {}, textContent = "") {
-    const element = document.createElement(tagName);
-    Object.keys(attributes).forEach((attribute) => {
-      if (attribute === "required" && attributes[attribute]) {
-        element.required = true;
-      } else {
-        element.setAttribute(attribute, attributes[attribute]);
-      }
-    });
-    element.textContent = textContent;
-    return element;
-  },
-
-  createSVGElementNS(qualifiedName, attributes = {}, textContent = "") {
-    const URI = "http://www.w3.org/2000/svg";
-    const nsElement = document.createElementNS(URI, qualifiedName);
-    Object.keys(attributes).forEach((attribute) => {
-      nsElement.setAttribute(attribute, attributes[attribute]);
-    });
-    nsElement.textContent = textContent;
-    return nsElement;
-  },
-
-  createDiv(attributes, textContent) {
-    return this.createElement("div", attributes, textContent);
-  },
-  createHeadingH2(attributes, textContent) {
-    return this.createElement("h2", attributes, textContent);
-  },
-  createParagraph(attributes, textContent) {
-    return this.createElement("p", attributes, textContent);
-  },
-  createInputType(attribute, textContent) {
-    return this.createElement("input", attribute, textContent);
-  },
-  createLabel(attribute, textContent) {
-    return this.createElement("label", attribute, textContent);
-  },
-  createSpan(attribute, textContent) {
-    return this.createElement("span", attribute, textContent);
-  },
-  createCTA(attribute, textContent) {
-    return this.createElement("button", attribute, textContent);
-  },
+  createSVGElementNS: createElementsHelpers.createSVGElementNS,
+  createElement: createElementsHelpers.createElement,
+  createDiv: createElementsHelpers.createDiv,
+  createHeadingH2: createElementsHelpers.createHeadingH2,
+  createParagraph: createElementsHelpers.createParagraph,
+  createInputType: createElementsHelpers.createInputType,
+  createLabel: createElementsHelpers.createLabel,
+  createSpan: createElementsHelpers.createSpan,
+  createCTA: createElementsHelpers.createCTA,
 
   createModalHeaderContent() {
     const modalHeading = this.createHeadingH2({ class: "modal-heading" });
