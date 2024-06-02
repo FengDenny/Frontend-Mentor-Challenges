@@ -19,9 +19,13 @@ export const progressLogic = {
   },
 
   handleProgressNumberData() {
+    const articleContainer = createElementsHelpers.createDiv({class:"article-container"})
     this.progressData.forEach((item) => {
-      progressUI.createArticle(item);
+      const article = progressUI.createArticle(item);
+      articleContainer.appendChild(article)
     });
+
+    progressLogic.progressSection.appendChild(articleContainer)
   },
 
   handleUpdateUI() {
@@ -47,12 +51,13 @@ const progressUI = {
     const headingText =
       LocalStorage.checkLocalStorageData(item.id) || item.total;
 
-    const heading = createElementsHelpers.createHeadingH2({}, headingText);
+    const heading = item.id === "total-amount-backed" ? createElementsHelpers.createHeadingH2({}, `$${headingText}`):
+    createElementsHelpers.createHeadingH2({}, headingText)
     const span = createElementsHelpers.createSpan({}, item.description);
 
     article.appendChild(heading);
     article.appendChild(span);
-    progressLogic.progressSection.appendChild(article);
+    return article
   },
 
   createProgressBar(max = 0, value = 0) {
