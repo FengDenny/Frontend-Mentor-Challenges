@@ -16,5 +16,13 @@ export const LocalStorage = {
   removeLocalStorageData(key){
     localStorage.removeItem(key)
     console.log(`Removed ${key} from localStorage`);
-  }
+  }, 
+
+  handleInitialLocalStorage(data) {
+    data.forEach((item) => {
+      if (!this.checkLocalStorageData(item.id)) {
+        this.updateLocalStorageData(item.id, item.total);
+      }
+    });
+  },
 };

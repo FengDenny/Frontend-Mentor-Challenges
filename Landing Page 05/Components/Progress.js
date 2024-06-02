@@ -15,19 +15,12 @@ export const progressLogic = {
 
 
   handleProgressData() {
-    this.handleInitialLocalStorage();
+    LocalStorage.handleInitialLocalStorage(this.progressData);
     this.handleUpdateUI()
   },
 
 
-  handleInitialLocalStorage() {
-    this.progressData.forEach((item) => {
-      if (!LocalStorage.checkLocalStorageData(item.id)) {
-        LocalStorage.updateLocalStorageData(item.id, item.total);
-      }
-    });
-  },
-  
+
   handleProgressNumberData() {
     this.progressData.forEach((item) => {
       progressUI.createArticle(item);
