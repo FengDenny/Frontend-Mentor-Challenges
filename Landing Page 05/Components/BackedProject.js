@@ -24,14 +24,14 @@ export const backedProjectLogic = {
 
   handleBackProjectClicked(button) {
     button.addEventListener("click", (event) => {
-     const pledgeID = document.querySelector("div[data-pledge-id]")
       if (!document.getElementById("open-modal")) {
         backedProjectUI.createCardContent(backedProjectUI.modalContainer);
         backedProjectUI.modalContainer.style.opacity = "1";
         backedProjectUI.modalContainer.style.pointerEvents = "auto";
         this.handleModalClose();
         this.handlePledgeClicked(".card-container[data-container]");
-        !pledgeID.hasChildNodes() && this.handlePledgeLeft("div[data-container]");
+      this.handlePledgeLeft("div[data-container]");
+        // console.log(document.querySelector("button['data-complete-id']"))
       }
     });
   },
@@ -58,13 +58,16 @@ export const backedProjectLogic = {
       const input = card.querySelector(`input[type="radio"]`);
       const inputID = input.id;
       const divElement = card.querySelector(`div[data-pledge-id]`);
+
+      console.log(divElement && !divElement.hasChildNodes())
+
       const pledgeID =
         inputID !== "no-reward" &&
         inputID !== "no-reward-select" &&
         divElement.dataset.pledgeId;
 
       const updateData = this.leftData.map((item) => {
-        if (item.id === pledgeID || item["project-about-id"] === pledgeID) {
+        if ( divElement && !divElement.hasChildNodes() && (item.id === pledgeID || item["project-about-id"] === pledgeID))  {
           const headingH2 = backedProjectUI.createHeadingH2(
             {
               class: "pledge-amount",
@@ -157,6 +160,13 @@ export const backedProjectLogic = {
       });
     });
   },
+
+  handlePledgeButtonContinueClicked(){
+    pledgeAmountCTA = document.querySelector("button['data-complete-id']")
+    console.log(pledgeAmountCTA)
+  }
+
+
 };
 
 export const backedProjectUI = {
