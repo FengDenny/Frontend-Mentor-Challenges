@@ -33,11 +33,11 @@ const aboutProjectLogic = {
   }
 };
 
-const aboutPrjectInit = {
+const aboutProjectInit = {
   init(){
     aboutProjectLogic.handleBackedCards();
     aboutProjectLogic.handleButtonSelectClicked();
   }
 }
 
-aboutPrjectInit.init()
+aboutProjectInit.init()
