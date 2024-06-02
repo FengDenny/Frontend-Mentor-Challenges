@@ -22,15 +22,16 @@ export const backedProjectLogic = {
     },
   ],
 
-  handleBackProjectClicked() {
-    this.backProjectClicked.addEventListener("click", () => {
+  handleBackProjectClicked(button) {
+    button.addEventListener("click", (event) => {
+     const pledgeID = document.querySelector("div[data-pledge-id]")
       if (!document.getElementById("open-modal")) {
         backedProjectUI.createCardContent(backedProjectUI.modalContainer);
         backedProjectUI.modalContainer.style.opacity = "1";
         backedProjectUI.modalContainer.style.pointerEvents = "auto";
         this.handleModalClose();
         this.handlePledgeClicked(".card-container[data-container]");
-        this.handlePledgeLeft("div[data-container]");
+        !pledgeID.hasChildNodes() && this.handlePledgeLeft("div[data-container]");
       }
     });
   },
@@ -483,7 +484,7 @@ export const backedProjectUI = {
 
 const modal = {
   init() {
-    backedProjectLogic.handleBackProjectClicked();
+    backedProjectLogic.handleBackProjectClicked(backedProjectLogic.backProjectClicked);
   },
 };
 
