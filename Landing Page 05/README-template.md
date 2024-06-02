@@ -58,7 +58,7 @@
 
 In this project, I'm particularly proud of how I implemented `DOM manipulation` to dynamically update various components. 
 
-By leveraging JavaScript, I was able to create a seamless user experience where elements such as `pledges`, `bookmarks`, `navigations`, `modals`, and `progresses` could be dynamically rendered and updated based on user actions and data changes with `data persistance`.
+By leveraging JavaScript, I was able to create a seamless user experience where elements such as `pledges`, `bookmarks`, `navigations`, `modals`, and `progresses` could be dynamically rendered and updated based on user actions and data changes with `data persistence`.
 
 Additionally, I'm proud of how I applied encapsulation principles to organize my code into reusable components. Each component, such as pledges or progresses, encapsulated its functionality, making the codebase more modular, maintainable, and easier to understand.
 
