@@ -1,7 +1,7 @@
 import { createElementsHelpers } from "./Helpers";
 import { LocalStorage } from "./LocalStorage";
 
-const progressLogic = {
+export const progressLogic = {
   progressSection: document.getElementById("progress"),
   progressData: [
     {
@@ -13,18 +13,31 @@ const progressLogic = {
     { id: "days-left", total: "56", description: "days left" },
   ],
 
+
   handleProgressData() {
-    this.handleProgressNumberData();
-    this.handleProgressBarData();
+    this.handleInitialLocalStorage();
+    this.handleUpdateUI()
   },
-  handleProgressNumberData() {
-    this.progressData.map((item) => {
-      if (item) {    
-        this.handleLocalStorageUpdates(item)     
-        // this.handleProgressNumberUpdates("98,000", "5,008")
-        progressUI.createArticle(item);
+
+
+  handleInitialLocalStorage() {
+    this.progressData.forEach((item) => {
+      if (!LocalStorage.checkLocalStorageData(item.id)) {
+        LocalStorage.updateLocalStorageData(item.id, item.total);
       }
     });
+  },
+  
+  handleProgressNumberData() {
+    this.progressData.forEach((item) => {
+      progressUI.createArticle(item);
+    });
+  },
+
+  handleUpdateUI() {
+    this.progressSection.textContent = "";  // Clear the section
+    this.handleProgressNumberData();      // Re-render the numbers
+    this.handleProgressBarData();         // Re-render the progress bar
   },
   handleProgressBarData() {
     const totalBacked = LocalStorage.checkLocalStorageData(
