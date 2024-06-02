@@ -23,8 +23,21 @@ const aboutProjectLogic = {
     backedProjectLogic.handlePledgeClicked(".card-container[data-container]");
     backedProjectLogic.handlePledgeLeft("div[data-container]");
   },
+
+  handleButtonSelectClicked(){
+    const buttonSelectReward = document.querySelectorAll("button[data-select-reward]")
+    
+    buttonSelectReward.forEach(button => {
+      backedProjectLogic.handleBackProjectClicked(button)
+    })
+  }
 };
 
-const aboutProjectUI = {};
+const aboutPrjectInit = {
+  init(){
+    aboutProjectLogic.handleBackedCards();
+    aboutProjectLogic.handleButtonSelectClicked();
+  }
+}
 
-aboutProjectLogic.handleBackedCards();
+aboutPrjectInit.init()
