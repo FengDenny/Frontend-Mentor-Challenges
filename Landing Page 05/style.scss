@@ -518,6 +518,28 @@ main {
         margin-top: 1rem;
         margin-bottom: 10px;
 
+        .bookmark-cta-container{
+          display:flex;
+          background-color: $very-light-gray-white ;
+          padding:15px;
+          padding-left:0px;
+          gap:10px;
+          height:63px;
+          border-radius:50px;
+          transition:opacity 0.3s ease-in;
+
+          &:hover{
+            opacity: 0.8;
+          }
+
+          span{
+            color:$dark-gray;
+            align-self: center;
+            font-weight: bold;
+            padding-right:10px;
+          }
+        }
+
         button {
           border: 1px solid transparent;
           background-color: $moderate-cyan;
