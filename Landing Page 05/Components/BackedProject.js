@@ -26,7 +26,10 @@ export const backedProjectLogic = {
   handleBackProjectClicked(button) {
     button.addEventListener("click", (event) => {
       if (!document.getElementById("open-modal")) {
-        backedProjectUI.createCardContent(backedProjectUI.modalContainer, "back-project");
+        backedProjectUI.createCardContent(
+          backedProjectUI.modalContainer,
+          "back-project"
+        );
         backedProjectUI.modalContainer.style.opacity = "1";
         backedProjectUI.modalContainer.style.pointerEvents = "auto";
         this.handleModalClose();
@@ -173,19 +176,16 @@ export const backedProjectLogic = {
       `input[data-input-id=${targetId}]`
     );
 
-
     continuePledgeBtn.addEventListener("click", () => {
-
-      if(inputRadio){
+      if (inputRadio) {
         this.handleIncrementPledge(inputRadio.value);
-      }else{
-        this.handleIncrementPledge()
+      } else {
+        this.handleIncrementPledge();
       }
     });
   },
 
   handleIncrementPledge(pledgeAmount = 0) {
-
     const currentTotalBacked =
       LocalStorage.checkLocalStorageData("total-amount-backed") || "89,914";
     const currentTotalBackers =
@@ -196,10 +196,10 @@ export const backedProjectLogic = {
     const newTotalBackers =
       parseInt(currentTotalBackers.split(",").join(""), 10) + 1;
 
-      LocalStorage.updateLocalStorageData(
-        "total-amount-backed",
-        newTotalBacked.toLocaleString()
-      );
+    LocalStorage.updateLocalStorageData(
+      "total-amount-backed",
+      newTotalBacked.toLocaleString()
+    );
     LocalStorage.updateLocalStorageData(
       "total-backers",
       newTotalBackers.toLocaleString()
@@ -303,9 +303,12 @@ export const backedProjectUI = {
         ? this.createPledgeCTA(id, "25", "74", "25")
         : this.createSelectReward();
 
+    const pledgeContainer = this.createDiv({
+      class: "pledge-container",
+    });
+
     bamboo.appendChild(bambooP);
-    bamboo.appendChild(pledgeAmount);
-    bamboo.appendChild(pledgeContent);
+    this.createAmountDivElements(bamboo, pledgeAmount, pledgeContent)
     return { bamboo };
   },
   createPledgeBlackEdition(id, container = "modal-container") {
@@ -329,9 +332,9 @@ export const backedProjectUI = {
         ? this.createPledgeCTA(id, "75", "199", "75")
         : this.createSelectReward();
 
+
     blackEdition.appendChild(blackEditionP);
-    blackEdition.appendChild(pledgeAmount);
-    blackEdition.appendChild(pledgeContent);
+    this.createAmountDivElements(blackEdition, pledgeAmount, pledgeContent)
     return { blackEdition };
   },
   createPledgeMahogany(id, container = "modal-container") {
@@ -355,10 +358,19 @@ export const backedProjectUI = {
         ? this.createPledgeCTA(id, "200", "300", "200")
         : this.createSelectReward();
 
+
     mahogany.appendChild(mahoganyP);
-    mahogany.appendChild(pledgeAmount);
-    mahogany.appendChild(pledgeContent);
+    this.createAmountDivElements(mahogany, pledgeAmount, pledgeContent)
+
     return { mahogany };
+  },
+  createAmountDivElements(container, pledgeAmount, pledgeContent){
+    const pledgeContainer = this.createDiv({
+      class: "pledge-container",
+    });
+    pledgeContainer.appendChild(pledgeAmount);
+    pledgeContainer.appendChild(pledgeContent);
+    container.appendChild(pledgeContainer);
   },
 
   createPledgeCTA(id = "", min = "", max = "", value = "", noReward = false) {
@@ -497,7 +509,7 @@ export const backedProjectUI = {
     const modal = this.createDiv({
       id: "open-modal",
       class: "modal",
-      ["data-modal"]: dataModal
+      ["data-modal"]: dataModal,
     });
     const { modalHeading, modalParagraph } = this.createModalHeaderContent();
     const { closeModalSVG } = this.createCloseModalButton();

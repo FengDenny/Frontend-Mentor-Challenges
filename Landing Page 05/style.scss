@@ -76,23 +76,25 @@ progress {
   border-radius: 10px;
 }
 
-
 // MIXINS
-@mixin cardContainer($width : 85%, $margin: 20px 15px, $padding-left: 4rem, $gap:0){
+@mixin cardContainer(
+  $width: 85%,
+  $margin: 20px 15px,
+  $padding-left: 4rem,
+  $gap: 0
+) {
   .card-container {
-    display:flex;
+    display: flex;
     flex-direction: column;
     border: 1px solid $light-gray;
-    width:$width;
-      margin: $margin;
+    width: $width;
+    margin: $margin;
     border-radius: 5px;
 
-
-
-    @media screen and (max-width:$xsm-mobile){
-      margin:9px 15px;
+    @media screen and (max-width: $xsm-mobile) {
+      margin: 9px 15px;
     }
-  
+
     &.mahogany-special {
       pointer-events: none;
       opacity: 0.5;
@@ -104,15 +106,14 @@ progress {
       flex-direction: column;
       row-gap: $gap;
 
-
       .pledge-amount-heading {
         padding-left: $padding-left;
         font-size: 0.95rem;
         color: $moderate-cyan;
         font-weight: 600;
 
-        @media  screen and ( max-width:$xsm-mobile) {
-          padding-left:3.3rem;
+        @media screen and (max-width: $xsm-mobile) {
+          padding-left: 3.3rem;
         }
       }
     }
@@ -123,9 +124,8 @@ progress {
       padding: 0 20px;
       margin-bottom: 20px;
 
-      @media screen and ( max-width:$xsm-mobile){
-        padding: 0 9px
-
+      @media screen and (max-width: $xsm-mobile) {
+        padding: 0 9px;
       }
 
       .pledge-amount-span {
@@ -140,15 +140,17 @@ progress {
       padding-inline: 20px;
       padding-top: 10px;
 
-      @media screen and (max-width: $xsm-mobile){
-        padding-inline:9px;
-        margin:0;
+      @media screen and (max-width: $xsm-mobile) {
+        padding-inline: 9px;
+        margin: 0;
       }
 
       &:hover {
         color: $moderate-cyan;
-
-        .custom-radio input[type="radio"] {
+      }
+      
+      .custom-radio-others [type="radio"] {
+        &:hover, &:focus-visible{
           border: 1px solid $moderate-cyan;
         }
       }
@@ -158,10 +160,9 @@ progress {
         cursor: pointer;
       }
 
-
-      label[data-id="no-reward"] ~ .span-label{
+      label[data-id="no-reward"] ~ .span-label {
         position: relative;
-        top:0.8rem;
+        top: 0.8rem;
       }
 
       .span-label {
@@ -180,8 +181,8 @@ progress {
         position: relative;
 
         // select all data-id attribute value that ends with "select".
-        &[data-id$="select"]{
-          display:none;
+        &[data-id$="select"] {
+          display: none;
         }
 
         .inner-circle {
@@ -211,12 +212,11 @@ progress {
             background-color: $moderate-cyan;
           }
 
-          @media screen and (max-width:306px){
-            &[id="no-reward"] ~ .inner-circle{
-              top:27%;
+          @media screen and (max-width: 306px) {
+            &[id="no-reward"] ~ .inner-circle {
+              top: 27%;
             }
           }
-
         }
       }
     }
@@ -225,17 +225,15 @@ progress {
       padding: 20px;
       color: $dark-gray;
       line-height: 1.5rem;
-      margin:0.5rem 0;
+      margin: 0.5rem 0;
 
-
-      @media screen and (max-width: $xsm-mobile ){
-        padding:1px;
-        margin:1.3rem 9px 7px 9px;
+      @media screen and (max-width: $xsm-mobile) {
+        padding: 1px;
+        margin: 1.3rem 9px 7px 9px;
       }
-
     }
 
-      .select-reward-button {
+    .select-reward-button {
       width: 130px;
       height: 50px;
       border-radius: 20px;
@@ -246,7 +244,8 @@ progress {
       cursor: pointer;
       position: relative;
       bottom: 10px;
-      margin-left:15px;   
+      margin-left: 15px;
+      margin-bottom: 14px;
       text-transform: capitalize;
     }
 
@@ -298,6 +297,7 @@ progress {
         font-weight: bold;
         font-size: 1rem;
         text-align: center;
+        caret-color:$moderate-cyan;
       }
     }
     .pledge-no-reward-cta,
@@ -319,9 +319,7 @@ progress {
         bottom: 10px;
       }
     }
-
-}
-
+  }
 }
 
 // BODY
@@ -506,11 +504,19 @@ main {
           color: $very-light-gray-white;
           cursor: pointer;
 
+          transition: background-color 0.3s ease-in, border 0.3s ease-in;
+
           &:not(.bookmark) {
             width: 233px;
             height: 50px;
             border-radius: 30px;
             font-weight: bold;
+
+            &:hover,
+            &:focus-visible {
+              background-color: $dark-cyan;
+              border: 1px solid $dark-cyan;
+            }
           }
 
           &.bookmark {
@@ -564,23 +570,21 @@ main {
       }
     }
 
-    &.project-about-section{
-
+    &.project-about-section {
       align-items: flex-start;
 
-      h2{
+      h2 {
         font-size: 1.35rem;
-        margin:6px 0;
+        margin: 6px 0;
         font-weight: bold;
       }
 
-      p{
-        margin:10px 0;
+      p {
+        margin: 10px 0;
         font-weight: 450;
-        color:$dark-gray;
-        line-height:1.6rem;
+        color: $dark-gray;
+        line-height: 1.6rem;
         padding-bottom: 15px;
-        
       }
     }
   }
@@ -610,14 +614,12 @@ main {
       border-radius: 5px;
       top: 21rem;
 
-      &[data-modal="completed-backed-project"]{
-        top:0;
+      &[data-modal="completed-backed-project"] {
+        top: 0;
       }
 
       @include cardContainer();
 
-    
-      
       .modal-heading {
         padding: 20px 15px;
         font-size: 1.2rem;
@@ -646,13 +648,13 @@ main {
           }
         }
       }
-      
+
       .pledge-completed-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 30px;
-        
+
         .pledge-complete-description {
           padding-top: 1rem;
           max-width: 390px;
@@ -676,15 +678,10 @@ main {
           cursor: pointer;
         }
       }
-
-      
     }
-    
   }
 
-
-
-  @include cardContainer(100% , 7px 0, 1.2rem, 0)
+  @include cardContainer(100%, 7px 0, 1.2rem, 0);
 }
 
 // MEDIA QUERY (TABLET / DESKTOP)
@@ -696,8 +693,12 @@ main {
 
       .primary-nav {
         width: 100%;
-        max-width: 1800px;
+        max-width: 1500px;
         padding: 25px;
+
+        .logo {
+          padding-left: 3rem;
+        }
 
         .mobile-nav {
           display: none;
@@ -710,6 +711,7 @@ main {
 
         .desktop-nav {
           display: block;
+
           ul {
             display: flex;
             gap: 20px;
@@ -727,11 +729,165 @@ main {
       }
     }
 
-    // .modal-container{
-    //   .modal{
-    //     top:14rem;
-    //   }
-    // }
+    section {
+      max-width: 691px;
 
+      &.main-section {
+        .main-section-cta {
+          justify-content: space-between;
+          width: 100%;
+        }
+      }
+
+      &.progress-section {
+        .article-container {
+          display: flex;
+          width: 100%;
+
+          article {
+            align-items: flex-start;
+            padding: 20px 0;
+          }
+          article:not(:last-child)::after {
+            transform: rotate(90deg);
+            top: 48px;
+            right: 0px;
+          }
+        }
+      }
+
+      &.project-about-section {
+        .card-container {
+          .header-container {
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 20px 0;
+
+            .pledge-amount-heading {
+              padding-right: 20px;
+            }
+          }
+
+          .pledge-container {
+            display: flex;
+            justify-content: space-between;
+            button {
+              margin-right: 20px;
+              transition: background-color 0.3s ease-in, border 0.3s ease-in;
+
+              &:hover,
+              &:focus-visible {
+                background-color: $dark-cyan;
+                border: 1px solid $dark-cyan;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .modal-container {
+      .modal {
+        max-width: 726px;
+        top: 14rem;
+        padding: 1rem;
+
+        .modal-paragraph {
+          max-width: 100%;
+        }
+
+        .card-container {
+          width: 90%;
+          position: relative;
+          .input-label-container {
+            gap: 12px;
+            .span-label {
+              position: relative;
+              top: 0.8rem;
+            }
+          }
+
+          .backed-p {
+            margin: 1.2rem 0;
+            padding: 0px 56px;
+            font-size: 0.9rem;
+          }
+
+          .header-container {
+            flex-direction: row;
+
+            .pledge-amount-heading {
+              padding-left: 0;
+              position: relative;
+              top: 1.8rem;
+            }
+          }
+
+          .pledge-content-container {
+            flex-direction: row;
+            margin-bottom: 2rem;
+
+            &::before {
+              top: 0;
+            }
+
+            h2 {
+              flex: 2;
+              padding-left: 20px;
+            }
+
+            .pledge-content-no-reward {
+              display: flex;
+              justify-content: center;
+              flex: auto;
+              margin-top: 3rem;
+            }
+          }
+
+          .pledge-content {
+            position: relative;
+            top: 0.7rem;
+            justify-content: flex-end;
+            gap: 10px;
+            flex: 1;
+
+            .pledge-input-container {
+              input[type="number"] {
+                width: 100px;
+
+                &:hover,
+                &:focus-visible {
+                  border: 1px solid $moderate-cyan;
+                  outline: none;
+                }
+              }
+            }
+
+            .pledge-amount-cta {
+              &:hover,
+              &:focus-visible {
+                background-color: $dark-cyan;
+              }
+            }
+          }
+
+          .pledge-container {
+            div[data-pledge-id] {
+              position: absolute;
+              top: 20px;
+              right: 0;
+
+              .pledge-amount {
+                font-size: 1.2rem;
+              }
+
+              .pledge-amount-span {
+                font-size: 0.95rem;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
