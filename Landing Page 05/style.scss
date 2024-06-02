@@ -449,6 +449,23 @@ main {
             font-size: 1.2rem;
             padding: 0 25px;
             font-weight: bold;
+
+            &::after {
+              content: "";
+              position: absolute;
+              left: 25px;
+              bottom: 0;
+              width: 0;
+              height: 1px;
+              background-color: $dark-gray;
+              transition: width 0.3s ease-in;
+            }
+
+            &:active::after,
+            &:hover::after,
+            &:focus-visible::after {
+              width: 80%;
+            }
           }
 
           &:not(:last-child)::after {
@@ -756,7 +773,7 @@ main {
             li {
               list-style: none;
               padding: 10px 0;
-              
+
               a {
                 position: relative;
                 text-decoration: none;
@@ -764,21 +781,20 @@ main {
                 font-size: 1rem;
 
                 &::after {
-                  content: '';
+                  content: "";
                   position: absolute;
                   left: 0;
                   bottom: 0;
-                  width: 0;  
-                  height: 1px;  
-                  background-color: $very-light-gray-white;  
+                  width: 0;
+                  height: 1px;
+                  background-color: $very-light-gray-white;
                   transition: width 0.3s ease-in;
-              }
-
+                }
 
                 &:active::after,
                 &:hover::after,
                 &:focus-visible::after {
-                  width:100%;
+                  width: 100%;
                 }
               }
             }
