@@ -26,7 +26,7 @@ export const backedProjectLogic = {
   handleBackProjectClicked(button) {
     button.addEventListener("click", (event) => {
       if (!document.getElementById("open-modal")) {
-        backedProjectUI.createCardContent(backedProjectUI.modalContainer);
+        backedProjectUI.createCardContent(backedProjectUI.modalContainer, "back-project");
         backedProjectUI.modalContainer.style.opacity = "1";
         backedProjectUI.modalContainer.style.pointerEvents = "auto";
         this.handleModalClose();
@@ -485,10 +485,11 @@ export const backedProjectUI = {
     return cardContainer;
   },
 
-  createCardContent(container) {
+  createCardContent(container, dataModal) {
     const modal = this.createDiv({
       id: "open-modal",
       class: "modal",
+      ["data-modal"]: dataModal
     });
     const { modalHeading, modalParagraph } = this.createModalHeaderContent();
     const { closeModalSVG } = this.createCloseModalButton();

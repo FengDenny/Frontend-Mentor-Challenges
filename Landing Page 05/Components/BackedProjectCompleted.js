@@ -19,6 +19,7 @@ export const backedProjectModalCompletedLogic = {
 
   updateModal(id) {
     const modal = document.getElementById(id);
+    modal.dataset.modal = "completed-backed-project"
     // Clear existing default path on click
     while (modal.firstChild) {
       modal.removeChild(modal.firstChild);
