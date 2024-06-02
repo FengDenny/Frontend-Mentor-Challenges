@@ -1,6 +1,7 @@
 import { backedProjectModalCompletedLogic } from "./BackedProjectCompleted";
 import { Helpers, createElementsHelpers } from "./Helpers";
 import { LocalStorage } from "./LocalStorage";
+import { progressLogic } from "./Progress";
 
 export const backedProjectLogic = {
   backProjectClicked: document.getElementById("back-project"),
@@ -30,8 +31,7 @@ export const backedProjectLogic = {
         backedProjectUI.modalContainer.style.pointerEvents = "auto";
         this.handleModalClose();
         this.handlePledgeClicked(".card-container[data-container]");
-      this.handlePledgeLeft("div[data-container]");
-        // console.log(document.querySelector("button['data-complete-id']"))
+        this.handlePledgeLeft("div[data-container]");
       }
     });
   },
@@ -59,15 +59,17 @@ export const backedProjectLogic = {
       const inputID = input.id;
       const divElement = card.querySelector(`div[data-pledge-id]`);
 
-      console.log(divElement && !divElement.hasChildNodes())
-
       const pledgeID =
         inputID !== "no-reward" &&
         inputID !== "no-reward-select" &&
         divElement.dataset.pledgeId;
 
       const updateData = this.leftData.map((item) => {
-        if ( divElement && !divElement.hasChildNodes() && (item.id === pledgeID || item["project-about-id"] === pledgeID))  {
+        if (
+          divElement &&
+          !divElement.hasChildNodes() &&
+          (item.id === pledgeID || item["project-about-id"] === pledgeID)
+        ) {
           const headingH2 = backedProjectUI.createHeadingH2(
             {
               class: "pledge-amount",
@@ -142,6 +144,11 @@ export const backedProjectLogic = {
                 continuePledgeBtn,
                 "open-modal"
               );
+
+              this.handleContinuePledgeButtonClicked(
+                continuePledgeBtn,
+                targetId
+              );
             }
           }
 
@@ -161,12 +168,37 @@ export const backedProjectLogic = {
     });
   },
 
-  handlePledgeButtonContinueClicked(){
-    pledgeAmountCTA = document.querySelector("button['data-complete-id']")
-    console.log(pledgeAmountCTA)
-  }
+  handleContinuePledgeButtonClicked(continuePledgeBtn, targetId) {
+    const inputRadio = document.querySelector(
+      `input[data-input-id=${targetId}]`
+    );
 
+    continuePledgeBtn.addEventListener("click", () => {
+      if (inputRadio) this.handleIncrementPledge(inputRadio.value);
+    });
+  },
 
+  handleIncrementPledge(pledgeAmount) {
+    const currentTotalBacked =
+      LocalStorage.checkLocalStorageData("total-amount-backed") || "89,914";
+    const currentTotalBackers =
+      LocalStorage.checkLocalStorageData("total-backers") || "5,007";
+    const newTotalBacked =
+      parseInt(currentTotalBacked.split(",").join(""), 10) +
+      parseInt(pledgeAmount);
+    const newTotalBackers =
+      parseInt(currentTotalBackers.split(",").join(""), 10) + 1;
+    LocalStorage.updateLocalStorageData(
+      "total-amount-backed",
+      newTotalBacked.toLocaleString()
+    );
+    LocalStorage.updateLocalStorageData(
+      "total-backers",
+      newTotalBackers.toLocaleString()
+    );
+
+    progressLogic.handleUpdateUI();
+  },
 };
 
 export const backedProjectUI = {
@@ -494,7 +526,9 @@ export const backedProjectUI = {
 
 const modal = {
   init() {
-    backedProjectLogic.handleBackProjectClicked(backedProjectLogic.backProjectClicked);
+    backedProjectLogic.handleBackProjectClicked(
+      backedProjectLogic.backProjectClicked
+    );
   },
 };
 
