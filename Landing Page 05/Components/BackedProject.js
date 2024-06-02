@@ -173,12 +173,19 @@ export const backedProjectLogic = {
       `input[data-input-id=${targetId}]`
     );
 
+
     continuePledgeBtn.addEventListener("click", () => {
-      if (inputRadio) this.handleIncrementPledge(inputRadio.value);
+
+      if(inputRadio){
+        this.handleIncrementPledge(inputRadio.value);
+      }else{
+        this.handleIncrementPledge()
+      }
     });
   },
 
-  handleIncrementPledge(pledgeAmount) {
+  handleIncrementPledge(pledgeAmount = 0) {
+
     const currentTotalBacked =
       LocalStorage.checkLocalStorageData("total-amount-backed") || "89,914";
     const currentTotalBackers =
@@ -188,10 +195,11 @@ export const backedProjectLogic = {
       parseInt(pledgeAmount);
     const newTotalBackers =
       parseInt(currentTotalBackers.split(",").join(""), 10) + 1;
-    LocalStorage.updateLocalStorageData(
-      "total-amount-backed",
-      newTotalBacked.toLocaleString()
-    );
+
+      LocalStorage.updateLocalStorageData(
+        "total-amount-backed",
+        newTotalBacked.toLocaleString()
+      );
     LocalStorage.updateLocalStorageData(
       "total-backers",
       newTotalBackers.toLocaleString()
