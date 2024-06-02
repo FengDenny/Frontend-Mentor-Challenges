@@ -78,21 +78,22 @@ progress {
 
 // MIXINS
 
-@mixin buttonActiveState(){
+@mixin buttonActiveState() {
   transition: background-color 0.3s ease-in, border 0.3s ease-in;
 
   &:hover,
   &:focus-visible {
     background-color: $dark-cyan;
-    border: 1px solid $dark-cyan
+    border: 1px solid $dark-cyan;
   }
 }
 
-
-@mixin cardContainer($width: 85%,
+@mixin cardContainer(
+  $width: 85%,
   $margin: 20px 15px,
   $padding-left: 4rem,
-  $gap: 0) {
+  $gap: 0
+) {
   .card-container {
     display: flex;
     flex-direction: column;
@@ -161,7 +162,6 @@ progress {
       }
 
       .custom-radio-others [type="radio"] {
-
         &:hover,
         &:focus-visible {
           border: 1px solid $moderate-cyan;
@@ -173,7 +173,7 @@ progress {
         cursor: pointer;
       }
 
-      label[data-id="no-reward"]~.span-label {
+      label[data-id="no-reward"] ~ .span-label {
         position: relative;
         top: 0.8rem;
       }
@@ -221,12 +221,12 @@ progress {
           border-radius: 50%;
           position: relative;
 
-          &:checked+.inner-circle {
+          &:checked + .inner-circle {
             background-color: $moderate-cyan;
           }
 
           @media screen and (max-width: 306px) {
-            &[id="no-reward"]~.inner-circle {
+            &[id="no-reward"] ~ .inner-circle {
               top: 27%;
             }
           }
@@ -518,25 +518,25 @@ main {
         margin-top: 1rem;
         margin-bottom: 10px;
 
-        .bookmark-cta-container{
-          display:flex;
-          background-color: $very-light-gray-white ;
-          padding:15px;
-          padding-left:0px;
-          gap:10px;
-          height:63px;
-          border-radius:50px;
-          transition:opacity 0.3s ease-in;
+        .bookmark-cta-container {
+          display: flex;
+          background-color: $very-light-gray-white;
+          padding: 15px;
+          padding-left: 0px;
+          gap: 10px;
+          height: 63px;
+          border-radius: 50px;
+          transition: opacity 0.3s ease-in;
 
-          &:hover{
+          &:hover {
             opacity: 0.8;
           }
 
-          span{
-            color:$dark-gray;
+          span {
+            color: $dark-gray;
             align-self: center;
             font-weight: bold;
-            padding-right:10px;
+            padding-right: 10px;
           }
         }
 
@@ -546,15 +546,13 @@ main {
           color: $very-light-gray-white;
           cursor: pointer;
 
-    
           &:not(.bookmark) {
             width: 233px;
             height: 50px;
             border-radius: 30px;
             font-weight: bold;
 
-
-            @include buttonActiveState()
+            @include buttonActiveState();
           }
 
           &.bookmark {
@@ -563,7 +561,6 @@ main {
             bottom: 10px;
 
             svg {
-
               circle,
               path {
                 transition: fill 0.4s ease;
@@ -651,7 +648,7 @@ main {
       max-width: 500px;
       height: auto;
       border-radius: 5px;
-      top: 21rem;
+      top: 18rem;
 
       &[data-modal="completed-backed-project"] {
         top: 0;
@@ -679,7 +676,6 @@ main {
         cursor: pointer;
 
         path {
-
           &:hover,
           &:active,
           &:focus-visible {
@@ -760,11 +756,30 @@ main {
             li {
               list-style: none;
               padding: 10px 0;
-
+              
               a {
+                position: relative;
                 text-decoration: none;
-                color: $very-light-gray-white;
+                color: $white;
                 font-size: 1rem;
+
+                &::after {
+                  content: '';
+                  position: absolute;
+                  left: 0;
+                  bottom: 0;
+                  width: 0;  
+                  height: 1px;  
+                  background-color: $very-light-gray-white;  
+                  transition: width 0.3s ease-in;
+              }
+
+
+                &:active::after,
+                &:hover::after,
+                &:focus-visible::after {
+                  width:100%;
+                }
               }
             }
           }
@@ -818,7 +833,7 @@ main {
 
             button {
               margin-right: 20px;
-             @include buttonActiveState()
+              @include buttonActiveState();
             }
           }
         }
@@ -828,7 +843,7 @@ main {
     .modal-container {
       .modal {
         max-width: 726px;
-        top: 14rem;
+        top: 1rem;
         padding: 1rem;
 
         .modal-paragraph {
@@ -841,7 +856,7 @@ main {
           }
 
           .close-completed-modal {
-            @include buttonActiveState()
+            @include buttonActiveState();
           }
         }
 
@@ -892,8 +907,8 @@ main {
               flex: auto;
               margin-top: 3rem;
 
-              button{
-                @include buttonActiveState()
+              button {
+                @include buttonActiveState();
               }
             }
           }
@@ -918,8 +933,7 @@ main {
             }
 
             .pledge-amount-cta {
-
-              @include buttonActiveState()
+              @include buttonActiveState();
             }
           }
 
@@ -938,8 +952,6 @@ main {
               }
             }
           }
-
-
         }
       }
     }
