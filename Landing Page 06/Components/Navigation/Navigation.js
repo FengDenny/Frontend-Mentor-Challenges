@@ -1,6 +1,7 @@
 import { createElementsHelpers } from "../Helpers/CreateElements";
+import { MenuUI } from "./Menu";
 
-const NavigationsLogic = {
+export const NavigationsLogic = {
   menuOpenButton: document.getElementById("open-menu"),
   menuOpened: document.getElementById("opened-menu"),
   overlay: document.getElementById("overlay"),
@@ -44,7 +45,7 @@ const NavigationsLogic = {
     if (!this.closeMenuButton && !mobileUL) {
       this.closeMenuButton = NavigationsUI.createCloseButton();
       this.menuOpened.appendChild(this.closeMenuButton);
-      NavigationsUI.createOpenedMenuLinks("mobile-links","mobile-ul")
+      MenuUI.createOpenedMenuLinks("mobile-links","mobile-ul")
       this.handleCloseMenu();
     }
 
@@ -74,21 +75,6 @@ const NavigationsUI = {
     button.appendChild(svg);
     return button;
   },
-  createOpenedMenuLinks(style, id){
-    const ul = createElementsHelpers.createElement("ul",{
-        id
-    })
-    const linkData = ["Collections", "Men", "Women", "About", "Contact"]
-    linkData.map((item) => {
-        const li = createElementsHelpers.createElement("li")
-        const links = createElementsHelpers.createElement("a", {
-            class: style
-        }, item)
-        li.appendChild(links)
-        ul.appendChild(li)
-    })
-    NavigationsLogic.menuOpened.appendChild(ul);
-  }
 };
 
 const NavigationsInit = {
