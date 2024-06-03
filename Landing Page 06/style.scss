@@ -138,9 +138,9 @@ header{
 
 .menu-opened ul > li{
   padding:10px;
+  list-style: none;
 
   .mobile-links{
-    list-style: none;
     color:$very-dark-blue;
     font-weight: bold;
     cursor: pointer;
