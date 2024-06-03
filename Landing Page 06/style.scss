@@ -53,6 +53,43 @@ html {
   cursor: pointer;
 }
 
+@mixin expandBorderFromCenter(){
+  &::before,
+  &::after{
+    content:"";
+    position: absolute;
+    top:0;
+    width:0;
+    height:2px;
+    background-color: $orange;
+    transition: width 0.3s ease-in, left 0.3s ease-in, right 0.3s ease-in;
+  }
+  
+  &::before {
+    left: 50%; /* Start from the middle */
+    width: 0;
+}
+
+&::after {
+    right: 50%; /* Start from the middle */
+    width: 0;
+}
+
+  &:active::before,
+  &:hover::before,
+  &:focus-visible::before {
+      width: 50%;
+      left: 0; /* Move the left element back to the left edge */
+  }
+
+  &:active::after,
+  &:hover::after,
+  &:focus-visible::after{
+    width:50%;
+    right:0; /* Move the right element back to the right edge */
+  }
+}
+
 // BODY
 
 body{
@@ -141,9 +178,11 @@ header{
   list-style: none;
 
   .mobile-links{
+    position: relative;
     color:$very-dark-blue;
     font-weight: bold;
     cursor: pointer;
+    @include expandBorderFromCenter()
   }
 }
 
