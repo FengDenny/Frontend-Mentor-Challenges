@@ -14,6 +14,7 @@ $light-grayish-blue: hsl(223, 64%, 98%);
 $white: hsl(0, 0%, 100%);
 // (with 75% opacity for lightbox background)
 $black-lightbox: hsl(0, 0%, 0%);
+$light-black-overlay: rgba(0, 0, 0, 0.5);
 
 // CSS RESET
 html {
@@ -31,7 +32,126 @@ html {
   padding: 0;
 }
 
+// NAV MENU
+.show{
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.not-show{
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-100%);
+}
+
+
+// MIXINS
+@mixin buttonNoBGNoBorder(){
+  background-color: transparent;
+  border:none;
+  cursor: pointer;
+}
+
+// BODY
+
 body{
     font-family:$font-kumbh;
     background-color:$white;
 }
+
+// NAVIGATIONS
+
+header{
+  position: relative;
+  background-color: $white;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  padding-bottom:20px;
+}
+.mobile-menu{
+  padding:15px;
+  display:flex;
+  justify-content: space-between;
+}
+
+.mobile-nav-left, .mobile-nav-right{
+  display: flex;
+  align-items: center;
+  gap:13px;
+
+  button{
+    @include buttonNoBGNoBorder();
+    svg{
+      width:27px;
+      height:25px;
+      path{
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+.mobile-nav-left{
+ button > svg{
+   padding-top:5px;
+  }
+
+  padding-left:2px;
+}
+
+.mobile-nav-right{
+  .avatar{
+    width:35px;
+  }
+  padding-right:5px;
+}
+
+
+
+.overlay{
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color: $light-black-overlay;
+  z-index: 10;
+  transition: opacity 0.2s ease-in-out 0.1s;
+}
+
+.menu-opened {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: $white;
+  padding: 10px;
+  width: 60%;
+  max-width: 400px;
+  min-height: 100vh;
+  z-index: 11;
+  transition: opacity 0.2s ease-in 0.1s, transform 0.2s ease-in-out 0.1s;
+  display:flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap:15px;
+}
+
+.menu-opened ul > li{
+  padding:10px;
+
+  .mobile-links{
+    list-style: none;
+    color:$very-dark-blue;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+
+
+.close-menu-btn{
+  @include buttonNoBGNoBorder();
+  padding:10px;
+}
+
+// MAIN
