@@ -15,6 +15,7 @@ $white: hsl(0, 0%, 100%);
 // (with 75% opacity for lightbox background)
 $black-lightbox: hsl(0, 0%, 0%);
 $light-black-overlay: rgba(0, 0, 0, 0.5);
+$box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 
 // CSS RESET
 html {
@@ -101,7 +102,7 @@ body {
 header {
   position: relative;
   background-color: $white;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: $box-shadow;
   padding-bottom: 20px;
 }
 .mobile-menu {
@@ -201,7 +202,187 @@ header {
     position: absolute;
     img {
       width: 100%;
-      max-width:800px;
+      max-width: 800px;
+    }
+  }
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  z-index: 3;
+  position: relative;
+  padding: 6px;
+  width: 100%;
+
+  button {
+    margin: 50% 1%;
+    background: transparent;
+    border: none;
+  }
+
+  svg {
+    background-color: $white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: $box-shadow;
+  }
+}
+
+.shoe-product-information-container {
+  .product-company-header {
+    color: $dark-grayish-blue;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-weight: 700;
+  }
+
+  .product-sneaker-header {
+    color: $very-dark-blue;
+    font-size: 2rem;
+  }
+  .product-description {
+    color: $dark-grayish-blue;
+    font-size: 1.1rem;
+    line-height: 1.9rem;
+    font-weight: 500;
+  }
+
+  .product-company-header,
+  .product-sneaker-header,
+  .product-description {
+    padding-inline: 20px;
+    padding-bottom: 10px;
+  }
+}
+
+.price-container {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 20px;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 336px) {
+    .product-full-price-header {
+      order: -1;
+    }
+
+    .price-discounted-container,
+    .product-full-price-header {
+      padding-top: 1px;
+    }
+  }
+}
+
+.price-discounted-container {
+  display: flex;
+  gap: 1.4rem;
+
+  .discounted-price-header {
+    font-size: 1.9rem;
+    color: $very-dark-blue;
+  }
+
+  .product-discount-header {
+    background-color: $very-dark-blue;
+    color: $white;
+    padding: 6px;
+    border-radius: 5px;
+    width: 60px;
+    text-align: center;
+  }
+
+  .discounted-price-header,
+  .product-discount-header,
+  .product-full-price-header {
+    align-self: center;
+  }
+}
+.product-full-price-header,
+.price-discounted-container {
+  padding-top: 20px;
+}
+
+.product-full-price-header {
+  padding-right: 20px;
+  color: $dark-grayish-blue;
+  text-decoration: line-through;
+  font-size: 1.3rem;
+}
+
+.quantity-input-container {
+  position: relative;
+  padding: 20px;
+
+  input[type="number"] {
+    width: 95%;
+    height: 60px;
+    padding: 10px;
+    text-align: center;
+    &::placeholder {
+      text-align: center;
+      color: $very-dark-blue;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    background: $light-grayish-blue;
+    border: 1px solid $light-grayish-blue;
+    border-radius: 10px;
+
+     /* Remove spin buttons */
+    appearance: textfield;
+    -moz-appearance: textfield;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none; /* Remove spin buttons in WebKit browsers */
+      margin: 0;
+    }
+  }
+  button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  button[id="plus"] {
+    position: absolute;
+    right: 63px;
+    top: 41px;
+  }
+
+  button[id="minus"] {
+    position: absolute;
+    left: 39px;
+    top: 41px;
+  }
+}
+
+.add-to-cart-cta {
+  padding: 10px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+  height: 55px;
+  margin-left: 21px;
+  margin-bottom: 50px;
+  text-align: center;
+  background: $orange;
+  border: 1px solid $orange;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $very-dark-blue;
+  box-shadow: $box-shadow;
+  cursor: pointer;
+
+  svg {
+    path {
+      fill: $very-dark-blue;
     }
   }
 }
