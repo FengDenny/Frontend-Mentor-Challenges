@@ -33,124 +33,122 @@ html {
 }
 
 // NAV MENU
-.show{
+.show {
   opacity: 1;
   pointer-events: auto;
   transform: translateX(0);
 }
 
-.not-show{
+.not-show {
   opacity: 0;
   pointer-events: none;
   transform: translateX(-100%);
 }
 
-
 // MIXINS
-@mixin buttonNoBGNoBorder(){
+@mixin buttonNoBGNoBorder() {
   background-color: transparent;
-  border:none;
+  border: none;
   cursor: pointer;
 }
 
-@mixin expandBorderFromCenter(){
+@mixin expandBorderFromCenter() {
   &::before,
-  &::after{
-    content:"";
+  &::after {
+    content: "";
     position: absolute;
-    top:0;
-    width:0;
-    height:2px;
+    top: 0;
+    width: 0;
+    height: 2px;
     background-color: $orange;
     transition: width 0.3s ease-in, left 0.3s ease-in, right 0.3s ease-in;
   }
-  
+
   &::before {
     left: 50%; /* Start from the middle */
     width: 0;
-}
+  }
 
-&::after {
+  &::after {
     right: 50%; /* Start from the middle */
     width: 0;
-}
+  }
 
   &:active::before,
   &:hover::before,
   &:focus-visible::before {
-      width: 50%;
-      left: 0; /* Move the left element back to the left edge */
+    width: 50%;
+    left: 0; /* Move the left element back to the left edge */
   }
 
   &:active::after,
   &:hover::after,
-  &:focus-visible::after{
-    width:50%;
-    right:0; /* Move the right element back to the right edge */
+  &:focus-visible::after {
+    width: 50%;
+    right: 0; /* Move the right element back to the right edge */
   }
 }
 
 // BODY
 
-body{
-    font-family:$font-kumbh;
-    background-color:$white;
+body {
+  font-family: $font-kumbh;
+  background-color: $white;
 }
 
 // NAVIGATIONS
 
-header{
+header {
   position: relative;
   background-color: $white;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-  padding-bottom:20px;
+  padding-bottom: 20px;
 }
-.mobile-menu{
-  padding:15px;
-  display:flex;
+.mobile-menu {
+  padding: 15px;
+  display: flex;
   justify-content: space-between;
 }
 
-.mobile-nav-left, .mobile-nav-right{
+.mobile-nav-left,
+.mobile-nav-right {
   display: flex;
   align-items: center;
-  gap:13px;
+  gap: 13px;
 
-  button{
+  button {
     @include buttonNoBGNoBorder();
-    svg{
-      width:27px;
-      height:25px;
-      path{
+    svg {
+      width: 27px;
+      height: 25px;
+      path {
         transform: scale(1.2);
       }
     }
   }
 }
 
-.mobile-nav-left{
- button > svg{
-   padding-top:5px;
+.mobile-nav-left {
+  button > svg {
+    padding-top: 5px;
   }
 
-  padding-left:2px;
+  padding-left: 2px;
 }
 
-.mobile-nav-right{
-  .avatar{
-    width:35px;
+.mobile-nav-right {
+  .avatar {
+    width: 35px;
   }
-  padding-right:5px;
+  padding-right: 5px;
 }
 
-
-
-.overlay{
+.overlay {
   position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-color: $light-black-overlay;
   z-index: 10;
   transition: opacity 0.2s ease-in-out 0.1s;
@@ -167,30 +165,43 @@ header{
   min-height: 100vh;
   z-index: 11;
   transition: opacity 0.2s ease-in 0.1s, transform 0.2s ease-in-out 0.1s;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap:15px;
+  gap: 15px;
 }
 
-.menu-opened ul > li{
-  padding:10px;
+.menu-opened ul > li {
+  padding: 10px;
   list-style: none;
 
-  .mobile-links{
+  .mobile-links {
     position: relative;
-    color:$very-dark-blue;
+    color: $very-dark-blue;
     font-weight: bold;
     cursor: pointer;
-    @include expandBorderFromCenter()
+    @include expandBorderFromCenter();
   }
 }
 
-
-
-.close-menu-btn{
+.close-menu-btn {
   @include buttonNoBGNoBorder();
-  padding:10px;
+  padding: 10px;
 }
 
 // MAIN
+
+.shoe-product {
+}
+
+.shoe-product-gallery {
+  position: relative;
+
+  figure {
+    position: absolute;
+    img {
+      width: 100%;
+      max-width:800px;
+    }
+  }
+}
