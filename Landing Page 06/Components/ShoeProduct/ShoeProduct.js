@@ -210,6 +210,8 @@ export const shoeProductUI = {
       class: "add-to-cart-cta",
     }, "Add to cart");
 
+
+
     addToCartCTA.insertBefore(cartSVG, addToCartCTA.firstChild)
 
     return addToCartCTA
@@ -239,14 +241,25 @@ export const shoeProductUI = {
       "minus"
     );
 
+    const div = createElementsHelpers.createElement("div", {
+      class:"cta-container"
+    })
+
+    const addToCartCTAContainer = createElementsHelpers.createElement("div", {
+      class:"add-cart-cta-container"
+    })
+
     this.quantityInputContainer.appendChild(quantity);
     this.quantityInputContainer.appendChild(minus);
     this.quantityInputContainer.appendChild(plus);
-    shoeProductLogic.shoeProductContainer.appendChild(
-      this.quantityInputContainer
-    );
 
-    shoeProductLogic.shoeProductContainer.appendChild(this.createShoesCTACart())
+    addToCartCTAContainer.appendChild(this.createShoesCTACart())
+    div.appendChild(this.quantityInputContainer)
+    div.appendChild(addToCartCTAContainer)
+
+    shoeProductLogic.shoeProductContainer.appendChild(
+      div
+    );
   },
 
   createQuantityButton(height, pathData, id) {
