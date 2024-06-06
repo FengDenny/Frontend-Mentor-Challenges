@@ -1,17 +1,12 @@
 import { createElementsHelpers } from "../Helpers/CreateElements";
-import { shoeProductGalleryLogic } from "./ShoeProductGallery";
+
 
 export const shoeProductLogic = {
   shoeProductContainer: document.getElementById("shoe-product"),
-  currentIndex: 0,
 
-  async handleGalleryData() {
-    await shoeProductGalleryLogic.galleryDataContent();
-    await shoeProductGalleryLogic.galleryPreview();
+  async handleShoeData() {
     await this.shoesProductInformationContent();
-    shoeProductGalleryLogic.handleImageChanges();
   },
-
 
   async shoesProductInformationContent() {
     const data = await this.shoeProductData();
@@ -270,4 +265,4 @@ export const shoeProductUI = {
   },
 };
 
-shoeProductLogic.handleGalleryData();
+shoeProductLogic.handleShoeData();

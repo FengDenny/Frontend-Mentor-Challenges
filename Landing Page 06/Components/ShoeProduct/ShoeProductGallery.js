@@ -3,6 +3,14 @@ import {shoeProductUI,shoeProductLogic } from "./ShoeProduct";
 export const shoeProductGalleryLogic = {
     shoeProductContainer: document.getElementById("shoe-product"),
     currentIndex: 0,
+
+    async handleGalleryData() {
+        await this.galleryDataContent();
+        await this.galleryPreview();
+        this.handleImageChanges();
+        this.handleLightboxGallery()
+      },
+    
     
     async createGalleryData(container, ) {
       const galleryData = await this.retrieveImageData();
@@ -22,43 +30,7 @@ export const shoeProductGalleryLogic = {
       const galleryData = await shoeProductLogic.shoeProductData();
       return galleryData[0].gallery;
     },
-  
-    handleImageChanges(currentIndex = this.currentIndex) {
-      this.currentIndex = currentIndex;
-      const shoeProductGallery = document.getElementById("shoe-product-gallery");
-      const prevBtn = document.getElementById("prev-btn");
-      const nextBtn = document.getElementById("next-btn");
-  
-      const figures = Array.from(
-        shoeProductGallery.getElementsByTagName("figure")
-      );
-      const updateGalleryData = () => {
-        figures.forEach((figure, index) => {
-          figure.style.opacity = index === currentIndex ? "1" : "0";
-        });
-      };
-  
-      const updateNextImage = () => {
-        currentIndex = (currentIndex + 1) % figures.length;
-        updateGalleryData();
-      };
-  
-      const updatePreviousImage = () => {
-        currentIndex = (currentIndex - 1 + figures.length) % figures.length;
-        updateGalleryData();
-      };
-  
-      if (prevBtn && nextBtn) {
-        prevBtn.addEventListener("click", () => {
-          updatePreviousImage();
-        });
-        nextBtn.addEventListener("click", () => {
-          updateNextImage();
-        });
-      }
-      updateGalleryData();
-    },
-  
+   
     async galleryDataContent() {
       this.createGalleryData(shoeProductUI.article);
       shoeProductUI.shoeProductGalleryContainer.appendChild(
@@ -94,8 +66,6 @@ export const shoeProductGalleryLogic = {
   
       const initialPreviewImg = shoeProductGalleryPreview.querySelector('figure:first-child img');
       const initialPreviewFigure= shoeProductGalleryPreview.querySelector('figure:first-child');
-      
-      console.log(initialPreviewFigure, initialPreviewImg)
       
       if (initialPreviewImg && initialPreviewFigure) {
         initialPreviewFigure.style.border = "2px solid hsl(26, 100%, 55%)";
@@ -147,4 +117,47 @@ export const shoeProductGalleryLogic = {
         }
       });
     },
+    handleImageChanges(currentIndex = this.currentIndex) {
+      this.currentIndex = currentIndex;
+      const shoeProductGallery = document.getElementById("shoe-product-gallery");
+      const prevBtn = document.getElementById("prev-btn");
+      const nextBtn = document.getElementById("next-btn");
+  
+      const figures = Array.from(
+        shoeProductGallery.getElementsByTagName("figure")
+      );
+      const updateGalleryData = () => {
+        figures.forEach((figure, index) => {
+          figure.style.opacity = index === currentIndex ? "1" : "0";
+        });
+      };
+  
+      const updateNextImage = () => {
+        currentIndex = (currentIndex + 1) % figures.length;
+        updateGalleryData();
+      };
+  
+      const updatePreviousImage = () => {
+        currentIndex = (currentIndex - 1 + figures.length) % figures.length;
+        updateGalleryData();
+      };
+  
+      if (prevBtn && nextBtn) {
+        prevBtn.addEventListener("click", () => {
+          updatePreviousImage();
+        });
+        nextBtn.addEventListener("click", () => {
+          updateNextImage();
+        });
+      }
+      updateGalleryData();
+    },
+
+    handleLightboxGallery(){
+       const shoeProductGallery = document.getElementById("shoe-product-gallery");
+        console.log(shoeProductGallery)
+    }
+ 
   };
+
+  shoeProductGalleryLogic.handleGalleryData()
