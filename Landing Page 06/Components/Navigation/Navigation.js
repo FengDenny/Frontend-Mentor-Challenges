@@ -45,11 +45,19 @@ export const NavigationsLogic = {
     if (!this.closeMenuButton && !mobileUL) {
       this.closeMenuButton = NavigationsUI.createCloseButton();
       this.menuOpened.appendChild(this.closeMenuButton);
-      MenuUI.createOpenedMenuLinks("mobile-links","mobile-ul")
+      MenuUI.createOpenedMenuLinks("mobile-links","mobile-ul", this.menuOpened)
       this.handleCloseMenu();
     }
 
   },
+  createDesktopMenu(){
+    const desktopMenuContainer = document.getElementById("desktop-menu")
+    const desktopUL = document.getElementById("desktop-ul");
+
+    if(!desktopUL){
+      MenuUI.createOpenedMenuLinks("desktop-links","desktop-ul", desktopMenuContainer)
+    }
+  }
 };
 
 const NavigationsUI = {
@@ -80,6 +88,7 @@ const NavigationsUI = {
 const NavigationsInit = {
   init() {
     NavigationsLogic.handleOpenMenu();
+    NavigationsLogic.createDesktopMenu()
   },
 };
 
