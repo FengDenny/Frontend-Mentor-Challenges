@@ -204,9 +204,15 @@ header {
   position: relative;
 
   figure {
-    transition:opacity 0.3s ease-in-out 0.1s;
-    position: absolute;
+    display: block;
+    // position: absolute;
     width: 100%;
+    transition: opacity 0.3s ease-in-out 0.1s, transform 0.3s ease-in-out 0.1s;
+
+    &:not(:first-child) {
+      display: none;
+    }
+
     img {
       width: 100%;
       max-width: 1023px;
@@ -468,7 +474,7 @@ header {
 
   .shoe-product-gallery-preview {
     position: relative;
-    top: 29rem;
+    top: 2rem;
     display: flex;
     gap: 30px;
     justify-content: center;
@@ -488,7 +494,7 @@ header {
 
   .shoe-product {
     display: grid;
-    grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+    grid-template: 1fr / 1fr;
     gap: 20px;
     margin-top: 6rem;
   }
@@ -499,6 +505,8 @@ header {
 
   .shoe-product-information-container {
     padding-top: 3rem;
+
+    grid-area: 1 / 2 / span 1 / span 1;
 
     .product-company-header {
       font-size: 0.9rem;
@@ -541,8 +549,9 @@ header {
   .cta-container {
     display: flex;
     grid-area: 2 / 2 / span 1 / span 1;
-
     width: 540px;
+    position: relative;
+    bottom: 10rem;
   }
 
   .quantity-input-container input[type="number"] {
