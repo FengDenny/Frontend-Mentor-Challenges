@@ -2,7 +2,7 @@ import { createElementsHelpers } from "../Helpers/CreateElements";
 import { NavigationsLogic } from "../Navigation/Navigation";
 
 export const MenuUI = {
-  createOpenedMenuLinks(style, id) {
+  createOpenedMenuLinks(style, id, container) {
     const ul = createElementsHelpers.createElement("ul", {
       id,
     });
@@ -19,6 +19,6 @@ export const MenuUI = {
       li.appendChild(links);
       ul.appendChild(li);
     });
-    NavigationsLogic.menuOpened.appendChild(ul);
+   container.appendChild(ul);
   },
 };
