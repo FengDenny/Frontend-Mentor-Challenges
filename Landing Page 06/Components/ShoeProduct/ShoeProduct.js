@@ -6,8 +6,28 @@ export const shoeProductLogic = {
 
   async handleGalleryData() {
     await this.galleryDataContent();
+    await this.galleryPreview();
     await this.shoesProductInformationContent();
     this.handleImageChanges();
+  },
+
+  async createGalleryData(container) {
+    const galleryData = await this.retrieveImageData();
+    const imageData = galleryData.map((data) => {
+      const { id, photoCover } = data;
+      const coverPhoto = shoeProductUI.createImages(id, photoCover);
+      coverPhoto.dataset.id = id;
+      container.appendChild(coverPhoto);
+
+      return coverPhoto;
+    });
+
+    return imageData;
+  },
+
+  async retrieveImageData() {
+    const galleryData = await this.shoeProductData();
+    return galleryData[0].gallery;
   },
 
   handleImageChanges(currentIndex = this.currentIndex) {
@@ -25,25 +45,32 @@ export const shoeProductLogic = {
       });
     };
 
-    prevBtn.addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + figures.length) % figures.length;
-      updateGalleryData();
-    });
-    nextBtn.addEventListener("click", () => {
+    const updateNextImage = () => {
       currentIndex = (currentIndex + 1) % figures.length;
       updateGalleryData();
-    });
+    };
+
+    const updatePreviousImage = () => {
+      currentIndex = (currentIndex - 1 + figures.length) % figures.length;
+      updateGalleryData();
+    };
+
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener("click", () => {
+        updatePreviousImage();
+      });
+      nextBtn.addEventListener("click", () => {
+        updateNextImage();
+      });
+    }
     updateGalleryData();
   },
 
   async galleryDataContent() {
-    const galleryData = await this.shoeProductData();
-    galleryData[0].gallery.forEach((data) => {
-      const { id, photoCover } = data;
-      const coverPhoto = shoeProductUI.createImages(id, photoCover);
-      shoeProductUI.article.appendChild(coverPhoto);
-    });
-    shoeProductUI.div.appendChild(shoeProductUI.article);
+    this.createGalleryData(shoeProductUI.article);
+    shoeProductUI.shoeProductGalleryContainer.appendChild(
+      shoeProductUI.article
+    );
     const prevBtn = shoeProductUI.createGalleryButtons(
       12,
       "M25 17 17 25l8 8",
@@ -57,8 +84,75 @@ export const shoeProductLogic = {
     const buttonDiv = shoeProductUI.buttonDiv;
     buttonDiv.appendChild(prevBtn);
     buttonDiv.appendChild(nextBtn);
-    shoeProductUI.div.appendChild(buttonDiv);
-    this.shoeProductContainer.appendChild(shoeProductUI.div);
+    shoeProductUI.shoeProductGalleryContainer.appendChild(buttonDiv);
+    shoeProductUI.shoeProductGalleryContainer.appendChild(
+      shoeProductUI.previewContainer
+    );
+    this.shoeProductContainer.appendChild(
+      shoeProductUI.shoeProductGalleryContainer
+    );
+  },
+  async galleryPreview() {
+    await this.createGalleryData(shoeProductUI.previewContainer);
+    const shoeProductGallery = document.getElementById("shoe-product-gallery");
+    const shoeProductGalleryPreview = document.getElementById(
+      "shoe-product-gallery-preview"
+    );
+
+    const initialPreviewImg = shoeProductGalleryPreview.querySelector('figure:first-child img');
+    const initialPreviewFigure= shoeProductGalleryPreview.querySelector('figure:first-child');
+    
+    console.log(initialPreviewFigure, initialPreviewImg)
+    
+    if (initialPreviewImg && initialPreviewFigure) {
+      initialPreviewFigure.style.border = "2px solid hsl(26, 100%, 55%)";
+      initialPreviewImg.style.opacity = "0.2"; 
+    }
+
+    let previousGalleryFigure = null
+    let previousClosestImg = null;
+    let previousClosestFigure = null;
+    shoeProductGalleryPreview.addEventListener("click", (event) => {
+      const clickedElement = event.target;
+      const closestImage = clickedElement.closest("img"); 
+
+      // Reset initial preview image and figure styles first
+      initialPreviewFigure.style.border = "none";
+      initialPreviewImg.style.opacity = "1"; 
+   
+      if (closestImage) {
+        const dataId = closestImage.dataset.id;
+        const galleryImg = shoeProductGallery.querySelector(
+          `img[data-id="${dataId}"]`
+        );
+
+    
+        if (galleryImg) {
+          const currentGalleryFigure = galleryImg.closest("figure");
+          const closetFigure = clickedElement.closest("figure")
+
+          if (
+            previousGalleryFigure &&
+            previousGalleryFigure !== currentGalleryFigure
+          ) {
+            previousGalleryFigure.style.opacity = "0";
+            previousClosestFigure.style.border = "none";
+            previousClosestImg.style.opacity = "1"
+          }
+
+          if (currentGalleryFigure) {
+            currentGalleryFigure.style.opacity = "1";
+            closetFigure.style.border = "2px solid hsl(26, 100%, 55%)";
+            closestImage.style.opacity = "0.2"
+        
+          }  
+
+          previousGalleryFigure = currentGalleryFigure;
+          previousClosestImg = closestImage;
+          previousClosestFigure = closetFigure
+        }
+      }
+    });
   },
 
   async shoesProductInformationContent() {
@@ -97,12 +191,16 @@ export const shoeProductLogic = {
 };
 
 export const shoeProductUI = {
-  div: createElementsHelpers.createElement("div", {
+  shoeProductGalleryContainer: createElementsHelpers.createElement("div", {
     class: "shoes-product-gallery-container",
   }),
   article: createElementsHelpers.createElement("article", {
     id: "shoe-product-gallery",
     class: "shoe-product-gallery",
+  }),
+  previewContainer: createElementsHelpers.createElement("article", {
+    id: "shoe-product-gallery-preview",
+    class: "shoe-product-gallery-preview",
   }),
 
   buttonDiv: createElementsHelpers.createElement("div", {
@@ -191,7 +289,7 @@ export const shoeProductUI = {
     this.shoesProductInformationDiv.appendChild(priceContainer);
   },
 
-  createShoesCTACart(){
+  createShoesCTACart() {
     const cartSVG = createElementsHelpers.createSVGElementNS("svg", {
       width: "22",
       height: "20",
@@ -205,17 +303,18 @@ export const shoeProductUI = {
 
     cartSVG.appendChild(cartPath);
 
-    const addToCartCTA = createElementsHelpers.createElement("button", {
-      id: "add-to-cart",
-      class: "add-to-cart-cta",
-    }, "Add to cart");
+    const addToCartCTA = createElementsHelpers.createElement(
+      "button",
+      {
+        id: "add-to-cart",
+        class: "add-to-cart-cta",
+      },
+      "Add to cart"
+    );
 
+    addToCartCTA.insertBefore(cartSVG, addToCartCTA.firstChild);
 
-
-    addToCartCTA.insertBefore(cartSVG, addToCartCTA.firstChild)
-
-    return addToCartCTA
-
+    return addToCartCTA;
   },
 
   createShoeCTA() {
@@ -227,8 +326,6 @@ export const shoeProductUI = {
       min: "0",
       max: "10",
     });
-
-
 
     const minus = this.createQuantityButton(
       "12",
@@ -242,24 +339,22 @@ export const shoeProductUI = {
     );
 
     const div = createElementsHelpers.createElement("div", {
-      class:"cta-container"
-    })
+      class: "cta-container",
+    });
 
     const addToCartCTAContainer = createElementsHelpers.createElement("div", {
-      class:"add-cart-cta-container"
-    })
+      class: "add-cart-cta-container",
+    });
 
     this.quantityInputContainer.appendChild(quantity);
     this.quantityInputContainer.appendChild(minus);
     this.quantityInputContainer.appendChild(plus);
 
-    addToCartCTAContainer.appendChild(this.createShoesCTACart())
-    div.appendChild(this.quantityInputContainer)
-    div.appendChild(addToCartCTAContainer)
+    addToCartCTAContainer.appendChild(this.createShoesCTACart());
+    div.appendChild(this.quantityInputContainer);
+    div.appendChild(addToCartCTAContainer);
 
-    shoeProductLogic.shoeProductContainer.appendChild(
-      div
-    );
+    shoeProductLogic.shoeProductContainer.appendChild(div);
   },
 
   createQuantityButton(height, pathData, id) {
