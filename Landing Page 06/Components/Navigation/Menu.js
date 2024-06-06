@@ -1,6 +1,4 @@
 import { createElementsHelpers } from "../Helpers/CreateElements";
-import { NavigationsLogic } from "../Navigation/Navigation";
-
 export const MenuUI = {
   createOpenedMenuLinks(style, id, container) {
     const ul = createElementsHelpers.createElement("ul", {
