@@ -109,7 +109,7 @@ header {
   padding: 15px;
   display: flex;
   justify-content: space-between;
-  max-width: 1500px;
+  max-width: 1200px;
 }
 
 .desktop-menu {
@@ -203,16 +203,12 @@ header {
 .shoe-product-gallery {
   position: relative;
 
+
   figure {
-    display: block;
-    // position: absolute;
+    // display: block;
+    position: absolute;
     width: 100%;
     transition: opacity 0.3s ease-in-out 0.1s, transform 0.3s ease-in-out 0.1s;
-
-    &:not(:first-child) {
-      display: none;
-    }
-
     img {
       width: 100%;
       max-width: 1023px;
@@ -432,6 +428,7 @@ header {
 
 @media screen and (min-width: 1024px) {
   .menu {
+    
     button[id="open-menu"] {
       display: none;
     }
@@ -458,18 +455,33 @@ header {
         }
       }
     }
+    .nav-left{
+      display: flex;
+      justify-content: flex-end;
+      width: 559px;
+    }
   }
 
   .shoe-product-gallery {
     display: flex;
-    justify-content: center;
-
+    
+    
     figure {
+      position: unset;
       width: 436px;
+
+      &:not(:first-child) {
+         display: none
+    }
       img {
         border-radius: 15px;
       }
     }
+  }
+
+  .shoe-product-gallery,
+  .shoe-product-gallery-preview{
+    justify-content: center;
   }
 
   .shoe-product-gallery-preview {
@@ -477,8 +489,6 @@ header {
     top: 2rem;
     display: flex;
     gap: 30px;
-    justify-content: center;
-
     figure {
       border-radius: 7px;
       cursor: pointer;
@@ -494,10 +504,13 @@ header {
 
   .shoe-product {
     display: grid;
-    grid-template: 1fr / 1fr;
+    grid-template: 1fr / 44%;
     gap: 20px;
     margin-top: 6rem;
-  }
+    max-width: 1550px;
+    justify-content: center;
+}
+
 
   .button-container {
     display: none;

@@ -139,8 +139,11 @@ export const shoeProductGalleryLogic = {
       figures.forEach((figure, index) => {
         if (index === currentIndex) {
           figure.style.opacity = " 1";
+          figure.style.display = "block"
         } else {
           figure.style.opacity = " 0";
+          figure.style.display = "none"
+
         }
       });
     };
@@ -172,7 +175,10 @@ export const shoeProductGalleryLogic = {
     
     shoeProductGallery.addEventListener("click", (event) => {
       const closet = event.target.closest("figure");
-      console.log(closet);
+
+      if(closet){
+        console.log(closet);
+      }
     });
   },
 };
