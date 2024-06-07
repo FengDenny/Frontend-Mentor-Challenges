@@ -125,6 +125,74 @@ export const shoeProductGalleryLogic = {
     });
   },
 
+  async handleGalleryPreivew(galleryPreview, gallery){
+
+    const lightboxContainer = shoeProductGalleryUI.lightbox;
+
+    lightboxContainer.appendChild(shoeProductGalleryUI.lightboxPreview);
+
+    await this.createGalleryData(shoeProductGalleryUI.lightboxPreview)
+
+    // const initialPreviewImg = galleryPreview.querySelector(
+    //   "figure:first-child img"
+    // );
+    // const initialPreviewFigure =
+    //   galleryPreview.querySelector("figure:first-child");
+
+    // const initialGalleryFigure =
+    //   gallery.querySelector("figure:first-child");
+
+    // if (initialPreviewImg && initialPreviewFigure) {
+    //   initialPreviewFigure.style.border = "2px solid hsl(26, 100%, 55%)";
+    //   initialPreviewImg.style.opacity = "0.2";
+    // }
+
+    // let previousGalleryFigure = initialGalleryFigure;
+    // let previousClosestImg = initialPreviewImg;
+    // let previousClosestFigure = initialPreviewFigure;
+    // galleryPreview.addEventListener("click", (event) => {
+    //   const clickedElement = event.target;
+    //   const closestImage = clickedElement.closest("img");
+
+    //   // Reset initial preview image and figure styles first
+    //   initialPreviewFigure.style.border = "none";
+    //   initialPreviewImg.style.opacity = "1";
+
+    //   if (closestImage) {
+    //     const dataId = closestImage.dataset.id;
+    //     const galleryImg = gallery.querySelector(
+    //       `img[data-id="${dataId}"]`
+    //     );
+
+    //     if (galleryImg) {
+    //       const currentGalleryFigure = galleryImg.closest("figure");
+    //       const closetFigure = clickedElement.closest("figure");
+
+    //       if (
+    //         previousGalleryFigure &&
+    //         previousGalleryFigure !== currentGalleryFigure
+    //       ) {
+    //         previousGalleryFigure.style.opacity = "0";
+    //         previousClosestFigure.style.border = "none";
+    //         previousClosestImg.style.opacity = "1";
+    //         previousGalleryFigure.style.display = "none";
+    //       }
+
+    //       if (currentGalleryFigure) {
+    //         currentGalleryFigure.style.display = "block";
+    //         currentGalleryFigure.style.opacity = "1";
+    //         closetFigure.style.border = "2px solid hsl(26, 100%, 55%)";
+    //         closestImage.style.opacity = "0.2";
+    //       }
+
+    //       previousGalleryFigure = currentGalleryFigure;
+    //       previousClosestImg = closestImage;
+    //       previousClosestFigure = closetFigure;
+    //     }
+    //   }
+    // });
+  },
+
   handleImageChanges(currentIndex = this.currentIndex) {
     this.currentIndex = currentIndex;
     const shoeProductGallery = document.getElementById("shoe-product-gallery");
@@ -167,26 +235,38 @@ export const shoeProductGalleryLogic = {
     updateGalleryData();
   },
 
-  handleLightboxGallery() {
+
+  async handleLightboxGallery() {
     const shoeProductGallery = document.getElementById("shoe-product-gallery");
 
     const overlay = shoeProductGalleryUI.lightboxOverlay;
     const lightboxContainer = shoeProductGalleryUI.lightbox;
+    const lightboxGallery = shoeProductGalleryUI.lightboxGallery;
     shoeProductGallery.appendChild(overlay);
     shoeProductGallery.appendChild(lightboxContainer);
 
     lightboxContainer.appendChild(shoeProductGalleryUI.closeBtn);
+    lightboxContainer.appendChild(lightboxGallery);
 
+    
     shoeProductGallery.addEventListener("click", (event) => {
       const closetGalleryFigure = event.target.closest("figure");
       const lightboxOverlay = shoeProductGalleryUI.lightboxOverlay;
-      const lightboxContainer = document.getElementById("lightbox-container");
-
+ 
       if (closetGalleryFigure && lightboxOverlay) {
         console.log(closetGalleryFigure);
         this.handleToggledOverlay(lightboxOverlay, true);
         this.handleToggledOverlay(lightboxContainer, true);
         this.handleCloseLightbox();
+
+        if(!lightboxGallery.querySelector("figure[data-id]")){
+          this.createGalleryData(lightboxGallery);
+        }
+        if(!shoeProductGalleryUI.lightboxPreview.querySelector("figure[data-id]")){
+        this.handleGalleryPreivew()
+        }
+
+
       }
     });
   },
@@ -212,7 +292,6 @@ export const shoeProductGalleryLogic = {
 };
 
 const shoeProductGalleryUI = {
-  lightboxOverlay: document.getElementById("lightbox-overlay"),
   lightboxOverlay: createElementsHelpers.createElement("div", {
     id: "lightbox-overlay",
     class: "overlay not-show",
@@ -220,6 +299,14 @@ const shoeProductGalleryUI = {
   lightbox: createElementsHelpers.createElement("article", {
     id: "lightbox-container",
     class: "lightbox-container not-show",
+  }),
+  lightboxGallery: createElementsHelpers.createElement("article", {
+    id: "lightbox-gallery",
+    class: "lightbox-gallery",
+  }),
+  lightboxPreview: createElementsHelpers.createElement("article", {
+    id: "lightbox-gallery-preview",
+    class: "lightbox-gallery-preview shoe-product-gallery-preview",
   }),
 
   closeBtn: NavigationsUI.createCloseButton(

@@ -468,15 +468,13 @@ header {
     figure {
       position: unset;
       width: 436px;
-
-      &:not(:first-child) {
-        display: none;
-      }
       img {
         border-radius: 15px;
       }
     }
   }
+
+ 
 
   .shoe-product-gallery,
   .shoe-product-gallery-preview {
@@ -589,13 +587,28 @@ header {
   .lightbox-container {
     z-index: 10;
     position: fixed;
-    right: 0;
-    max-width: 500px;
-    width: 500px;
+    display: flex;
+    flex-direction: column;
+    margin-left:50%;
+
+    // right: 0;
+    // max-width: 500px;
+    // width: 500px;
+  }
+
+  .lightbox-gallery{
+
+    figure {
+      pointer-events: none;
+      &:not(:first-child) {
+        display: none;
+      }
+    }
   }
 
   .close-overlay-btn {
     @include buttonNoBGNoBorder();
     padding: 10px;
+    align-self: flex-end;
   }
 }
