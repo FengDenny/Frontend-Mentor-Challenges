@@ -33,6 +33,18 @@ html {
   padding: 0;
 }
 
+// overlay
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $light-black-overlay;
+  z-index: 10;
+  transition: opacity 0.2s ease-in-out 0.1s;
+}
+
 // NAV MENU
 .show {
   opacity: 1;
@@ -109,7 +121,7 @@ header {
   padding: 15px;
   display: flex;
   justify-content: space-between;
-  max-width: 1200px;
+  max-width: 1300px;
 }
 
 .desktop-menu {
@@ -152,16 +164,7 @@ header {
   padding-right: 5px;
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: $light-black-overlay;
-  z-index: 10;
-  transition: opacity 0.2s ease-in-out 0.1s;
-}
+
 
 .menu-opened {
   position: fixed;
@@ -209,6 +212,7 @@ header {
     position: absolute;
     width: 100%;
     transition: opacity 0.3s ease-in-out 0.1s, transform 0.3s ease-in-out 0.1s;
+    cursor: pointer;
     img {
       width: 100%;
       max-width: 1023px;
