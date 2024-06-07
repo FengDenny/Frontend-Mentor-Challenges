@@ -1,5 +1,6 @@
 import { shoeProductUI, shoeProductLogic } from "./ShoeProduct";
 import { createElementsHelpers } from "../Helpers/CreateElements";
+import { NavigationsUI } from "../Navigation/Navigation";
 
 export const shoeProductGalleryLogic = {
   shoeProductContainer: document.getElementById("shoe-product"),
@@ -170,26 +171,63 @@ export const shoeProductGalleryLogic = {
     const shoeProductGallery = document.getElementById("shoe-product-gallery");
 
     const overlay = shoeProductGalleryUI.lightboxOverlay;
+    const lightboxContainer = shoeProductGalleryUI.lightbox;
     shoeProductGallery.appendChild(overlay);
+    shoeProductGallery.appendChild(lightboxContainer);
+
+    lightboxContainer.appendChild(shoeProductGalleryUI.closeBtn);
 
     shoeProductGallery.addEventListener("click", (event) => {
       const closetGalleryFigure = event.target.closest("figure");
-      const lightboxOverlay = document.getElementById("lightbox-overlay");
+      const lightboxOverlay = shoeProductGalleryUI.lightboxOverlay;
+      const lightboxContainer = document.getElementById("lightbox-container");
 
       if (closetGalleryFigure && lightboxOverlay) {
-        console.log(closetGalleryFigure)
-        lightboxOverlay.classList.add("show");
-        lightboxOverlay.classList.remove("not-show");
+        console.log(closetGalleryFigure);
+        this.handleToggledOverlay(lightboxOverlay, true);
+        this.handleToggledOverlay(lightboxContainer, true);
+        this.handleCloseLightbox();
       }
     });
+  },
+  handleCloseLightbox() {
+    const closeLightboxBtn = document.getElementById("close-overlay");
+    const lightboxOverlay = shoeProductGalleryUI.lightboxOverlay;
+    const lightboxContainer = document.getElementById("lightbox-container");
+    closeLightboxBtn.addEventListener("click", () => {
+      this.handleToggledOverlay(lightboxOverlay, false);
+      this.handleToggledOverlay(lightboxContainer, false);
+    });
+  },
+
+  handleToggledOverlay(container, show) {
+    if (show) {
+      container.classList.add("show");
+      container.classList.remove("not-show");
+    } else {
+      container.classList.remove("show");
+      container.classList.add("not-show");
+    }
   },
 };
 
 const shoeProductGalleryUI = {
+  lightboxOverlay: document.getElementById("lightbox-overlay"),
   lightboxOverlay: createElementsHelpers.createElement("div", {
     id: "lightbox-overlay",
     class: "overlay not-show",
   }),
+  lightbox: createElementsHelpers.createElement("article", {
+    id: "lightbox-container",
+    class: "lightbox-container not-show",
+  }),
+
+  closeBtn: NavigationsUI.createCloseButton(
+    "#f7f8fd",
+    "close-overlay",
+    "close-overlay-btn",
+    "Close overlay"
+  ),
 };
 
 shoeProductGalleryLogic.handleGalleryData();

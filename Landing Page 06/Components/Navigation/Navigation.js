@@ -7,7 +7,6 @@ export const NavigationsLogic = {
   overlay: document.getElementById("overlay"),
   closeMenuButton: null,
 
-
   toggleMenu(show) {
     this.toggleShowNotShow(this.menuOpened, show);
     this.toggleShowNotShow(this.overlay, show);
@@ -45,27 +44,39 @@ export const NavigationsLogic = {
     if (!this.closeMenuButton && !mobileUL) {
       this.closeMenuButton = NavigationsUI.createCloseButton();
       this.menuOpened.appendChild(this.closeMenuButton);
-      MenuUI.createOpenedMenuLinks("mobile-links","mobile-ul", this.menuOpened)
+      MenuUI.createOpenedMenuLinks(
+        "mobile-links",
+        "mobile-ul",
+        this.menuOpened
+      );
       this.handleCloseMenu();
     }
-
   },
-  createDesktopMenu(){
-    const desktopMenuContainer = document.getElementById("desktop-menu")
+  createDesktopMenu() {
+    const desktopMenuContainer = document.getElementById("desktop-menu");
     const desktopUL = document.getElementById("desktop-ul");
 
-    if(!desktopUL){
-      MenuUI.createOpenedMenuLinks("desktop-links","desktop-ul", desktopMenuContainer)
+    if (!desktopUL) {
+      MenuUI.createOpenedMenuLinks(
+        "desktop-links",
+        "desktop-ul",
+        desktopMenuContainer
+      );
     }
-  }
+  },
 };
 
-const NavigationsUI = {
-  createCloseButton() {
+export const NavigationsUI = {
+  createCloseButton(
+    $fill = "#69707D",
+    $buttonID = "close-menu",
+    $buttonClass = "close-menu-btn",
+    $ariaLabel = "Close menu"
+  ) {
     const button = createElementsHelpers.createElement("button", {
-      id: "close-menu",
-      class: "close-menu-btn",
-      ["aria-label"]: "Close menu",
+      id: $buttonID,
+      class: $buttonClass,
+      ["aria-label"]: $ariaLabel,
       ["aria-expanded"]: "false",
     });
     const svg = createElementsHelpers.createSVGElementNS("svg", {
@@ -75,7 +86,7 @@ const NavigationsUI = {
 
     const path = createElementsHelpers.createSVGElementNS("path", {
       d: "m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z",
-      fill: "#69707D",
+      fill: $fill,
       ["fill-rule"]: "evenodd",
     });
 
@@ -88,7 +99,7 @@ const NavigationsUI = {
 const NavigationsInit = {
   init() {
     NavigationsLogic.handleOpenMenu();
-    NavigationsLogic.createDesktopMenu()
+    NavigationsLogic.createDesktopMenu();
   },
 };
 
