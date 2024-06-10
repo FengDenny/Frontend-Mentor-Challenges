@@ -221,6 +221,16 @@ header {
 
 // MAIN
 
+.shoe-product{
+  display:flex;
+  flex-direction: column;
+}
+
+.shoes-product-gallery-container{
+  order:-1;
+}
+
+
 .shoe-product-gallery {
   position: relative;
 
@@ -481,7 +491,6 @@ header {
       width: 559px;
     }
   }
-
   .shoe-product-gallery {
     display: flex;
 
