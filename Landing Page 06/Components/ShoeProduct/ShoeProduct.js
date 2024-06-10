@@ -1,16 +1,16 @@
 import { createElementsHelpers } from "../Helpers/CreateElements";
 import { cartLogic } from "../Navigation/Cart";
+import { LocalStorage } from "../Helpers/LocalStorage";
 
 export const shoeProductLogic = {
   shoeProductContainer: document.getElementById("shoe-product"),
 
   async handleShoeData() {
-    await this.shoesProductInformationContent();
+    await this.shoesProductInformationContent();   
   },
 
   async shoesProductInformationContent() {
     const data = await this.shoeProductData();
-    console.log(data[0]["price-discounted"]);
 
     data.forEach((item) => {
       shoeProductUI.createShoeInformationContent(item);
@@ -28,6 +28,7 @@ export const shoeProductLogic = {
       );
       shoeProductUI.createShoeCTA();
       cartLogic.handleQuantity();
+      cartLogic.handleAddToCartBtnClicked(data)
     }
   },
 
