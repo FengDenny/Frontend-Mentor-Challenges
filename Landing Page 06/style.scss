@@ -185,6 +185,15 @@ header {
     z-index: 10;
   }
 
+  .empty-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 160px;
+    color:$dark-grayish-blue;
+    font-size: 1.2rem;
+  }
+
   .cart-modal {
     position: absolute;
     background-color: $white;
@@ -875,5 +884,19 @@ header {
     @include buttonNoBGNoBorder();
     padding: 10px;
     align-self: flex-end;
+
+    svg{
+      path{
+        transition: fill 0.3s ease-in 0.1s;
+      }
+    }
+    
+    &:hover{
+      svg{
+        path{
+          fill:$orange;
+        }
+      }
+    }
   }
 }
