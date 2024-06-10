@@ -1,27 +1,25 @@
 import { createElementsHelpers } from "../Helpers/CreateElements";
+import { cartLogic } from "../Navigation/Cart";
 
 export const shoeProductLogic = {
   shoeProductContainer: document.getElementById("shoe-product"),
 
   async handleShoeData() {
     await this.shoesProductInformationContent();
-    this.handleQuantity();
   },
 
-  handleQuantity() {
-    const quantityInput = document.getElementById("quantity");
-
-    console.log(quantityInput.value);
-  },
   async shoesProductInformationContent() {
     const data = await this.shoeProductData();
+    console.log(data[0]["price-discounted"]);
 
     data.forEach((item) => {
       shoeProductUI.createShoeInformationContent(item);
     });
 
     // Check if the content container already exists
-    let shoeProductInfoContainer = document.getElementById("shoe-product-information");
+    let shoeProductInfoContainer = document.getElementById(
+      "shoe-product-information"
+    );
     let shoeProductCTAContainer = document.getElementById("shoe-product-cta");
 
     if (!shoeProductInfoContainer && !shoeProductCTAContainer) {
@@ -29,6 +27,7 @@ export const shoeProductLogic = {
         shoeProductUI.shoesProductInformationDiv
       );
       shoeProductUI.createShoeCTA();
+      cartLogic.handleQuantity();
     }
   },
 
@@ -192,6 +191,7 @@ export const shoeProductUI = {
       min: "0",
       max: "10",
       value: "0",
+      readonly: true,
     });
 
     const minus = this.createQuantityButton(
