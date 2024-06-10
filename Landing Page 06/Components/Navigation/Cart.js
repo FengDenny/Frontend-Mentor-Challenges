@@ -6,6 +6,10 @@ export const cartLogic = {
   cartModal: document.getElementById("cart-modal"),
   currentQuantity: 0,
 
+  handleNumberFormatting(number) {
+    return Number.parseFloat(number).toFixed(2);
+  },
+
   handleUpdatedCartModal() {
     // Clear existing cart modal content
     while (this.cartModal.firstChild) {
@@ -26,7 +30,9 @@ export const cartLogic = {
             quantity,
             totalPrice
           );
+          this.cartModal.appendChild(cartUI.cartModalH2);
           this.cartModal.appendChild(createCartItem);
+          this.cartModal.appendChild(cartUI.checkoutCTA);
         }
       }
     }
@@ -132,7 +138,7 @@ export const cartLogic = {
       for (const itemID in parsedCartItems) {
         if (parsedCartItems.hasOwnProperty(itemID)) {
           parsedCartItems[itemID].quantity = parseInt(quantity);
-          parsedCartItems[itemID].totalPrice = parseInt(
+          parsedCartItems[itemID].totalPrice = this.handleNumberFormatting(
             parsedCartItems[itemID].discountedPrice * quantity
           );
           if (parsedCartItems[itemID].quantity === 0) {
@@ -187,7 +193,7 @@ export const cartLogic = {
         if (cartItems[itemID]) {
           cartItems[itemID].quantity = parseInt(quantity);
         } else {
-          const price = parseFloat(
+          const price = this.handleNumberFormatting(
             this.handleRemoveDollarSign(discountedPrice)
           );
 
@@ -196,7 +202,7 @@ export const cartLogic = {
             photoCover: gallery[0].photoCover,
             discountedPrice: price,
             quantity: parseInt(quantity),
-            totalPrice: parseInt(price * quantity),
+            totalPrice: this.handleNumberFormatting(price * quantity),
           };
         }
       });
@@ -216,16 +222,25 @@ export const cartLogic = {
 
   handleRemoveDollarSign(discountedPrice) {
     const price = discountedPrice.replace(/\$/g, "");
-    return parseInt(price);
+    return this.handleNumberFormatting(price);
   },
 };
 
 export const cartUI = {
+  cartModalH2: createElementsHelpers.createElement("h2", {}, "Cart"),
+  checkoutCTA: createElementsHelpers.createElement("button", {
+    class: "checkout-cta",
+  }, "Checkout"),
   createCartModalData(src, heading, discounted, quantity, total) {
     const itemContainer = createElementsHelpers.createElement("div", {
       id: "cart-modal-items",
       class: "cart-modal-item-container",
     });
+
+    const photoItemContainer = createElementsHelpers.createElement("div", {
+      class: "photo-item-container",
+    });
+
     const createPhotoFigure = createElementsHelpers.createElement("figure");
     const createPhoto = createElementsHelpers.createElement("img", {
       src,
@@ -248,7 +263,7 @@ export const cartUI = {
       {
         class: "discounted-pricing",
       },
-      discounted
+      `$${discounted}`
     );
 
     const times = createElementsHelpers.createElement(
@@ -271,20 +286,51 @@ export const cartUI = {
       {
         class: "total-pricing",
       },
-      total
+      `$${total}`
     );
 
-    priceDescriptionContainer
-      .appendChild(discountedPrice)
-      .appendChild(times)
-      .appendChild(quantityValue)
-      .appendChild(totalPrice);
+    const productDescriptionContainer = createElementsHelpers.createElement(
+      "div",
+      {
+        class: "product-description-container",
+      }
+    );
+    const deleteCTA = createElementsHelpers.createElement("button", {
+      id:"delete-cta",
+      class: "delete-cta",
+    });
+
+    const deleteSVG = createElementsHelpers.createSVGElementNS("svg", {
+      width: "12",
+      height: "12",
+    });
+
+    const deletePath = createElementsHelpers.createSVGElementNS("path", {
+      d: "M0 2.625V1.75C0 1.334.334 1 .75 1h3.5l.294-.584A.741.741 0 0 1 5.213 0h3.571a.75.75 0 0 1 .672.416L9.75 1h3.5c.416 0 .75.334.75.75v.875a.376.376 0 0 1-.375.375H.375A.376.376 0 0 1 0 2.625Zm13 1.75V14.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 1 14.5V4.375C1 4.169 1.169 4 1.375 4h11.25c.206 0 .375.169.375.375ZM4.5 6.5c0-.275-.225-.5-.5-.5s-.5.225-.5.5v7c0 .275.225.5.5.5s.5-.225.5-.5v-7Zm3 0c0-.275-.225-.5-.5-.5s-.5.225-.5.5v7c0 .275.225.5.5.5s.5-.225.5-.5v-7Zm3 0c0-.275-.225-.5-.5-.5s-.5.225-.5.5v7c0 .275.225.5.5.5s.5-.225.5-.5v-7Z",
+      fill: "#C3CAD9",
+      ["fill-rule"]: "nonzero",
+    });
+    deleteSVG.append(deletePath)
+    deleteCTA.appendChild(deleteSVG)
+
+    priceDescriptionContainer.appendChild(discountedPrice);
+
+    priceDescriptionContainer.appendChild(times);
+
+    priceDescriptionContainer.appendChild(quantityValue);
+    priceDescriptionContainer.appendChild(totalPrice);
 
     createPhotoFigure.appendChild(createPhoto);
-    itemContainer
-      .appendChild(createPhotoFigure)
-      .appendChild(createHeading)
-      .appendChild(priceDescriptionContainer);
+    photoItemContainer.appendChild(createPhotoFigure);
+
+    productDescriptionContainer.appendChild(createHeading);
+    productDescriptionContainer.appendChild(priceDescriptionContainer);
+    photoItemContainer.appendChild(productDescriptionContainer);
+
+    photoItemContainer.appendChild(deleteCTA)
+
+
+    itemContainer.appendChild(photoItemContainer);
 
     return itemContainer;
   },
