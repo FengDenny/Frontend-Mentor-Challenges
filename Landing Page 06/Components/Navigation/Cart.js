@@ -7,6 +7,11 @@ export const cartLogic = {
   currentQuantity: 0,
 
   handleUpdatedCartModal() {
+    // Clear existing cart modal content
+    while (this.cartModal.firstChild) {
+      this.cartModal.removeChild(this.cartModal.firstChild);
+    }
+
     const cartItemsData = LocalStorage.checkLocalStorageData("cart-items");
     if (cartItemsData) {
       const cartItems = JSON.parse(cartItemsData);
@@ -14,13 +19,14 @@ export const cartLogic = {
         if (cartItems.hasOwnProperty(itemID)) {
           const { sneaker, photoCover, discountedPrice, quantity, totalPrice } =
             cartItems[itemID];
-          console.log(
+          const createCartItem = cartUI.createCartModalData(
+            `../${photoCover}`,
             sneaker,
-            photoCover,
             discountedPrice,
             quantity,
             totalPrice
           );
+          this.cartModal.appendChild(createCartItem);
         }
       }
     }
@@ -215,17 +221,80 @@ export const cartLogic = {
 };
 
 export const cartUI = {
-  cartModal: document.getElementById("cart-modal"),
-
-  createCartModalData() {
+  createCartModalData(src, heading, discounted, quantity, total) {
     const itemContainer = createElementsHelpers.createElement("div", {
+      id: "cart-modal-items",
       class: "cart-modal-item-container",
     });
     const createPhotoFigure = createElementsHelpers.createElement("figure");
-    const createPhoto = createElementsHelpers.createElement("img", {});
-    const createHeading = createElementsHelpers.createElement("");
-    const createPricingDescription = createElementsHelpers.createElement("");
+    const createPhoto = createElementsHelpers.createElement("img", {
+      src,
+    });
+    const createHeading = createElementsHelpers.createElement(
+      "h6",
+      {
+        class: "item-heading",
+      },
+      heading
+    );
+    const priceDescriptionContainer = createElementsHelpers.createElement(
+      "div",
+      {
+        class: "price-description-container",
+      }
+    );
+    const discountedPrice = createElementsHelpers.createElement(
+      "p",
+      {
+        class: "discounted-pricing",
+      },
+      discounted
+    );
+
+    const times = createElementsHelpers.createElement(
+      "span",
+      {
+        class: "times",
+      },
+      "x"
+    );
+
+    const quantityValue = createElementsHelpers.createElement(
+      "span",
+      {
+        class: "quantity-value",
+      },
+      quantity
+    );
+    const totalPrice = createElementsHelpers.createElement(
+      "span",
+      {
+        class: "total-pricing",
+      },
+      total
+    );
+
+    priceDescriptionContainer
+      .appendChild(discountedPrice)
+      .appendChild(times)
+      .appendChild(quantityValue)
+      .appendChild(totalPrice);
+
+    createPhotoFigure.appendChild(createPhoto);
+    itemContainer
+      .appendChild(createPhotoFigure)
+      .appendChild(createHeading)
+      .appendChild(priceDescriptionContainer);
+
+    return itemContainer;
   },
 };
 
-cartLogic.handleOpenCartHover();
+const cartInit = {
+  init() {
+    cartLogic.handleOpenCartHover();
+    cartLogic.handleUpdatedCartModal();
+  },
+};
+
+cartInit.init();
