@@ -4,18 +4,33 @@ import { LocalStorage } from "../Helpers/LocalStorage";
 export const cartLogic = {
   openCart: document.getElementById("open-cart"),
   cartModal: document.getElementById("cart-modal"),
+  cartQuantity: document.getElementById("cart-quantity"),
   currentQuantity: 0,
 
   handleNumberFormatting(number) {
     return Number.parseFloat(number).toFixed(2);
   },
 
+  handleClearFirstChild(domNode){
+    while (domNode.firstChild) {
+      domNode.removeChild(domNode.firstChild);
+    }
+  },
+
+  handleRemovedItem(){
+    const deleteItem = document.getElementById("delete-cta")
+    deleteItem.addEventListener("click", () => {
+      LocalStorage.removeLocalStorageData("cart-items");
+      LocalStorage.removeLocalStorageData("quantity");
+      this.handleClearFirstChild(this.cartModal)
+      this.handleClearFirstChild(this.cartQuantity)
+    })
+  },
+
   handleUpdatedCartModal() {
     // Clear existing cart modal content
-    while (this.cartModal.firstChild) {
-      this.cartModal.removeChild(this.cartModal.firstChild);
-    }
-
+    this.handleClearFirstChild(this.cartModal)
+  
     const cartItemsData = LocalStorage.checkLocalStorageData("cart-items");
     if (cartItemsData) {
       const cartItems = JSON.parse(cartItemsData);
@@ -33,8 +48,10 @@ export const cartLogic = {
           this.cartModal.appendChild(cartUI.cartModalH2);
           this.cartModal.appendChild(createCartItem);
           this.cartModal.appendChild(cartUI.checkoutCTA);
+          this.handleRemovedItem()
         }
       }
+
     }
   },
 
