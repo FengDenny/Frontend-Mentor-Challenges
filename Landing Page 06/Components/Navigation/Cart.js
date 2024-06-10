@@ -3,6 +3,7 @@ import { LocalStorage } from "../Helpers/LocalStorage";
 
 export const cartLogic = {
   openCart: document.getElementById("open-cart"),
+  cartModal: document.getElementById("cart-modal"),
   currentQuantity: 0,
 
   handleOpenCartHover() {
@@ -10,9 +11,19 @@ export const cartLogic = {
       this.handleCartModalAppearance("show", "not-show");
       this.openCart.setAttribute("aria-expanded", "true", "true");
     });
-    this.openCart.addEventListener("mouseout", (e) => {
-      this.handleCartModalAppearance("not-show", "show", "false");
+    this.cartModal.addEventListener("mouseout", (e) => {
+      if (
+        !this.handleIsMouseOverElement(e, this.openCart) &&
+        !this.handleIsMouseOverElement(e, this.cartModal)
+      ) {
+        this.handleCartModalAppearance("not-show", "show", "false");
+      }
     });
+  },
+
+  handleIsMouseOverElement(event, element) {
+    // Check if the related target (where the mouse moved to) is the element or one of its descendants
+    return element.contains(event.relatedTarget);
   },
 
   handleCartModalAppearance(add, remove, ariaExpanded) {
