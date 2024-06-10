@@ -130,13 +130,13 @@ export const shoeProductGalleryLogic = {
           // Skip updating lightbox-gallery-preview figures
           return;
         }
-          if (index === currentIndex) {
-            figure.style.opacity = "1";
-            figure.style.display = "block";
-          } else {
-            figure.style.opacity = "0";
-            figure.style.display = "none";
-          }
+        if (index === currentIndex) {
+          figure.style.opacity = "1";
+          figure.style.display = "block";
+        } else {
+          figure.style.opacity = "0";
+          figure.style.display = "none";
+        }
       });
     };
 
@@ -202,8 +202,11 @@ export const shoeProductGalleryLogic = {
       }
     });
 
+    let previousSelectedFigure = null;
+
     galleryPreview.addEventListener("click", (event) => {
       const clickedElement = event.target;
+      const closestFigure = clickedElement.closest("figure");
       const closestImage = clickedElement.closest("img");
 
       if (closestImage) {
@@ -218,6 +221,35 @@ export const shoeProductGalleryLogic = {
           if (index !== -1) {
             this.currentIndex = index;
             this.handleImageChanges(this.currentIndex, gallery);
+            this.highlightPreviewImage(this.currentIndex);
+
+            // Remove border from the previously selected image
+            if (previousSelectedFigure) {
+              previousSelectedFigure.style.border = "none";
+              const previousSelectedImage =
+                previousSelectedFigure.querySelector("img");
+              if (previousSelectedImage) {
+                previousSelectedImage.style.opacity = "1";
+              }
+            }
+
+            if (initialPreviewFigure && initialPreviewImg) {
+              initialPreviewFigure.style.border = "none";
+              initialPreviewImg.style.opacity = "1";
+              initialPreviewFigure.classList.remove("active");
+              this.highlightPreviewImage(this.currentIndex);
+            }
+
+            // Apply border and opacity to the clicked image
+            if (closestFigure) {
+              closestFigure.style.border = "2px solid hsl(26, 100%, 55%)";
+            }
+            if (closestImage) {
+              closestImage.style.opacity = "0.2";
+            }
+
+            // Update the reference to the previously selected figure
+            previousSelectedFigure = closestFigure;
           }
         }
       }
