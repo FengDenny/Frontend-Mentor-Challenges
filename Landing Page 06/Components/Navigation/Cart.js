@@ -6,6 +6,26 @@ export const cartLogic = {
   cartModal: document.getElementById("cart-modal"),
   currentQuantity: 0,
 
+  handleUpdatedCartModal() {
+    const cartItemsData = LocalStorage.checkLocalStorageData("cart-items");
+    if (cartItemsData) {
+      const cartItems = JSON.parse(cartItemsData);
+      for (const itemID in cartItems) {
+        if (cartItems.hasOwnProperty(itemID)) {
+          const { sneaker, photoCover, discountedPrice, quantity, totalPrice } =
+            cartItems[itemID];
+          console.log(
+            sneaker,
+            photoCover,
+            discountedPrice,
+            quantity,
+            totalPrice
+          );
+        }
+      }
+    }
+  },
+
   handleOpenCartHover() {
     this.openCart.addEventListener("mouseover", (e) => {
       this.handleCartModalAppearance("show", "not-show");
@@ -59,7 +79,12 @@ export const cartLogic = {
       this.currentQuantity += 1;
       quantityInput.value = this.currentQuantity;
       LocalStorage.updateLocalStorageData("quantity", this.currentQuantity);
+      // Update cart items quantity in localStorage
+      this.handleUpdateCartItemQuantity(this.currentQuantity);
+      // Update cart quantity in UI
       this.handleCartQuantity(cartQuantity);
+      this.handleUpdatedCartModal();
+      this.handleUpdateAddToCartButtonState();
     }
   },
 
@@ -70,23 +95,70 @@ export const cartLogic = {
       this.currentQuantity -= 1;
       quantityInput.value = this.currentQuantity;
       LocalStorage.updateLocalStorageData("quantity", this.currentQuantity);
+      this.handleUpdateCartItemQuantity(this.currentQuantity);
       this.handleCartQuantity(cartQuantity);
+      this.handleUpdatedCartModal();
+      this.handleUpdateAddToCartButtonState();
     }
   },
 
   handleCartQuantity(cartQuantity) {
-    const storedQuantity = LocalStorage.checkLocalStorageData("quantity");
-    if (storedQuantity !== null) {
-      cartQuantity.textContent = storedQuantity;
-      cartQuantity.classList.add("show");
+    const cartItems = LocalStorage.checkLocalStorageData("cart-items");
+
+    if (cartItems) {
+      const parsedCartItems = JSON.parse(cartItems);
+      if (Object.keys(parsedCartItems).length > 0) {
+        const storedQuantity = LocalStorage.checkLocalStorageData("quantity");
+        if (storedQuantity !== null) {
+          cartQuantity.textContent = storedQuantity;
+          cartQuantity.classList.add("show");
+          return;
+        }
+      }
+    }
+    cartQuantity.classList.remove("show");
+  },
+
+  handleUpdateCartItemQuantity(quantity) {
+    const cartItems = LocalStorage.checkLocalStorageData("cart-items");
+    if (cartItems) {
+      const parsedCartItems = JSON.parse(cartItems);
+      for (const itemID in parsedCartItems) {
+        if (parsedCartItems.hasOwnProperty(itemID)) {
+          parsedCartItems[itemID].quantity = parseInt(quantity);
+          parsedCartItems[itemID].totalPrice = parseInt(
+            parsedCartItems[itemID].discountedPrice * quantity
+          );
+          if (parsedCartItems[itemID].quantity === 0) {
+            delete parsedCartItems[itemID];
+          }
+        }
+      }
+      LocalStorage.updateLocalStorageData(
+        "cart-items",
+        JSON.stringify(parsedCartItems)
+      );
+    }
+  },
+
+  handleUpdateAddToCartButtonState() {
+    const addToCartCTA = document.getElementById("add-to-cart");
+    const quantityCheck = LocalStorage.checkLocalStorageData("quantity");
+
+    if (quantityCheck > 0) {
+      addToCartCTA.disabled = false;
+      addToCartCTA.style.cursor = "pointer";
     } else {
-      cartQuantity.classList.remove("show");
+      addToCartCTA.disabled = true;
+      addToCartCTA.style.cursor = "not-allowed";
     }
   },
 
   handleAddToCartBtnClicked(data) {
-    console.log(data);
+    this.handleUpdateAddToCartButtonState();
     const addToCartCTA = document.getElementById("add-to-cart");
+    const cartQuantity = document.getElementById("cart-quantity");
+
     addToCartCTA.addEventListener("click", () => {
       const quantity = LocalStorage.checkLocalStorageData("quantity");
       let cartItems = LocalStorage.checkLocalStorageData("cart-items");
@@ -107,20 +179,28 @@ export const cartLogic = {
         const itemID = sneaker;
 
         if (cartItems[itemID]) {
-          cartItems[itemID].quantity = quantity;
+          cartItems[itemID].quantity = parseInt(quantity);
         } else {
+          const price = parseFloat(
+            this.handleRemoveDollarSign(discountedPrice)
+          );
+
           cartItems[itemID] = {
             sneaker,
             photoCover: gallery[0].photoCover,
-            discountedPrice: this.handleRemoveDollarSign(discountedPrice),
-            quantity,
+            discountedPrice: price,
+            quantity: parseInt(quantity),
+            totalPrice: parseInt(price * quantity),
           };
         }
       });
 
       LocalStorage.updateLocalStorageData("cart-items", cartItems);
+      this.handleCartQuantity(cartQuantity);
+      this.handleUpdatedCartModal();
     });
   },
+
   checkLocalQuantity(quantityInput) {
     const storedQuantity = LocalStorage.checkLocalStorageData("quantity");
     this.currentQuantity =
@@ -130,14 +210,22 @@ export const cartLogic = {
 
   handleRemoveDollarSign(discountedPrice) {
     const price = discountedPrice.replace(/\$/g, "");
-    return price.toString();
+    return parseInt(price);
   },
 };
 
 export const cartUI = {
   cartModal: document.getElementById("cart-modal"),
 
-  createCartModalData() {},
+  createCartModalData() {
+    const itemContainer = createElementsHelpers.createElement("div", {
+      class: "cart-modal-item-container",
+    });
+    const createPhotoFigure = createElementsHelpers.createElement("figure");
+    const createPhoto = createElementsHelpers.createElement("img", {});
+    const createHeading = createElementsHelpers.createElement("");
+    const createPricingDescription = createElementsHelpers.createElement("");
+  },
 };
 
 cartLogic.handleOpenCartHover();
