@@ -253,13 +253,25 @@ export const shoeProductUI = {
   },
 
   createImages(id, src) {
+    const lightboxContainer = document.getElementById("lightbox-container");
     const figure = createElementsHelpers.createElement("figure");
-    const image = createElementsHelpers.createElement("img", {
-      src: `../${src}`,
-      class: "shoe-product-img",
-      ["data-id"]: id,
-    });
+    let image = null
 
+    if(lightboxContainer){
+      image = createElementsHelpers.createElement("img", {
+        src: `../${src}`,
+        class: "shoe-product-img",
+        ["data-id"]: `light-${id}`,
+      });
+    }else{
+      image = createElementsHelpers.createElement("img", {
+        src: `../${src}`,
+        class: "shoe-product-img",
+        ["data-id"]: id,
+      });
+    }
+    
+      
     figure.appendChild(image);
     return figure;
   },

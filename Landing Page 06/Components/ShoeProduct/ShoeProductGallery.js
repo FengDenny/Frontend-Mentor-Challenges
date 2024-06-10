@@ -24,11 +24,18 @@ export const shoeProductGalleryLogic = {
   },
 
   async createGalleryData(container) {
+    const lightboxContainer = document.getElementById("lightbox-container");
+
     const galleryData = await this.retrieveImageData();
     const imageData = galleryData.map((data) => {
       const { id, photoCover } = data;
       const coverPhoto = shoeProductUI.createImages(id, photoCover);
-      coverPhoto.dataset.id = id;
+
+      if (lightboxContainer) {
+        coverPhoto.dataset.id = `light-${id}`;
+      } else {
+        coverPhoto.dataset.id = id;
+      }
       container.appendChild(coverPhoto);
       return coverPhoto;
     });
@@ -117,18 +124,20 @@ export const shoeProductGalleryLogic = {
     const figures = Array.from(gallery.getElementsByTagName("figure"));
 
     const updateGalleryData = () => {
-
-        figures.forEach((figure, index) => {
+      figures.forEach((figure, index) => {
+        const parentArticle = figure.closest("article");
+        if (parentArticle && parentArticle.id === "lightbox-gallery-preview") {
+          // Skip updating lightbox-gallery-preview figures
+          return;
+        }
           if (index === currentIndex) {
             figure.style.opacity = "1";
             figure.style.display = "block";
           } else {
-            figure.style.opacity = "0"
-            figure.style.display = "none"
-          } 
-        });
-    
-
+            figure.style.opacity = "0";
+            figure.style.display = "none";
+          }
+      });
     };
 
     const updateNextImage = () => {
@@ -168,13 +177,11 @@ export const shoeProductGalleryLogic = {
     const initialPreviewFigure =
       galleryPreview.querySelector("figure:first-child");
 
-
     if (initialPreviewImg && initialPreviewFigure) {
       initialPreviewFigure.style.border = "2px solid hsl(26, 100%, 55%)";
       initialPreviewImg.style.opacity = "0.2";
       initialPreviewFigure.classList.add("active");
     }
-
 
     galleryPreview.addEventListener("mouseover", function (event) {
       const figure = event.target.closest("figure");
@@ -195,24 +202,21 @@ export const shoeProductGalleryLogic = {
       }
     });
 
-
     galleryPreview.addEventListener("click", (event) => {
       const clickedElement = event.target;
       const closestImage = clickedElement.closest("img");
-    
+
       if (closestImage) {
         const dataId = closestImage.dataset.id;
         const galleryImg = gallery.querySelector(`img[data-id="${dataId}"]`);
 
-        console.log(galleryImg)
-
-        console.log(gallery)
-
         if (galleryImg) {
           const currentGalleryFigure = galleryImg.closest("figure");
-          const index = Array.from(gallery.children).indexOf(currentGalleryFigure);
+          const index = Array.from(gallery.children).indexOf(
+            currentGalleryFigure
+          );
           if (index !== -1) {
-            this.currentIndex = index; 
+            this.currentIndex = index;
             this.handleImageChanges(this.currentIndex, gallery);
           }
         }
