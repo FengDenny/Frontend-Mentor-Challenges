@@ -51,7 +51,17 @@ export const cartLogic = {
           this.handleRemovedItem()
         }
       }
+    } else{
+      const emptyCardDiv = createElementsHelpers.createElement("div", {
+        class:"empty-container"
+      })
+      const emptyCartLabel = createElementsHelpers.createElement("h6", {
+        class:"empty-card=label"
+      }, "Your cart is empty.")
 
+      this.cartModal.appendChild(cartUI.cartModalH2);
+      emptyCardDiv.appendChild(emptyCartLabel)
+      this.cartModal.appendChild(emptyCardDiv)
     }
   },
 
