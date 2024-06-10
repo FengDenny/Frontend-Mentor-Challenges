@@ -9,7 +9,7 @@ export const LocalStorage = {
       localStorage.setItem(key, JSON.stringify(value));
     } else {
       localStorage.setItem(key, value);
-      console.log(`Updated ${key} in localStorage:`, localStorage.getItem(key));
+      // console.log(`Updated ${key} in localStorage:`, localStorage.getItem(key));
     }
   },
 
