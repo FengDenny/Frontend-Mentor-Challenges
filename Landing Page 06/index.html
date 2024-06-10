@@ -20,48 +20,46 @@
       src="./Components/Helpers/CreateElements.js"
       type="module"
       defer
-    ></script>  
-    
-    <script src="./Components/Helpers/LocalStorage.js" type="module" defer></script>
-    <script src="./Components/Navigation/Menu.js" type="module" defer></script>
-    <script
-    src="./Components/Navigation/Navigation.js"
-    type="module"
-    defer
-    ></script>   
-    
-    
-    <script
-    src="./Components/ShoeProduct/ShoeProduct.js"
-    type="module"
-    defer
     ></script>
+
     <script
-    src="./Components/ShoeProduct/ShoeProductGallery.js"
-    type="module"
-    defer
-    ></script>
-    <script
-      src="./Components/Navigation/Cart.js"
+      src="./Components/Helpers/LocalStorage.js"
       type="module"
       defer
-    ></script>   
-    
+    ></script>
+    <script src="./Components/Navigation/Menu.js" type="module" defer></script>
+    <script
+      src="./Components/Navigation/Navigation.js"
+      type="module"
+      defer
+    ></script>
+
+    <script
+      src="./Components/ShoeProduct/ShoeProduct.js"
+      type="module"
+      defer
+    ></script>
+    <script
+      src="./Components/ShoeProduct/ShoeProductGallery.js"
+      type="module"
+      defer
+    ></script>
+    <script src="./Components/Navigation/Cart.js" type="module" defer></script>
   </head>
   <body>
     <header>
       <nav class="menu">
         <div class="nav-left">
-         <button id="open-menu" aria-label="Open menu" aria-expanded="true">
-          <svg  width="16" height="15" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M16 12v3H0v-3h16Zm0-6v3H0V6h16Zm0-6v3H0V0h16Z"
-              fill="#69707D"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </button>
-        <div id="desktop-menu" class="desktop-menu"></div>
+          <button id="open-menu" aria-label="Open menu" aria-expanded="true">
+            <svg width="16" height="15" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M16 12v3H0v-3h16Zm0-6v3H0V6h16Zm0-6v3H0V0h16Z"
+                fill="#69707D"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+          <div id="desktop-menu" class="desktop-menu"></div>
           <figure class="logo">
             <svg width="138" height="20" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -72,32 +70,34 @@
             </svg>
           </figure>
         </div>
-        <div class="nav-right">
-      
-            <button id="open-cart" aria-label="Open cart" aria-expanded="false">
+        <div class="nav-right"> 
+          <button id="open-cart" aria-label="Open cart" aria-expanded="false">
               <svg width="22" height="20" xmlns="http://www.w3.org/2000/svg">
                 <path
-              d="M20.925 3.641H3.863L3.61.816A.896.896 0 0 0 2.717 0H.897a.896.896 0 1 0 0 1.792h1l1.031 11.483c.073.828.52 1.726 1.291 2.336C2.83 17.385 4.099 20 6.359 20c1.875 0 3.197-1.87 2.554-3.642h4.905c-.642 1.77.677 3.642 2.555 3.642a2.72 2.72 0 0 0 2.717-2.717 2.72 2.72 0 0 0-2.717-2.717H6.365c-.681 0-1.274-.41-1.53-1.009l14.321-.842a.896.896 0 0 0 .817-.677l1.821-7.283a.897.897 0 0 0-.87-1.114ZM6.358 18.208a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm10.015 0a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm2.021-7.243-13.8.81-.57-6.341h15.753l-1.383 5.53Z"
-            fill="#69707D"
-          fill-rule="nonzero"
-        />
-      </svg>
-    </button>
-    <div id="cart-modal" class="cart-modal not-show">
-      <h2>Cart</h2>
-    </div>
+                  d="M20.925 3.641H3.863L3.61.816A.896.896 0 0 0 2.717 0H.897a.896.896 0 1 0 0 1.792h1l1.031 11.483c.073.828.52 1.726 1.291 2.336C2.83 17.385 4.099 20 6.359 20c1.875 0 3.197-1.87 2.554-3.642h4.905c-.642 1.77.677 3.642 2.555 3.642a2.72 2.72 0 0 0 2.717-2.717 2.72 2.72 0 0 0-2.717-2.717H6.365c-.681 0-1.274-.41-1.53-1.009l14.321-.842a.896.896 0 0 0 .817-.677l1.821-7.283a.897.897 0 0 0-.87-1.114ZM6.358 18.208a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm10.015 0a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm2.021-7.243-13.8.81-.57-6.341h15.753l-1.383 5.53Z"
+                  fill="#69707D"
+                  fill-rule="nonzero"
+                />
+              </svg>
+            </button>
+         
           <figure>
-            <img src="./images/image-avatar.png" alt="Avatar" class="avatar">
-          </figure>
-        </div>
+            <img src="./images/image-avatar.png" alt="Avatar" class="avatar" />
+          </figure> 
+        
         <div id="overlay" class="overlay not-show"></div>
-        <nav id="opened-menu" class="menu-opened not-show"></nav>
-      </nav>
+        <nav id="opened-menu" class="menu-opened not-show"></nav> 
+        <div class="cart-container">  
+            <div id="cart-modal" class="cart-modal not-show">
+              <h2>Cart</h2>
+            </div>
+          </div>
+        </div>
+      </nav>  
+     
     </header>
     <main>
-      <section id="shoe-product" class="shoe-product">
-
-      </section>
+      <section id="shoe-product" class="shoe-product"></section>
     </main>
 
     <!-- 
