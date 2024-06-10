@@ -1,22 +1,35 @@
 import { createElementsHelpers } from "../Helpers/CreateElements";
 
-
 export const shoeProductLogic = {
   shoeProductContainer: document.getElementById("shoe-product"),
 
   async handleShoeData() {
     await this.shoesProductInformationContent();
+    this.handleQuantity();
   },
 
+  handleQuantity() {
+    const quantityInput = document.getElementById("quantity");
+
+    console.log(quantityInput.value);
+  },
   async shoesProductInformationContent() {
     const data = await this.shoeProductData();
+
     data.forEach((item) => {
       shoeProductUI.createShoeInformationContent(item);
     });
-    this.shoeProductContainer.appendChild(
-      shoeProductUI.shoesProductInformationDiv
-    );
-    shoeProductUI.createShoeCTA();
+
+    // Check if the content container already exists
+    let shoeProductInfoContainer = document.getElementById("shoe-product-information");
+    let shoeProductCTAContainer = document.getElementById("shoe-product-cta");
+
+    if (!shoeProductInfoContainer && !shoeProductCTAContainer) {
+      this.shoeProductContainer.appendChild(
+        shoeProductUI.shoesProductInformationDiv
+      );
+      shoeProductUI.createShoeCTA();
+    }
   },
 
   async shoeProductData() {
@@ -66,6 +79,7 @@ export const shoeProductUI = {
     class: "quantity-input-container",
   }),
   shoesProductInformationDiv: createElementsHelpers.createElement("div", {
+    id: "shoe-product-information",
     class: "shoe-product-information-container",
   }),
 
@@ -174,10 +188,10 @@ export const shoeProductUI = {
     const quantity = createElementsHelpers.createElement("input", {
       id: "quantity",
       type: "number",
-      placeholder: "0",
       step: "1",
       min: "0",
       max: "10",
+      value: "0",
     });
 
     const minus = this.createQuantityButton(
@@ -192,6 +206,7 @@ export const shoeProductUI = {
     );
 
     const div = createElementsHelpers.createElement("div", {
+      id: "shoe-product-cta",
       class: "cta-container",
     });
 
@@ -255,23 +270,22 @@ export const shoeProductUI = {
   createImages(id, src) {
     const lightboxContainer = document.getElementById("lightbox-container");
     const figure = createElementsHelpers.createElement("figure");
-    let image = null
+    let image = null;
 
-    if(lightboxContainer){
+    if (lightboxContainer) {
       image = createElementsHelpers.createElement("img", {
         src: `../${src}`,
         class: "shoe-product-img",
         ["data-id"]: `light-${id}`,
       });
-    }else{
+    } else {
       image = createElementsHelpers.createElement("img", {
         src: `../${src}`,
         class: "shoe-product-img",
         ["data-id"]: id,
       });
     }
-    
-      
+
     figure.appendChild(image);
     return figure;
   },
