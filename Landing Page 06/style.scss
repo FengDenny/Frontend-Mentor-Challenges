@@ -59,6 +59,35 @@ html {
 }
 
 // MIXINS
+
+@mixin ctaBtns(){
+  
+    padding: 10px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 55px;
+    margin-bottom: 50px;
+    text-align: center;
+    background: $orange;
+    border: 1px solid $orange;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $very-dark-blue;
+    box-shadow: $box-shadow;
+    cursor: pointer;
+  
+    svg {
+      path {
+        fill: $very-dark-blue;
+      }
+    }
+  }
+
+
 @mixin buttonNoBGNoBorder() {
   background-color: transparent;
   border: none;
@@ -66,8 +95,6 @@ html {
 }
 
 @mixin expandBorderFromCenter() {
-
-
   &::before,
   &::after {
     content: "";
@@ -104,24 +131,24 @@ html {
   }
 }
 
-@mixin buttonContainer(){
-    display: flex;
-    justify-content: space-between;
-    z-index: 3;
-    position: relative;
-    padding: 6px;
-    width: 100%;
-  
-    button {
-      margin: 50% 1%;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      &[id="prev-btn"] {
-        position: relative;
-        top: 16px;
-      }
+@mixin buttonContainer() {
+  display: flex;
+  justify-content: space-between;
+  z-index: 3;
+  position: relative;
+  padding: 6px;
+  width: 100%;
+
+  button {
+    margin: 50% 1%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    &[id="prev-btn"] {
+      position: relative;
+      top: 16px;
     }
+  }
 }
 
 // BODY
@@ -145,54 +172,106 @@ header {
   justify-content: space-between;
   max-width: 1350px;
 
-
-  .cart-container{
+  .cart-container {
     position: fixed;
-    width:290px;
+    width: 290px;
     z-index: 10;
-    }
-    
-    .cart-modal{
-      position: absolute;
-      background-color: $white;
-      box-shadow: $box-shadow;
-      width:300px;
-      max-width:100%;
-      height:150px;
-    transition:all 0.3s ease-in 0.1s;
-    top:60px;
-    left:-182px;
-    border-radius:5px;
-  
+  }
 
-    h2{
+  .cart-modal {
+    position: absolute;
+    background-color: $white;
+    box-shadow: $box-shadow;
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+    transition: all 0.3s ease-in 0.1s;
+    top: 60px;
+    left: -182px;
+    border-radius: 5px;
+
+    h2 {
       position: relative;
       font-size: 0.95rem;
-      padding:15px;
-      &::after{
-        content:"";
+      padding: 15px;
+      &::after {
+        content: "";
         position: absolute;
-        border-bottom:1px solid $light-grayish-blue;
-        width:100%;
-        top:55px;
-        left:0;
+        border-bottom: 1px solid $light-grayish-blue;
+        width: 100%;
+        top: 55px;
+        left: 0;
       }
     }
 
-    &.not-show{
+    &.not-show {
       transform: translateX(-28%);
     }
   }
 
-  .cart-modal-item-container{
+  .photo-item-container {
+    padding: 15px;
+    display: flex;
+    gap: 10px;
     figure {
-      width:100%;
-      img{
-        width:100%;
+      width: 20%;
+      img {
+        width: 100%;
+        border-radius:5px;
       }
     }
   }
 
+  .product-description-container {
+    .item-heading {
+      color: $grayish-blue;
+      font-size: 0.7rem;
+    }
+  }
+
+  .price-description-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+  }
+
+  .discounted-pricing {
+    padding-top: 5px;
+    gap: 5px;
+    color: $dark-grayish-blue;
+  }
+  .times, 
+  .quantity-value, 
+  .total-pricing{
+    align-self: center;
+    position: relative;
+    top:2px;
+  }
+
+  .times,
+  .quantity-value{
+    color:$dark-grayish-blue
+  }
+
+  .total-pricing{
+    color:$very-dark-blue;
+    font-weight: bold;
+  }
+
+  .delete-cta{
+    svg{
+      width:14px;
+      height:23px;
+    }
+  }
+
+  .checkout-cta{
+    @include ctaBtns();
+    width: 86%;
+    margin-left: 14px;
+    height:45px;
+  }
 
 }
 
@@ -236,30 +315,28 @@ header {
   padding-right: 30px;
 }
 
-.add-to-cart{
+.add-to-cart {
   position: relative;
 
-  .span-quantity{
+  .span-quantity {
     position: absolute;
-    bottom:15px;
-    left:8px;
-    background-color:$orange;
-    padding-inline:6px;
+    bottom: 15px;
+    left: 8px;
+    background-color: $orange;
+    padding-inline: 6px;
     font-size: 0.7rem;
-    color:$light-grayish-blue;
-    border-radius:15px;
-    width:fit-content;
+    color: $light-grayish-blue;
+    border-radius: 15px;
+    width: fit-content;
     text-align: center;
     font-weight: bold;
-    opacity:0;
+    opacity: 0;
     transition: opacity 0.3s ease-in 0.1s;
-    &.show{
+    &.show {
       opacity: 1;
     }
-
   }
 }
-
 
 .menu-opened {
   position: fixed;
@@ -298,15 +375,14 @@ header {
 
 // MAIN
 
-.shoe-product{
-  display:flex;
+.shoe-product {
+  display: flex;
   flex-direction: column;
 }
 
-.shoes-product-gallery-container{
-  order:-1;
+.shoes-product-gallery-container {
+  order: -1;
 }
-
 
 .shoe-product-gallery {
   position: relative;
@@ -493,24 +569,7 @@ header {
 }
 
 .add-to-cart-cta {
-  padding: 10px;
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 55px;
-  margin-bottom: 50px;
-  text-align: center;
-  background: $orange;
-  border: 1px solid $orange;
-  border-radius: 5px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: $very-dark-blue;
-  box-shadow: $box-shadow;
-  cursor: pointer;
-
+  @include ctaBtns();
   svg {
     path {
       fill: $very-dark-blue;
@@ -536,7 +595,6 @@ header {
 
 @media screen and (min-width: 1024px) {
   .menu {
-
     button[id="open-menu"] {
       display: none;
     }
@@ -566,8 +624,6 @@ header {
             content: "";
             top: 60px;
           }
-
-
         }
       }
     }
@@ -712,8 +768,6 @@ header {
       &:not(:first-child) {
         display: none;
       }
-
-      
     }
   }
 
@@ -731,7 +785,7 @@ header {
           height: 100%;
           background-color: hsla(0, 100%, 100%, 0.6);
           z-index: 1;
-          border-radius:5px;
+          border-radius: 5px;
         }
       }
 
@@ -741,72 +795,60 @@ header {
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(
-          255,
-          255,
-          255,
-          0.6
-        ); 
-        opacity: 0; 
-        transition: opacity 0.3s ease 0.1s; 
-        pointer-events: none; 
-      border-radius:5px;
-        }
-        
-        &:hover .figure-overlay {
-          opacity: 1;
+        background-color: rgba(255, 255, 255, 0.6);
+        opacity: 0;
+        transition: opacity 0.3s ease 0.1s;
+        pointer-events: none;
+        border-radius: 5px;
+      }
+
+      &:hover .figure-overlay {
+        opacity: 1;
       }
     }
-  figure[data-id*="light-image"]{
-    width:73px;
-    height:100%;
-    img{
-      width:100%;
+    figure[data-id*="light-image"] {
+      width: 73px;
+      height: 100%;
+      img {
+        width: 100%;
+      }
     }
   }
-  }
 
+  .lightbox-btn {
+    display: flex;
+    justify-content: space-between;
+    button {
+      border-radius: 50%;
+      border: 1px solid $white;
+      cursor: pointer;
 
+      svg {
+        width: 50px;
+        height: 50px;
 
-  .lightbox-btn
-{
-  display:flex;
-  justify-content: space-between;
-button{
-  border-radius:50%;
-  border:1px solid $white;
-  cursor: pointer;
+        &:hover {
+          path {
+            transition: stroke 0.3s ease-in 0.1s;
+            stroke: $orange;
+          }
+        }
+      }
+    }
 
-  
-  svg{
-    width:50px;
-    height:50px;
-    
-    
-    &:hover{
-      path{
-      transition: stroke 0.3s ease-in 0.1s;
-      stroke: $orange;
+    button[id="prev-light-btn"] {
+      position: absolute;
+      top: 13rem;
+      left: -20px;
+      box-shadow: $box-shadow;
+    }
+    button[id="next-light-btn"] {
+      position: absolute;
+      top: 13rem;
+      right: -20px;
+      box-shadow: $box-shadow;
     }
   }
-  
-}
-}
-
-button[id="prev-light-btn"]{
-  position: absolute;
-  top:13rem;
-  left:-20px;
-  box-shadow: $box-shadow;
-}
-button[id="next-light-btn"]{
-  position: absolute;
-  top:13rem;
-  right:-20px;
-  box-shadow: $box-shadow;
-}
-  
-}
   .close-overlay-btn {
     @include buttonNoBGNoBorder();
     padding: 10px;
