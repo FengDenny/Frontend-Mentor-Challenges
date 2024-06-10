@@ -66,13 +66,15 @@ html {
 }
 
 @mixin expandBorderFromCenter() {
+
+
   &::before,
   &::after {
     content: "";
     position: absolute;
-    top: 0;
+    top: 0px;
     width: 0;
-    height: 2px;
+    height: 3px;
     background-color: $orange;
     transition: width 0.3s ease-in, left 0.3s ease-in, right 0.3s ease-in;
   }
@@ -142,6 +144,37 @@ header {
   display: flex;
   justify-content: space-between;
   max-width: 1350px;
+
+  .cart-modal{
+    position: absolute;
+    background-color: $white;
+    box-shadow: $box-shadow;
+    width:280px;
+    max-width: 100%;
+    height:150px;
+    transition:all 0.3s ease-in 0.1s;
+    top:60px;
+    right:82px;
+
+    h2{
+      position: relative;
+      font-size: 0.95rem;
+      padding:15px;
+      &::after{
+        content:"";
+        position: absolute;
+        border-bottom:1px solid $light-grayish-blue;
+        width:100%;
+        top:55px;
+        left:0;
+      }
+    }
+
+    &.not-show{
+      transform: translateX(-28%);
+    }
+  }
+
 }
 
 .desktop-menu {
@@ -459,6 +492,7 @@ header {
 
 @media screen and (min-width: 1024px) {
   .menu {
+
     button[id="open-menu"] {
       display: none;
     }
@@ -482,6 +516,14 @@ header {
           position: relative;
 
           @include expandBorderFromCenter();
+
+          &::before,
+          &::after {
+            content: "";
+            top: 60px;
+          }
+
+
         }
       }
     }
@@ -620,17 +662,21 @@ header {
   }
 
   .lightbox-gallery {
+    position: relative;
     figure {
       pointer-events: none;
       &:not(:first-child) {
         display: none;
       }
+
+      
     }
   }
 
   .shoe-product-gallery-preview {
     figure {
       position: relative;
+
       &.active {
         &::before {
           content: "";
@@ -649,8 +695,8 @@ header {
         position: absolute;
         top: 0;
         left: 0;
-        width: 98%;
-        height: 98%;
+        width: 100%;
+        height: 100%;
         background-color: rgba(
           255,
           255,
@@ -658,7 +704,7 @@ header {
           0.6
         ); 
         opacity: 0; 
-        transition: opacity 0.3s ease; 
+        transition: opacity 0.3s ease 0.1s; 
         pointer-events: none; 
       border-radius:5px;
         }
@@ -667,12 +713,56 @@ header {
           opacity: 1;
       }
     }
+  figure[data-id*="light-image"]{
+    width:73px;
+    height:100%;
+    img{
+      width:100%;
+    }
+  }
   }
 
-//   .lightbox-btn
-// {
-//   @include buttonContainer()
-// }
+
+
+  .lightbox-btn
+{
+  display:flex;
+  justify-content: space-between;
+button{
+  border-radius:50%;
+  border:1px solid $white;
+  cursor: pointer;
+
+  
+  svg{
+    width:50px;
+    height:50px;
+    
+    
+    &:hover{
+      path{
+      transition: stroke 0.3s ease-in 0.1s;
+      stroke: $orange;
+    }
+  }
+  
+}
+}
+
+button[id="prev-light-btn"]{
+  position: absolute;
+  top:13rem;
+  left:-20px;
+  box-shadow: $box-shadow;
+}
+button[id="next-light-btn"]{
+  position: absolute;
+  top:13rem;
+  right:-20px;
+  box-shadow: $box-shadow;
+}
+  
+}
   .close-overlay-btn {
     @include buttonNoBGNoBorder();
     padding: 10px;
