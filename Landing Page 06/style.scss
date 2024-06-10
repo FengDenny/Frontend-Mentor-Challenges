@@ -6,6 +6,7 @@ $font-kumbh: "Kumbh Sans", sans-serif;
 
 //  COLORS
 $orange: hsl(26, 100%, 55%);
+$orange-hover: hsla(26, 98%, 60%, 0.801);
 $pale-orange: hsl(25, 100%, 94%);
 $very-dark-blue: hsl(220, 13%, 13%);
 $dark-grayish-blue: hsl(219, 9%, 45%);
@@ -60,40 +61,37 @@ html {
 
 // MIXINS
 
-@mixin ctaBtns(){
-  
-    padding: 10px;
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 55px;
-    margin-bottom: 50px;
-    text-align: center;
-    background: $orange;
-    border: 1px solid $orange;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: $very-dark-blue;
-    box-shadow: $box-shadow;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in 0.1s, border 0.2s ease-in 0.1s;
+@mixin ctaBtns() {
+  padding: 10px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 55px;
+  margin-bottom: 50px;
+  text-align: center;
+  background: $orange;
+  border: 1px solid $orange;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $very-dark-blue;
+  box-shadow: $box-shadow;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in 0.1s, border 0.2s ease-in 0.1s;
 
-    &:hover{
-      background-color: $pale-orange;
+  &:hover {
+    background-color: $pale-orange;
     border: 1px solid $pale-orange;
-
-    }
-  
-    svg {
-      path {
-        fill: $very-dark-blue;
-      }
-    }
   }
 
+  svg {
+    path {
+      fill: $very-dark-blue;
+    }
+  }
+}
 
 @mixin buttonNoBGNoBorder() {
   background-color: transparent;
@@ -179,18 +177,22 @@ header {
   justify-content: space-between;
   max-width: 1350px;
 
+  @media screen and (max-width: 347px) {
+    flex-wrap: wrap;
+  }
+
   .cart-container {
     position: fixed;
     width: 290px;
     z-index: 10;
   }
 
-  .empty-container{
+  .empty-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 160px;
-    color:$dark-grayish-blue;
+    color: $dark-grayish-blue;
     font-size: 1.2rem;
   }
 
@@ -233,7 +235,7 @@ header {
       width: 20%;
       img {
         width: 100%;
-        border-radius:5px;
+        border-radius: 5px;
       }
     }
   }
@@ -257,40 +259,39 @@ header {
     gap: 5px;
     color: $dark-grayish-blue;
   }
-  .times, 
-  .quantity-value, 
-  .total-pricing{
+  .times,
+  .quantity-value,
+  .total-pricing {
     align-self: center;
     position: relative;
-    top:2px;
+    top: 2px;
   }
 
   .times,
-  .quantity-value{
-    color:$dark-grayish-blue
+  .quantity-value {
+    color: $dark-grayish-blue;
   }
 
-  .total-pricing{
-    color:$very-dark-blue;
+  .total-pricing {
+    color: $very-dark-blue;
     font-weight: bold;
   }
 
-  .delete-cta{
-    svg{
-      width:14px;
-      height:23px;
+  .delete-cta {
+    svg {
+      width: 14px;
+      height: 23px;
     }
   }
 
-  .checkout-cta{
+  .checkout-cta {
     @include ctaBtns();
     position: relative;
-    top:10px;
+    top: 10px;
     width: 86%;
     margin-left: 14px;
-    height:45px;
+    height: 45px;
   }
-
 }
 
 .desktop-menu {
@@ -318,32 +319,46 @@ header {
 }
 
 .nav-left {
+  position: relative;
+  top: 5px;
   button > svg {
     padding-top: 5px;
+  }
+
+  @media screen and (max-width: 292px) {
+    margin: 0 auto;
   }
 
   padding-left: 2px;
 }
 
 .nav-right {
-  gap: 40px;
-  
-  
-  figure{
-    border:2px solid transparent;
-    width:38px;
-    height:38px;
-    border-radius:50%;
+  gap: 18px;
+  padding-right: 4px;
+
+  .add-to-cart {
+    top: 5px;
+  }
+
+  @media screen and (max-width: 292px) {
+    margin: 0 auto;
+    padding-top: 0.5rem;
+  }
+
+  figure {
+    border: 2px solid transparent;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
     transition: border 0.3s ease-in 0.1s;
     cursor: pointer;
-    &:hover{
-      border:2px solid $orange;
+    &:hover {
+      border: 2px solid $orange;
     }
   }
   .avatar {
     width: 35px;
   }
-  padding-right: 30px;
 }
 
 .add-to-cart {
@@ -442,15 +457,14 @@ header {
   position: relative;
   padding: 6px;
   width: 100%;
-
   button {
-    margin: 50% 1%;
+    margin: 27% 1%;
     background: transparent;
     border: none;
     cursor: pointer;
     &[id="prev-btn"] {
       position: relative;
-      top: 16px;
+      top: 2px;
     }
   }
 
@@ -464,6 +478,9 @@ header {
 }
 
 .shoe-product-information-container {
+    margin-top: 50%;
+
+  
   .product-company-header {
     color: $dark-grayish-blue;
     font-size: 1.1rem;
@@ -497,17 +514,6 @@ header {
   padding-inline: 20px;
   gap: 10px;
   flex-wrap: wrap;
-
-  @media screen and (max-width: 336px) {
-    .product-full-price-header {
-      order: -1;
-    }
-
-    .price-discounted-container,
-    .product-full-price-header {
-      padding-top: 1px;
-    }
-  }
 }
 
 .price-discounted-container {
@@ -524,7 +530,7 @@ header {
     color: $white;
     padding: 6px;
     border-radius: 5px;
-    width: 60px;
+    width: 49px;
     text-align: center;
   }
 
@@ -536,7 +542,7 @@ header {
 }
 .product-full-price-header,
 .price-discounted-container {
-  padding-top: 20px;
+  padding-top: 1px;
 }
 
 .product-full-price-header {
@@ -580,6 +586,22 @@ header {
     background: transparent;
     border: none;
     cursor: pointer;
+  }
+
+  button[id="plus"],
+  button[id="minus"] {
+    svg {
+      path {
+        transition: fill 0.1s ease-in 0.1s;
+      }
+    }
+    &:hover {
+      svg {
+        path {
+          fill: $orange-hover;
+        }
+      }
+    }
   }
 
   button[id="plus"] {
@@ -713,6 +735,7 @@ header {
   }
 
   .shoe-product-information-container {
+    margin-top:0;
     padding-top: 3rem;
 
     grid-area: 1 / 2 / span 1 / span 1;
@@ -885,16 +908,16 @@ header {
     padding: 10px;
     align-self: flex-end;
 
-    svg{
-      path{
+    svg {
+      path {
         transition: fill 0.3s ease-in 0.1s;
       }
     }
-    
-    &:hover{
-      svg{
-        path{
-          fill:$orange;
+
+    &:hover {
+      svg {
+        path {
+          fill: $orange;
         }
       }
     }
