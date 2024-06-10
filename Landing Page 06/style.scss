@@ -226,6 +226,31 @@ header {
   padding-right: 30px;
 }
 
+.add-to-cart{
+  position: relative;
+
+  .span-quantity{
+    position: absolute;
+    bottom:15px;
+    left:8px;
+    background-color:$orange;
+    padding-inline:6px;
+    font-size: 0.7rem;
+    color:$light-grayish-blue;
+    border-radius:15px;
+    width:fit-content;
+    text-align: center;
+    font-weight: bold;
+    opacity:0;
+    transition: opacity 0.3s ease-in 0.1s;
+    &.show{
+      opacity: 1;
+    }
+
+  }
+}
+
+
 .menu-opened {
   position: fixed;
   top: 0;
