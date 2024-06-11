@@ -168,8 +168,18 @@ body {
 header {
   position: relative;
   background-color: $white;
-  box-shadow: $box-shadow;
   padding-bottom: 20px;
+  max-width:1350px;
+&::after{
+  content:"";
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width:97%;
+  border-bottom:2px solid $light-grayish-blue;
+}
+
 }
 .menu {
   padding: 15px;
@@ -692,7 +702,7 @@ header {
           &::before,
           &::after {
             content: "";
-            top: 55px;
+            top: 36px;
           }
         }
       }
