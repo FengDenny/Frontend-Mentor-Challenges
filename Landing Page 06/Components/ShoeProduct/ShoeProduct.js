@@ -193,6 +193,7 @@ export const shoeProductUI = {
       max: "10",
       value: "0",
       readonly: true,
+      ["aria-label"]:"Shoe quantity input"
     });
 
     const minus = this.createQuantityButton(
@@ -230,6 +231,7 @@ export const shoeProductUI = {
     const button = createElementsHelpers.createElement("button", {
       id,
       class: "quantity-btn",
+      ['aria-label']: "Switch Image"
     });
     const svg = createElementsHelpers.createSVGElementNS("svg", {
       width: "12",
@@ -250,6 +252,7 @@ export const shoeProductUI = {
     const button = createElementsHelpers.createElement("button", {
       id,
       class: "gallery-btn",
+      ["aria-label"]:"Switch light images"
     });
     const svg = createElementsHelpers.createSVGElementNS("svg", {
       width: size,
@@ -278,12 +281,14 @@ export const shoeProductUI = {
         src: `../${src}`,
         class: "shoe-product-img",
         ["data-id"]: `light-${id}`,
+        alt:`light-${id}`
       });
     } else {
       image = createElementsHelpers.createElement("img", {
         src: `../${src}`,
         class: "shoe-product-img",
         ["data-id"]: id,
+        alt:id
       });
     }
 
