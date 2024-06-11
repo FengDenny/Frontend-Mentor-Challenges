@@ -205,8 +205,13 @@ header {
     height: auto;
     transition: all 0.3s ease-in 0.1s;
     top: 60px;
-    left: -182px;
+    left: -213px;
     border-radius: 5px;
+
+    @media screen and (max-width:297px){
+      width: 77%;
+      left: -66px;
+    }
 
     h2 {
       position: relative;
@@ -426,12 +431,18 @@ header {
   flex-direction: column;
 }
 
+
+
 .shoes-product-gallery-container {
   order: -1;
 }
 
 .shoe-product-gallery {
   position: relative;
+
+  @media screen and (max-width: 497px) {
+    pointer-events: none;
+}
 
   figure {
     // display: block;
@@ -507,6 +518,8 @@ header {
     padding-bottom: 10px;
   }
 }
+
+
 
 .price-container {
   display: flex;
@@ -644,6 +657,10 @@ header {
   .add-cart-cta-container {
     flex: 1;
   }
+
+  .shoe-product-gallery{
+    pointer-events: none;
+  }
 }
 
 @media screen and (min-width: 1024px) {
@@ -720,6 +737,9 @@ header {
       }
     }
   }
+
+
+
 
   .shoe-product {
     display: grid;
