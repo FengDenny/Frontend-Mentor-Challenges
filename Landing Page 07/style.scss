@@ -1,0 +1,35 @@
+// GOOGLE FONT IMPORT
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap");
+
+// FONT
+$font-league-spartan: "League Spartan", sans-serif;
+
+// COLORS
+$desaturated-dark-cyan: hsl(180, 29%, 50%);
+//(Background)
+$light-grayish-cyan: hsl(180, 52%, 96%);
+//  (Filter Tablets)
+$light-grayish-cyan: hsl(180, 31%, 95%);
+$dark-grayish-cyan: hsl(180, 8%, 52%);
+$very-dark-grayish-cyan: hsl(180, 14%, 20%);
+
+//  CSS RESET
+html {
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: inherit;
+  margin:0;
+  padding:0;
+  ::before,
+  ::after {
+    box-sizing: inherit;
+  }
+}
+
+body{
+    background-color:$light-grayish-cyan;
+    font-family: $font-league-spartan;
+}
+

@@ -1,0 +1,2 @@
+// FETCH JSON DATA
+console.log("JSON DATA FIRED")
