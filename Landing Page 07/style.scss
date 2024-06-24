@@ -83,8 +83,7 @@ article {
   border-radius: 5px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
 
-  &[data-new="true"]::before,
-  &[data-featured="true"]::before {
+  &[data-new-featured="true"]::before{
     content: "";
     position: absolute;
     top: 0;
