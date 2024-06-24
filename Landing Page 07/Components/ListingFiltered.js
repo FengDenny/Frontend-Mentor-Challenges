@@ -1,81 +1,88 @@
+import { LocalStorage } from "../Components/LocalStorage";
 export const listingsFilteredLogic = {
-    fetchFilteredResult(data, selectedFilters) {
-      const filteredData = this.filterListingsByCategories(
-        data,
-        selectedFilters
+  filterByRoleOrLevel(selectedFilters, job) {
+    const selectedFiltersMatched = selectedFilters.map((data) =>
+      data.toLowerCase()
+    );
+    const filterMatched = selectedFiltersMatched.includes(job.toLowerCase());
+    return filterMatched;
+  },
+
+  filterByLangsOrTools(selectedFilters, job) {
+    const filterMatched = job.map((data) => data.toLowerCase());
+    const selectedFiltersMatched = selectedFilters.map((data) =>
+      data.toLowerCase()
+    );
+    const matched =
+      selectedFiltersMatched &&
+      selectedFiltersMatched.every((data) =>
+        filterMatched.includes(data.toLowerCase())
       );
-      return filteredData;
-    },
-  
-    filterByRoleOrLevelCategory(selectedFilters, jobCategory) {
-      if (
-        selectedFilters &&
-        jobCategory.toLowerCase() !== selectedFilters.toLowerCase()
-      ) {
-        return false;
-      }
-      return true;
-    },
-    filterByLangOrToolCategory(selectedFilters, jobCategory) {
-      // Check if selectedFilters is not empty and is an array
-      if (selectedFilters && selectedFilters.length) {
-        // Map jobCategory to lowercase strings
-        const jobItems = jobCategory.map((item) => item.toLowerCase());
-        // Check if every selected filter is included in jobItems
-        if (
-          !selectedFilters.every((filter) =>
-            jobItems.includes(filter.toLowerCase())
-          )
-        ) {
-          return false;
+    return matched;
+  },
+  filterResult(data, selectedFilters) {
+    return data.filter((job) => {
+      const roleMatch = this.filterByRoleOrLevel(
+        selectedFilters.role,
+        job.role
+      );
+      const languagesMatch = this.filterByLangsOrTools(
+        selectedFilters.languages,
+        job.languages
+      );
+      const toolsMatch = this.filterByLangsOrTools(
+        selectedFilters.tools,
+        job.tools
+      );
+      const levelMatch = this.filterByRoleOrLevel(
+        selectedFilters.level,
+        job.level
+      );
+      // Return true only if all filters match
+      return roleMatch && languagesMatch && levelMatch && toolsMatch;
+    });
+  },
+
+  filterTabletOrdering(job) {
+    const filter = [];
+    filter.push(job.role);
+    filter.push(job.level);
+  },
+
+  handleFilterOnClick(activeFilters, target) {
+    if (target.matches("button")) {
+      for (const key in target.dataset) {
+        if (target.dataset.hasOwnProperty(key)) {
+          const value = target.dataset[key];
+          if (!activeFilters[key].includes(value)) {
+            activeFilters[key].push(value);
+          }
         }
       }
-      return true;
-    },
-  
-    filterListingsByCategories(data, selectedFilters) {
-      /*
-        Role: Frontend, Backend, Fullstack
-        Level: Junior, Midweight, Senior
-        Languages: Python, Ruby, JavaScript, HTML, CSS
-        Tools: React, Sass, Vue, Django, RoR (Ruby on Rails)
-        HTML data attributes structure: 
-          data-role="frontend" 
-          data-level="junior" 
-          data-languages="javascript" 
-          data-tools="react"   
-      */
-      // O(n*m)
-      return data.filter((job) => {
-        // Role
-        if (!this.filterByRoleOrLevelCategory(selectedFilters.role, job.role)) {
-          return false;
-        }
-        // Level
-        if (!this.filterByRoleOrLevelCategory(selectedFilters.level, job.level)) {
-          return false;
-        }
-        // Languages
-        if (
-          !this.filterByLangOrToolCategory(
-            selectedFilters.languages,
-            job.languages
-          )
-        ) {
-          return false;
-        }
-        // Tools
-        if (!this.filterByLangOrToolCategory(selectedFilters.tools, job.tools)) {
-          return false;
-        }
-  
-        return true;
+    }
+  },
+
+  fetchListingsHTMLDataAndFilter() {
+    const listingCards = document.querySelectorAll(
+      "article[data-id=listing-card]"
+    );
+
+    const activeFilters = {
+      role: [],
+      level: [],
+      languages: [],
+      tools: [],
+    };
+
+    listingCards.forEach((listingCard) => {
+      const filtersContainer = listingCard.querySelector(
+        '[data-filters="listings-filters"]'
+      );
+      filtersContainer.addEventListener("click", (event) => {
+        const target = event.target;
+        this.handleFilterOnClick(activeFilters, target);
+        LocalStorage.handleInitialLocalStorage("activeFilters", activeFilters);
       });
-    },
-  
-    filterTabletOrdering(job) {
-      const filter = []
-      filter.push(job.role)
-      filter.push(job.level)
-    },
-  };
+    });
+  },
+};
