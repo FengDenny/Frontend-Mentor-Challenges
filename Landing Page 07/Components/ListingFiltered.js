@@ -1,6 +1,8 @@
 import { LocalStorage } from "../Components/LocalStorage";
 export const listingsFilteredLogic = {
   filterByRoleOrLevel(selectedFilters, job) {
+    // If no filters are provided, consider it a match
+    if (!selectedFilters) return true;
     const selectedFiltersMatched = selectedFilters.map((data) =>
       data.toLowerCase()
     );
@@ -9,35 +11,37 @@ export const listingsFilteredLogic = {
   },
 
   filterByLangsOrTools(selectedFilters, job) {
+    // If no filters are provided, consider it a match
+    if (!selectedFilters) return true;
     const filterMatched = job.map((data) => data.toLowerCase());
     const selectedFiltersMatched = selectedFilters.map((data) =>
       data.toLowerCase()
     );
-    const matched =
-      selectedFiltersMatched &&
-      selectedFiltersMatched.every((data) =>
-        filterMatched.includes(data.toLowerCase())
-      );
+    const matched = selectedFiltersMatched.every((data) =>
+      filterMatched.includes(data.toLowerCase())
+    );
     return matched;
   },
   filterResult(data, selectedFilters) {
+    /*
+    Check if selectedFilters is defined. 
+    If not, we return true, meaning the filter condition is considered met. 
+    This ensures that if a filter isn't provided, it doesn't affect the filtering process, which can cause "undefined" error.
+    */
     return data.filter((job) => {
-      const roleMatch = this.filterByRoleOrLevel(
-        selectedFilters.role,
-        job.role
-      );
-      const languagesMatch = this.filterByLangsOrTools(
-        selectedFilters.languages,
-        job.languages
-      );
-      const toolsMatch = this.filterByLangsOrTools(
-        selectedFilters.tools,
-        job.tools
-      );
-      const levelMatch = this.filterByRoleOrLevel(
-        selectedFilters.level,
-        job.level
-      );
+      const roleMatch = selectedFilters.role
+        ? this.filterByRoleOrLevel(selectedFilters.role, job.role)
+        : true;
+      const languagesMatch = selectedFilters.languages
+        ? this.filterByLangsOrTools(selectedFilters.languages, job.languages)
+        : true;
+      const toolsMatch = selectedFilters.tools
+        ? this.filterByLangsOrTools(selectedFilters.tools, job.tools)
+        : true;
+      const levelMatch = selectedFilters.level
+        ? this.filterByRoleOrLevel(selectedFilters.level, job.level)
+        : true;
+
       // Return true only if all filters match
       return roleMatch && languagesMatch && levelMatch && toolsMatch;
     });
@@ -67,7 +71,7 @@ export const listingsFilteredLogic = {
       "article[data-id=listing-card]"
     );
 
-    const activeFilters = {
+    const selectedFilters = {
       role: [],
       level: [],
       languages: [],
@@ -80,8 +84,11 @@ export const listingsFilteredLogic = {
       );
       filtersContainer.addEventListener("click", (event) => {
         const target = event.target;
-        this.handleFilterOnClick(activeFilters, target);
-        LocalStorage.handleInitialLocalStorage("activeFilters", activeFilters);
+        this.handleFilterOnClick(selectedFilters, target);
+        LocalStorage.handleInitialLocalStorage(
+          "selectedFilters",
+          selectedFilters
+        );
       });
     });
   },
