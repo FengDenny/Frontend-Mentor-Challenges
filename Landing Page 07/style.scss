@@ -66,10 +66,13 @@ body {
 
 main {
   display: flex;
-  justify-content: center;
-
+  align-items: center;
+  flex-direction: column;
+  gap:30px;
+  padding-bottom:5rem;
+  
   @media only screen and (max-width: 297px) {
-    justify-content: unset;
+    align-items: unset;
     margin-left: 10px;
   }
 }
@@ -93,6 +96,10 @@ article {
     height: 100%;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
+  }
+
+  @media only screen and (max-width: 297px) {
+    width:280px;
   }
 }
 
