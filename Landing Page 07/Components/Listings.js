@@ -1,5 +1,6 @@
 import { fetchDataLogic } from "./FetchData";
 import { listingsFilteredLogic } from "./ListingFiltered";
+import { LocalStorage } from "../Components/LocalStorage";
 
 export const listingsLogic = {
   listings: "./data/data.json",
@@ -11,35 +12,32 @@ export const listingsLogic = {
       console.error(`Error fetching listing data: ${error}`);
     }
   },
-  async fetchListingDataModified(){
-    const listingData = await this.fetchListings()
+  async fetchListingDataModified() {
+    const listingData = await this.fetchListings();
 
     const modified = listingData.map((item) => {
       // Check if location is "USA / UK  Only", then modify to "USA / UK only"
-      if(item.location.includes('Only')) {
-        item.location = item.location.replace("Only", "only")
+      if (item.location.includes("Only")) {
+        item.location = item.location.replace("Only", "only");
       }
-      return item
-    })
-    return modified
-  }
+      return item;
+    });
+    return modified;
+  },
 };
 
 const initListings = {
-  selectedFilters: {
-    role: "Backend",
-    languages: ["Ruby"],
-    tools: ["RoR"]
-  },
+  selectedFilters: LocalStorage.checkLocalStorageData("selectedFilters"),
   data: listingsLogic.fetchListingDataModified(),
   async init() {
-    const dataModified = await this.data
-    console.log("Data modified: ", dataModified)
-    const filteredResult = listingsFilteredLogic.fetchFilteredResult(
-      dataModified,
-      this.selectedFilters
-    );
-    console.log("filtered data:" , filteredResult);
+    const dataModified = await this.data;
+    console.log("Data modified: ", dataModified);
+    const filteredResult =
+      this.selectedFilters &&
+      listingsFilteredLogic.filterResult(dataModified, this.selectedFilters);
+    console.log(filteredResult);
+
+    listingsFilteredLogic.fetchListingsHTMLDataAndFilter();
   },
 };
 

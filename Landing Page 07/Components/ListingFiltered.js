@@ -2,7 +2,7 @@ import { LocalStorage } from "../Components/LocalStorage";
 export const listingsFilteredLogic = {
   filterByRoleOrLevel(selectedFilters, job) {
     // If no filters are provided, consider it a match
-    if (!selectedFilters) return true;
+    if (!selectedFilters || selectedFilters.length === 0) return true;
     const selectedFiltersMatched = selectedFilters.map((data) =>
       data.toLowerCase()
     );
@@ -12,7 +12,7 @@ export const listingsFilteredLogic = {
 
   filterByLangsOrTools(selectedFilters, job) {
     // If no filters are provided, consider it a match
-    if (!selectedFilters) return true;
+    if (!selectedFilters || selectedFilters.length === 0) return true;
     const filterMatched = job.map((data) => data.toLowerCase());
     const selectedFiltersMatched = selectedFilters.map((data) =>
       data.toLowerCase()
