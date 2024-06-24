@@ -17,6 +17,18 @@ export const listingsLogic = {
     );
     return filteredData;
   },
+  async fetchListingDataModified(){
+    const listingData = await this.fetchListings()
+
+    const modified = listingData.map((item) => {
+      // Check if location is "USA / UK  Only", then modify to "USA / UK only"
+      if(item.location.includes('Only')) {
+        item.location = item.location.replace("Only", "only")
+      }
+      return item
+    })
+    return modified
+  },
 
   filterByRoleOrLevelCategory(selectedFilters, jobCategory) {
     if (
@@ -97,11 +109,12 @@ const initListings = {
     languages: ["Ruby"],
     tools: ["RoR"]
   },
-  data: listingsLogic.fetchListings(),
+  data: listingsLogic.fetchListingDataModified(),
   async init() {
-    console.log("unfiltered data: ", await this.data);
+    const dataModified = await this.data
+    console.log("Data modified: ", dataModified)
     const filteredResult = listingsLogic.fetchFilteredResult(
-      await this.data,
+      dataModified,
       this.selectedFilters
     );
     console.log("filtered data:" , filteredResult);
