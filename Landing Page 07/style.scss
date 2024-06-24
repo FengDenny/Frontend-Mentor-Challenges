@@ -11,6 +11,7 @@ $light-grayish-cyan: hsl(180, 52%, 96%);
 //  (Filter Tablets)
 $light-grayish-cyan: hsl(180, 31%, 95%);
 $dark-grayish-cyan: hsl(180, 8%, 52%);
+$dark-light-grayish-cyan: hsl(180, 15%, 67%);
 $very-dark-grayish-cyan: hsl(180, 14%, 20%);
 
 //  CSS RESET
@@ -20,33 +21,172 @@ html {
 
 * {
   box-sizing: inherit;
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   ::before,
   ::after {
     box-sizing: inherit;
   }
 }
 
-body{
-    background-color:$light-grayish-cyan;
-    font-family: $font-league-spartan;
+body {
+  background-color: $light-grayish-cyan;
+  font-family: $font-league-spartan;
 }
 
+// MIXINS
+@mixin newListings() {
+  [class*="new"] {
+    text-transform: uppercase;
+    width: fit-content;
+    height: 23px;
+    padding: 6px;
+    color: $light-grayish-cyan;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+}
 
 // HEADER
-.header-banner{
-  
-  figure{
+.header-banner {
+  figure {
     position: relative;
-    background-color:  #63BABA;
-    height:170px;
+    background-color: #63baba;
+    height: 170px;
   }
-  svg{
+  svg {
     position: absolute;
-    width:300px;
-    height:170px;
+    width: 300px;
+    height: 170px;
     background-color: $desaturated-dark-cyan;
   }
 }
 // MAIN
+
+main {
+  display: flex;
+  justify-content: center;
+
+  @media only screen and (max-width: 297px) {
+    justify-content: unset;
+    margin-left: 10px;
+  }
+}
+
+article {
+  position: relative;
+  top: 30px;
+  background-color: #fff;
+  width: 300px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+
+  &[data-new="true"]::before,
+  &[data-featured="true"]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $desaturated-dark-cyan;
+    width: 5px;
+    height: 100%;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+}
+
+.listing-logo {
+  position: absolute;
+  top: -15px;
+  left: 18px;
+  img {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+.listing-header {
+  padding-top: 1.2rem;
+  padding-left: 2px;
+  display: flex;
+  gap: 10px;
+  @include newListings();
+  h2 {
+    font-size: 1rem;
+    color: $desaturated-dark-cyan;
+    align-self: center;
+    padding-top: 0.2rem;
+  }
+
+  .new-listing {
+    background-color: $desaturated-dark-cyan;
+  }
+  .new-featured {
+    background-color: $very-dark-grayish-cyan;
+  }
+}
+
+.job {
+  padding-top: 10px;
+
+  h2 {
+    font-size: 0.95rem;
+  }
+
+  .job-description {
+    padding-top: 10px;
+    color: $dark-grayish-cyan;
+    display: flex;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    position: relative;
+  }
+
+  .job-contract::before,
+  .job-location::before {
+    content: "";
+    position: relative;
+    bottom: 2px;
+    display: inline-block;
+    padding: 1px;
+    width: 3px;
+    height: 3px;
+    background-color: $dark-light-grayish-cyan;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    background-color: $dark-light-grayish-cyan;
+    width: 90%;
+    height: 1px;
+    margin-top: 0.5rem;
+  }
+}
+
+.listings-filters{
+  margin-top:25px;
+  display:flex;
+  gap:10px;
+  flex-wrap: wrap;
+  width:fit-content;
+
+
+  button{
+    cursor: pointer;
+    background-color: $light-grayish-cyan;
+    border: 1px solid $light-grayish-cyan;
+    color:$desaturated-dark-cyan;
+    font-weight: bold;
+    font-size: 0.95rem;
+    padding:5px;
+    border-radius: 5px;;
+  }
+
+}
