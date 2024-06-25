@@ -28,12 +28,6 @@ html {
     box-sizing: inherit;
   }
 }
-
-body {
-  background-color: $light-grayish-cyan;
-  font-family: $font-league-spartan;
-}
-
 // MIXINS
 @mixin newListings() {
   [class*="new"] {
@@ -48,8 +42,31 @@ body {
   }
 }
 
+// FILTERED CONTAINER
+.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.3s ease-in, visibility 0.3s ease-in;
+}
+
+.not-show {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-in;
+}
+
+// BODY
+
+body {
+  background-color: $light-grayish-cyan;
+  font-family: $font-league-spartan;
+}
+
 // HEADER
 .header-banner {
+  position: relative;
   figure {
     position: relative;
     background-color: #63baba;
@@ -62,15 +79,95 @@ body {
     background-color: $desaturated-dark-cyan;
   }
 }
+
+.filter-result {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  width: 300px;
+  // max-width: 350px;
+  background-color: #fff;
+  z-index: 100;
+  bottom: 0.95rem;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  z-index: 100;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.remove-btn-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  .remove-filter {
+    padding: 10px 30px 10px 6px;
+    position: relative;
+    // width: 100px;
+    color: $desaturated-dark-cyan;
+    background-color: $light-grayish-cyan;
+    border: 1px solid $light-grayish-cyan;
+    font-size: 0.95rem;
+    font-weight: bold;
+    text-align: start;
+    border-radius: 5px;
+    cursor: pointer;
+
+    display: inline-flex;
+    width: auto;
+    white-space: nowrap;
+    &::after {
+      position: absolute;
+      content: "";
+      display: inline-block;
+      width: 27px;
+      height: 35px;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><path fill="%23FFF" fill-rule="evenodd" d="M11.314 0l2.121 2.121-4.596 4.596 4.596 4.597-2.121 2.121-4.597-4.596-4.596 4.596L0 11.314l4.596-4.597L0 2.121 2.121 0l4.596 4.596L11.314 0z"/></svg>');
+      background-size: 16px 16px;
+      background-repeat: no-repeat;
+      background-position: center;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: $desaturated-dark-cyan;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      pointer-events: none;
+    }
+  }
+}
+
+.clear-all-filters {
+  background-color: transparent;
+  border: transparent;
+  color: $dark-grayish-cyan;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+  height: 20px;
+  align-self: center;
+
+  &:active,
+  &:hover,
+  &:focus {
+    color: $desaturated-dark-cyan;
+    text-decoration: underline;
+  }
+}
+
 // MAIN
 
 main {
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap:30px;
-  padding-bottom:5rem;
-  
+  gap: 30px;
+  padding-bottom: 5rem;
+
   @media only screen and (max-width: 297px) {
     align-items: unset;
     margin-left: 10px;
@@ -81,12 +178,12 @@ article {
   position: relative;
   top: 30px;
   background-color: #fff;
-  width: 300px;
+  width: 295px;
   padding: 20px;
   border-radius: 5px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
 
-  &[data-new-featured="true"]::before{
+  &[data-new-featured="true"]::before {
     content: "";
     position: absolute;
     top: 0;
@@ -99,7 +196,7 @@ article {
   }
 
   @media only screen and (max-width: 297px) {
-    width:280px;
+    width: 280px;
   }
 }
 
@@ -176,23 +273,21 @@ article {
   }
 }
 
-.listings-filters{
-  margin-top:25px;
-  display:flex;
-  gap:10px;
+.listings-filters {
+  margin-top: 25px;
+  display: flex;
+  gap: 10px;
   flex-wrap: wrap;
-  width:fit-content;
+  width: fit-content;
 
-
-  button{
+  button {
     cursor: pointer;
     background-color: $light-grayish-cyan;
     border: 1px solid $light-grayish-cyan;
-    color:$desaturated-dark-cyan;
+    color: $desaturated-dark-cyan;
     font-weight: bold;
     font-size: 0.95rem;
-    padding:5px;
-    border-radius: 5px;;
+    padding: 5px;
+    border-radius: 5px;
   }
-
 }
