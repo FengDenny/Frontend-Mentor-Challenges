@@ -27,17 +27,11 @@ export const listingsLogic = {
 };
 
 const initListings = {
-  selectedFilters: LocalStorage.checkLocalStorageData("selectedFilters"),
   data: listingsLogic.fetchListingDataModified(),
   async init() {
     const dataModified = await this.data;
     console.log("Data modified: ", dataModified);
-    const filteredResult =
-      this.selectedFilters &&
-      listingsFilteredLogic.filterResult(dataModified, this.selectedFilters);
-    console.log(filteredResult);
-
-    listingsFilteredLogic.fetchListingsHTMLDataAndFilter();
+    listingsFilteredLogic.fetchListingsHTMLDataAndFilter(dataModified);
   },
 };
 

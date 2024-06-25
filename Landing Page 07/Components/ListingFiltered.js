@@ -65,18 +65,23 @@ export const listingsFilteredLogic = {
       }
     }
   },
+  filterAndLog(data, selectedFilters){
+    const filteredData = this.filterResult(data, selectedFilters);
+    console.log(filteredData);
+  },
 
-  fetchListingsHTMLDataAndFilter() {
+  fetchListingsHTMLDataAndFilter(data) {
     const listingCards = document.querySelectorAll(
       "article[data-id=listing-card]"
     );
 
-    const selectedFilters = {
-      role: [],
-      level: [],
-      languages: [],
-      tools: [],
-    };
+      // Initialize selected filters from local storage or defaults
+  const selectedFilters = LocalStorage.checkLocalStorageData("selectedFilters") || {
+    role: [],
+    level: [],
+    languages: [],
+    tools: [],
+  };
 
     listingCards.forEach((listingCard) => {
       const filtersContainer = listingCard.querySelector(
@@ -89,7 +94,10 @@ export const listingsFilteredLogic = {
           "selectedFilters",
           selectedFilters
         );
+
+        this.filterAndLog(data, selectedFilters)
       });
     });
+    this.filterAndLog(data, selectedFilters)
   },
 };
