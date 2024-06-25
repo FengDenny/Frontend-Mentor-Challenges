@@ -1,6 +1,8 @@
 import { LocalStorage } from "../Components/LocalStorage";
+import { createElementsHelpers } from "./CreateElementsHelpers";
 import { listingsUI } from "./Listings";
 export const listingsFilteredLogic = {
+  filteredResult: "selectedFilters",
   filterByRoleOrLevel(selectedFilters, job) {
     // If no filters are provided, consider it a match
     if (!selectedFilters || selectedFilters.length === 0) return true;
@@ -31,15 +33,21 @@ export const listingsFilteredLogic = {
     Otherwise, if have item we filter
     */
     return data.filter((job) => {
-      const roleMatch = selectedFilters.role.length === 0 || this.filterByRoleOrLevel(selectedFilters.role, job.role);
-      const languagesMatch = selectedFilters.language.length === 0 || this.filterByLangsOrTools(selectedFilters.language, job.languages);
-      const toolsMatch = selectedFilters.tool.length === 0 || this.filterByLangsOrTools(selectedFilters.tool, job.tools);
-      const levelMatch = selectedFilters.level.length === 0 || this.filterByRoleOrLevel(selectedFilters.level, job.level);
+      const roleMatch =
+        selectedFilters.role.length === 0 ||
+        this.filterByRoleOrLevel(selectedFilters.role, job.role);
+      const languagesMatch =
+        selectedFilters.language.length === 0 ||
+        this.filterByLangsOrTools(selectedFilters.language, job.languages);
+      const toolsMatch =
+        selectedFilters.tool.length === 0 ||
+        this.filterByLangsOrTools(selectedFilters.tool, job.tools);
+      const levelMatch =
+        selectedFilters.level.length === 0 ||
+        this.filterByRoleOrLevel(selectedFilters.level, job.level);
 
       // Return true only if all filters match
       return roleMatch && languagesMatch && toolsMatch && levelMatch;
-
-     
     });
   },
 
@@ -80,7 +88,21 @@ export const listingsFilteredLogic = {
       }
     });
 
-    this.handleFetchAttachEventListeners(data, selectedFilters)
+    this.handleFetchAttachEventListeners(data, selectedFilters);
+  },
+
+  fetchListingsHTMLDataAndFilter(data) {
+    // Initialize selected filters from local storage or defaults
+    const selectedFilters = LocalStorage.checkLocalStorageData(
+      this.filteredResult
+    ) || {
+      role: [],
+      level: [],
+      language: [],
+      tool: [],
+    };
+    this.filterAndLog(data, selectedFilters);
+    this.handleFetchedRemoveResult();
   },
 
   handleFetchAttachEventListeners(data, selectedFilters) {
@@ -96,26 +118,137 @@ export const listingsFilteredLogic = {
         const target = event.target;
         this.handleFilterOnClick(selectedFilters, target);
         LocalStorage.handleInitialLocalStorage(
-          "selectedFilters",
+          this.filteredResult,
           selectedFilters
         );
 
         this.filterAndLog(data, selectedFilters);
+        this.handleFetchedRemoveResult(data, selectedFilters);
       });
     });
   },
+  handleFetchedRemoveResult(data, selectedFilters) {
+    const filterResultDiv = document.getElementById("filter-result");
+    console.log(filterResultDiv);
+    const getFilteredResult = LocalStorage.checkLocalStorageData(
+      this.filteredResult
+    );
 
+    // // Clear existing filter results using hasChildNodes and removeChild
+    while (filterResultDiv.hasChildNodes()) {
+      filterResultDiv.removeChild(filterResultDiv.firstChild);
+    }
 
-  fetchListingsHTMLDataAndFilter(data) {
-    // Initialize selected filters from local storage or defaults
-    const selectedFilters = LocalStorage.checkLocalStorageData(
-      "selectedFilters"
-    ) || {
-      role: [],
-      level: [],
-      language: [],
-      tool: [],
-    };
-    this.filterAndLog(data, selectedFilters);
+    const removeBtnDiv = createElementsHelpers.createDiv({
+      class: "remove-btn-container",
+    });
+
+    const clearAllFilters = createElementsHelpers.createCTA(
+      {
+        class: "clear-all-filters",
+        id: "clear-filters",
+      },
+      "Clear"
+    );
+
+    if (getFilteredResult) {
+      const { role, level, language, tool } = getFilteredResult;
+      if (
+        role.length !== 0 ||
+        level.length !== 0 ||
+        language.length !== 0 ||
+        tool.length !== 0
+      ) {
+        role.forEach((role) => {
+          const roledRemoveCTA = createElementsHelpers.createCTA(
+            {
+              class: "remove-filter",
+              ["data-role"]: role,
+            },
+            role
+          );
+          removeBtnDiv.appendChild(roledRemoveCTA);
+        });
+        level.forEach((level) => {
+          const leveledRemoveCTA = createElementsHelpers.createCTA(
+            {
+              class: "remove-filter",
+              ["data-level"]: level,
+            },
+            level
+          );
+          removeBtnDiv.appendChild(leveledRemoveCTA);
+        });
+        language.forEach((language) => {
+          const languagedRemoveCTA = createElementsHelpers.createCTA(
+            {
+              class: "remove-filter",
+              ["data-language"]: language,
+            },
+            language
+          );
+          removeBtnDiv.appendChild(languagedRemoveCTA);
+        });
+
+        filterResultDiv.appendChild(removeBtnDiv);
+        filterResultDiv.appendChild(clearAllFilters);
+        filterResultDiv.classList.add("show");
+        filterResultDiv.classList.remove("not-show");
+        this.handleFilterRemoval(data)
+
+        const clearBtn = document.getElementById("clear-filters");
+        clearBtn.addEventListener("click", () => {
+           // Reset selected filters
+           const defaultFilters = {
+            role: [],
+            level: [],
+            language: [],
+            tool: [],
+          };
+          LocalStorage.handleInitialLocalStorage(this.filteredResult, defaultFilters);
+          this.handleFetchedRemoveResult(data, defaultFilters);
+          this.filterAndLog(data, defaultFilters);
+          filterResultDiv.classList.remove("show");
+        filterResultDiv.classList.add("not-show");
+        });
+      } else {
+        filterResultDiv.classList.remove("show");
+        filterResultDiv.classList.add("not-show");
+      }
+    }
   },
+  handleFilterRemoval(data) {
+    const filterResultDiv = document.getElementById("filter-result");
+    // Attach event listener to the parent div (filterResultDiv)
+    filterResultDiv.addEventListener('click', (event) => {
+      if (event.target.matches('button.remove-filter')) {
+        const { role, level, language, tool } = event.target.dataset;
+        const selectedFilters = LocalStorage.checkLocalStorageData(this.filteredResult) || {
+          role: [],
+          level: [],
+          language: [],
+          tool: [],
+        };
+  
+        if (role) {
+          const index = selectedFilters.role.indexOf(role);
+          if (index > -1) selectedFilters.role.splice(index, 1);
+        } else if (level) {
+          const index = selectedFilters.level.indexOf(level);
+          if (index > -1) selectedFilters.level.splice(index, 1);
+        } else if (language) {
+          const index = selectedFilters.language.indexOf(language);
+          if (index > -1) selectedFilters.language.splice(index, 1);
+        } else if (tool) {
+          const index = selectedFilters.tool.indexOf(tool);
+          if (index > -1) selectedFilters.tool.splice(index, 1);
+        }
+  
+        LocalStorage.handleInitialLocalStorage(this.filteredResult, selectedFilters);
+        this.handleFetchedRemoveResult(data, selectedFilters);
+        this.filterAndLog(data, selectedFilters);
+      }
+    });
+  }
+  
 };
