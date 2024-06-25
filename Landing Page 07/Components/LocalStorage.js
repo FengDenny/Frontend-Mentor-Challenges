@@ -15,13 +15,7 @@ export const LocalStorage = {
   },
 
   removeLocalStorageData(key){
-    if (typeof value === "object" && value !== null) {
-      localStorage.setItem(key, JSON.stringify(value));
-      localStorage.removeItem(key)
-    } else {
-      localStorage.setItem(key, value);
-      // console.log(`Updated ${key} in localStorage:`, localStorage.getItem(key));
-    }
+    localStorage.removeItem(key)
     console.log(`Removed ${key} from localStorage`);
   }, 
 
