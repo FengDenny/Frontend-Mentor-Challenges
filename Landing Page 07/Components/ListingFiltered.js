@@ -127,7 +127,7 @@ export const listingsFilteredLogic = {
       });
     });
   },
-  handleFetchedRemoveResult(data, selectedFilters) {
+  handleFetchedRemoveResult(data) {
     const filterResultDiv = document.getElementById("filter-result");
     console.log(filterResultDiv);
     const getFilteredResult = LocalStorage.checkLocalStorageData(
@@ -188,6 +188,17 @@ export const listingsFilteredLogic = {
             language
           );
           removeBtnDiv.appendChild(languagedRemoveCTA);
+        });
+
+        tool.forEach((tool) => {
+          const toolsRemoveCTA = createElementsHelpers.createCTA(
+            {
+              class: "remove-filter",
+              ["data-tool"]: tool,
+            },
+            tool
+          );
+          removeBtnDiv.appendChild(toolsRemoveCTA);
         });
 
         filterResultDiv.appendChild(removeBtnDiv);
