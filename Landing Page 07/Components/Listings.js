@@ -35,8 +35,12 @@ export const listingsUI = {
     const { featured, new: isNew, logo, company } = job;
     const article = this.createArticle(featured && isNew, isNew);
     const figure = this.createFigureWithImage(logo, company);
-    article.appendChild(figure);
-    article.appendChild(cardListingContent);
+    const container =createElementsHelpers.createDiv({
+      class:"content-container"
+    })
+    container.appendChild(figure)
+    container.appendChild(cardListingContent)
+    article.appendChild(container);
     article.appendChild(cardListingFilterCTA);
     this.main.appendChild(article);
   },
