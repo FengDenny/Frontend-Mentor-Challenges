@@ -35,11 +35,11 @@ export const listingsUI = {
     const { featured, new: isNew, logo, company } = job;
     const article = this.createArticle(featured && isNew, isNew);
     const figure = this.createFigureWithImage(logo, company);
-    const container =createElementsHelpers.createDiv({
-      class:"content-container"
-    })
-    container.appendChild(figure)
-    container.appendChild(cardListingContent)
+    const container = createElementsHelpers.createDiv({
+      class: "content-container",
+    });
+    container.appendChild(figure);
+    container.appendChild(cardListingContent);
     article.appendChild(container);
     article.appendChild(cardListingFilterCTA);
     this.main.appendChild(article);
@@ -110,12 +110,67 @@ export const listingsUI = {
     listingContentDiv.appendChild(jobDiv);
     return listingContentDiv;
   },
+
+  createTabletOrdering(job) {
+    const filter = new Map();
+    const { id, role, level, languages, tools } = job;
+    filter.set("role", role);
+    filter.set("level", level);
+
+    const combined = new Array();
+
+    // Helper function to toggle between languages and tools
+    function alternateOrderingTablet(firstArray, secondArray, isFirstLanguage) {
+      const { languages, tools } = job;
+      // Handle cases where one array (languages || tools) is longer than the other.
+      const maxLength = Math.max(languages?.length || 0, tools?.length || 0);
+      /*
+           Iterating up to the length of the longer array (maxLength), 
+           the loop ensures that no items are missed, even if one array is shorter than the other.
+            - IFF both arrays have items at the same index i
+            - tool will be added before language in an alternating sequence (vice-versa)
+          */
+      for (let i = 0; i < maxLength; i++) {
+        if (firstArray && firstArray[i]) {
+          combined.push({
+            [isFirstLanguage ? "language" : "tool"]: firstArray[i],
+          });
+        }
+        if (secondArray && secondArray[i]) {
+          combined.push({
+            [isFirstLanguage ? "tool" : "language"]: secondArray[i],
+          });
+        }
+      }
+    }
+
+    if (id === 3 || id === 10) {
+      // Special case for job with id 3, 10 (Account, The Air Filter Company)
+      combined.push({ tool: tools[0] }); // React
+      combined.push({ tool: tools[1] }); // Sass
+      combined.push({ language: languages[0] }); // JavaScript
+    } else if (id == 8) {
+      // Special case for job with id 8 (Insure) // Vue, JavaScript, Sass
+      // Alternating between languages and tools.
+      alternateOrderingTablet(tools, languages, true); 
+    } else {
+      // All other cases
+      // Alternating between tools and languages.
+      alternateOrderingTablet(languages, tools, false); // Start with tools
+    }
+
+    filter.set("combined", combined);
+    return filter;
+  },
   createListingFilterCTA(job) {
-    const { role, level, tools, languages } = job;
+    const filter = this.createTabletOrdering(job);
     const listingFilterCTADiv = createElementsHelpers.createDiv({
       class: "listings-filters",
       ["data-filters"]: "listings-filters",
     });
+
+    // Create CTA for role
+    const role = filter.get("role");
     const filterByRoleCTA = createElementsHelpers.createCTA(
       {
         ["aria-label"]: `Filter by ${role} role`,
@@ -123,6 +178,10 @@ export const listingsUI = {
       },
       role
     );
+    listingFilterCTADiv.appendChild(filterByRoleCTA);
+
+    // Create CTA for level
+    const level = filter.get("level");
     const filterByLevelCTA = createElementsHelpers.createCTA(
       {
         ["aria-label"]: `Filter by ${level} level`,
@@ -130,41 +189,35 @@ export const listingsUI = {
       },
       level
     );
-    let filterByToolCTA = null;
-    let filterByLanguageCTA = null;
-
-    listingFilterCTADiv.appendChild(filterByRoleCTA);
     listingFilterCTADiv.appendChild(filterByLevelCTA);
 
-    if (tools) {
-      tools.forEach((tool) => {
-        filterByToolCTA = createElementsHelpers.createCTA(
+    // Create CTA for combined languages and tools
+    const combined = filter.get("combined");
+    combined.forEach((item) => {
+      if (item.language) {
+        const filterByLanguageCTA = createElementsHelpers.createCTA(
           {
-            ["aria-label"]: `Filter by ${tool} tool`,
-            ["data-tool"]: tool,
+            ["aria-label"]: `Filter by ${item.language} language`,
+            ["data-language"]: item.language,
           },
-          tool
-        );
-        listingFilterCTADiv.appendChild(filterByToolCTA);
-      });
-    }
-    
-    if (languages) {
-      languages.forEach((language) => {
-        filterByLanguageCTA = createElementsHelpers.createCTA(
-          {
-            ["aria-label"]: `Filter by ${language} language`,
-            ["data-language"]: language,
-          },
-          language
+          item.language
         );
         listingFilterCTADiv.appendChild(filterByLanguageCTA);
-      });
-    }
-    
+      }
+      if (item.tool) {
+        const filterByToolCTA = createElementsHelpers.createCTA(
+          {
+            ["aria-label"]: `Filter by ${item.tool} tool`,
+            ["data-tool"]: item.tool,
+          },
+          item.tool
+        );
+        listingFilterCTADiv.appendChild(filterByToolCTA);
+      }
+    });
+
     return listingFilterCTADiv;
   },
-
   createArticle(isNewFeatured = false, isNew = false) {
     let createArticle = null;
     if (isNewFeatured) {
