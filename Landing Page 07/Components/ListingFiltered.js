@@ -50,13 +50,6 @@ export const listingsFilteredLogic = {
       return roleMatch && languagesMatch && toolsMatch && levelMatch;
     });
   },
-
-  filterTabletOrdering(job) {
-    const filter = [];
-    filter.push(job.role);
-    filter.push(job.level);
-  },
-
   handleFilterOnClick(activeFilters, target) {
     if (target.matches("button")) {
       for (const key in target.dataset) {
@@ -152,7 +145,7 @@ export const listingsFilteredLogic = {
     );
 
     if (getFilteredResult) {
-      const { role, level, language, tool } = getFilteredResult;
+      const {role, level, language, tool } = getFilteredResult;
       if (
         role.length !== 0 ||
         level.length !== 0 ||
