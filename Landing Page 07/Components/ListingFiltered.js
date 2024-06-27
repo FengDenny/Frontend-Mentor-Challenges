@@ -48,7 +48,7 @@ export const listingsFilteredLogic = {
 
       // Return true only if all filters match
       return roleMatch && languagesMatch && toolsMatch && levelMatch;
-    });
+    }) 
   },
   handleFilterOnClick(activeFilters, target) {
     if (target.matches("button")) {
@@ -71,17 +71,18 @@ export const listingsFilteredLogic = {
       listingsUI.main.removeChild(listingsUI.main.firstChild);
     }
 
-    filteredData.forEach((job) => {
-      if (job.featured === true && job.new === true) {
-        listingsUI.createListingCards(job);
-      } else if (job.new === true) {
-        listingsUI.createListingCards(job);
-      } else {
-        listingsUI.createListingCards(job);
-      }
-    });
-
-    this.handleFetchAttachEventListeners(data, selectedFilters);
+      filteredData.forEach((job) => {
+        if (job.featured === true && job.new === true) {
+          listingsUI.createListingCards(job);
+        } else if (job.new === true) {
+          listingsUI.createListingCards(job);
+        } else {
+          listingsUI.createListingCards(job);
+        }
+      });
+  
+      this.handleFetchAttachEventListeners(data, selectedFilters);
+  
   },
 
   fetchListingsHTMLDataAndFilter(data) {
@@ -94,8 +95,11 @@ export const listingsFilteredLogic = {
       language: [],
       tool: [],
     };
-    this.filterAndLog(data, selectedFilters);
-    this.handleFetchedRemoveResult();
+
+    if (data && data.length > 0) {
+      this.filterAndLog(data, selectedFilters);
+      this.handleFetchedRemoveResult(data, selectedFilters);
+    }
   },
 
   handleFetchAttachEventListeners(data, selectedFilters) {
@@ -122,12 +126,11 @@ export const listingsFilteredLogic = {
   },
   handleFetchedRemoveResult(data) {
     const filterResultDiv = document.getElementById("filter-result");
-    console.log(filterResultDiv);
     const getFilteredResult = LocalStorage.checkLocalStorageData(
       this.filteredResult
     );
 
-    // // Clear existing filter results using hasChildNodes and removeChild
+    // Clear existing filter results using hasChildNodes and removeChild
     while (filterResultDiv.hasChildNodes()) {
       filterResultDiv.removeChild(filterResultDiv.firstChild);
     }
@@ -152,6 +155,7 @@ export const listingsFilteredLogic = {
         language.length !== 0 ||
         tool.length !== 0
       ) {
+
         role.forEach((role) => {
           const roledRemoveCTA = createElementsHelpers.createCTA(
             {
@@ -223,6 +227,7 @@ export const listingsFilteredLogic = {
   },
   handleFilterRemoval(data) {
     const filterResultDiv = document.getElementById("filter-result");
+
     // Attach event listener to the parent div (filterResultDiv)
     filterResultDiv.addEventListener('click', (event) => {
       if (event.target.matches('button.remove-filter')) {
