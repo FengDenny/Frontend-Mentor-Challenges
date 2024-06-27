@@ -146,7 +146,7 @@ export const listingsUI = {
       combined.push({ tool: tools[1] }); // Sass
       combined.push({ language: languages[0] }); // JavaScript
     } else if (id === 8) {
-      // Special case for job with id 3, 10 (Insure)
+      // Special case for job with id 8 (Insure)
       // Vue, JavaScript, Sass
       alternateOrderingTablet(tools, languages, true);
     } else {
