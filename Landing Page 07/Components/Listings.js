@@ -120,27 +120,23 @@ export const listingsUI = {
     const combined = new Array();
 
     // Helper function to toggle between languages and tools
-    function alternateOrderingTablet(firstArray, secondArray, isFirstLanguage) {
-      const { languages, tools } = job;
+    function alternateOrderingTablet(firstArray, secondArray, prioritizeTools) {
       // Handle cases where one array (languages || tools) is longer than the other.
-      const maxLength = Math.max(languages?.length || 0, tools?.length || 0);
-      /*
-           Iterating up to the length of the longer array (maxLength), 
-           the loop ensures that no items are missed, even if one array is shorter than the other.
-            - IFF both arrays have items at the same index i
-            - tool will be added before language in an alternating sequence (vice-versa)
-          */
+      const maxLength = Math.max(
+        firstArray?.length || 0,
+        secondArray?.length || 0
+      );
+       /*
+     Iterating up to the length of the longer array (maxLength), 
+     the loop ensures that no items are missed, even if one array is shorter than the other.
+     - IFF both arrays have items at the same index i
+     - Depending on prioritizeTools flags, alternates between adding tool or language.
+  */
       for (let i = 0; i < maxLength; i++) {
-        if (firstArray && firstArray[i]) {
-          combined.push({
-            [isFirstLanguage ? "language" : "tool"]: firstArray[i],
-          });
-        }
-        if (secondArray && secondArray[i]) {
-          combined.push({
-            [isFirstLanguage ? "tool" : "language"]: secondArray[i],
-          });
-        }
+        if (firstArray && firstArray[i])
+          combined.push({ [prioritizeTools ? "tool" : "language"]: firstArray[i] });
+        if (secondArray && secondArray[i])
+          combined.push({ [prioritizeTools ? "language" : "tool"]: secondArray[i] });
       }
     }
 
@@ -149,14 +145,13 @@ export const listingsUI = {
       combined.push({ tool: tools[0] }); // React
       combined.push({ tool: tools[1] }); // Sass
       combined.push({ language: languages[0] }); // JavaScript
-    } else if (id == 8) {
-      // Special case for job with id 8 (Insure) // Vue, JavaScript, Sass
-      // Alternating between languages and tools.
-      alternateOrderingTablet(tools, languages, true); 
+    } else if (id === 8) {
+      // Special case for job with id 3, 10 (Insure)
+      // Vue, JavaScript, Sass
+      alternateOrderingTablet(tools, languages, true);
     } else {
-      // All other cases
-      // Alternating between tools and languages.
-      alternateOrderingTablet(languages, tools, false); // Start with tools
+      // General case
+      alternateOrderingTablet(languages, tools, false);
     }
 
     filter.set("combined", combined);
