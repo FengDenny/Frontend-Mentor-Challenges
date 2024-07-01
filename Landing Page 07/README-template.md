@@ -63,7 +63,7 @@ I am proud of finally learning how to perform data manipulation, especially in t
 ### What challenges did you encounter, and how did you overcome them?
 One significant challenge I faced during this project was working with the `data.json` file.  Given the data, we needed to create tablets based on `role`, `level`, `languages`, and `tools`.
 
-While creating and populating `role` and `level` was straightforward, handling `languages` and `tools` required additional tweaking. Some listings needed to show `tools` first, others `languages` first, or a mix between the two. To address this, I created a function called `createTabletOrdering` and a helper function called `alternateOrderingTablet`. 
+While creating and populating tablet `role` and `level` was straightforward, handling `languages` and `tools` required additional tweaking. Some listings needed to show `tools` first, others `languages` first, or a mix between the two. To address this, I created a function called `createTabletOrdering` and a helper function called `alternateOrderingTablet`. 
 
 The `createTabletOrdering` function incorporates the `alternateOrderingTablet` function to handle the `languages` and `tools` arrays, ensuring that the items are added in the correct sequence based on specific requirements for different job listings.
 
