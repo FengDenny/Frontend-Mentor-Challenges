@@ -57,9 +57,19 @@
 
 ### What are you most proud of, and what would you do differently next time?
 
+I am proud of finally learning how to perform data manipulation, especially in the context of filtering data effectively.
+
 
 ### What challenges did you encounter, and how did you overcome them?
+One significant challenge I faced during this project was working with the `data.json` file.  Given the data, we needed to create tablets based on `role`, `level`, `languages`, and `tools`.
 
+While creating and populating `role` and `level` was straightforward, handling `languages` and `tools` required additional tweaking. Some listings needed to show `tools` first, others `languages` first, or a mix between the two. To address this, I created a function called `createTabletOrdering` and a helper function called `alternateOrderingTablet`. 
 
+The `createTabletOrdering` function incorporates the `alternateOrderingTablet` function to handle the `languages` and `tools` arrays, ensuring that the items are added in the correct sequence based on specific requirements for different job listings.
+
+The `alternateOrderingTablet` function handles cases where one array (either `languages` or `tools`) is longer than the other by iterating up to the length of the longer array. It uses a flag, `prioritizeTools`, to determine whether to prioritize adding tools before languages or vice versa. 
+
+This flexibility allowed me to customize the ordering based on specific requirements for different job listings.
 
 ### What specific areas of your project would you like help with?
+At the moment, none.
