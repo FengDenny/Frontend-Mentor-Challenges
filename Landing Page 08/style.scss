@@ -1,0 +1,42 @@
+// IMPORT GOOGLE FONT
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+// FONT
+$font-rubik: "Rubik", sans-serif;
+
+// COLORS
+
+// Primary
+$moderate-blue: hsl(238, 40%, 52%);
+$soft-red: hsl(358, 79%, 66%);
+$light-grayish-blue: hsl(239, 57%, 85%);
+$pale-red: hsl(357, 100%, 86%);
+
+// Neutral
+
+$dark-blue: hsl(212, 24%, 26%);
+$grayish-blue: hsl(211, 10%, 45%);
+$light-gray: hsl(223, 19%, 93%);
+$very-light-gray: hsl(228, 33%, 97%);
+$white: hsl(0, 0%, 100%);
+
+// CSS RESET
+html {
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  &::before,
+  &::after {
+    box-sizing: inherit;
+  }
+}
+
+// BODY
+body {
+background-color: $very-light-gray;
+font-family: $font-rubik;
+}
