@@ -6,7 +6,7 @@ const dummyAuthuser = require("./routes/dummyAuthUser")
 const app = express()
 
 app.use('/api/import-data', importDataRoute);
-app.use('/api/comments', commentRoutes);
+app.use('/api/user-comments', commentRoutes);
 app.use('/api/auth-user', dummyAuthuser);
 const PORT = process.env.port || 6000;
 
