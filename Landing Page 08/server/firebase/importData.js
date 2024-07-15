@@ -8,17 +8,17 @@ async function importData() {
   try {
     // Reference to your collection
     const usersCollectionRef = collection(db, 'users');
-    const currentUserCollectionRef = collection(db, "currentUser");
-
+    const currentUserCollectionRef = collection(db, "authenticated");
+    
     // Read the contents of data.json using fs.readFileSync
     const dataFilePath = path.resolve(__dirname, "./data/data.json");
     const rawData = fs.readFileSync(dataFilePath, "utf-8");
     const initialData = JSON.parse(rawData);
-
+    
     // Import current user data
-    await setDoc(doc(currentUserCollectionRef, "currentUser"), initialData.currentUser);
+    await setDoc(doc(currentUserCollectionRef, "current"), initialData.currentUser);
     console.log(
-      'Current user data imported successfully into Firestore under "currentUser" collection!'
+      'Current user data imported successfully into Firestore under "authenticated" collection!'
     );
 
     // Import comments data
