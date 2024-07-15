@@ -4,7 +4,7 @@ const { collection, getDocs } = require('firebase/firestore');
 
 const router = express.Router()
 
-router.get("/api/comments", async (req,res) => {
+router.get("/", async (req,res) => {
     try{
         const querySnapshot = await getDocs(collection(db, "comments"));
         const comments = querySnapshot.docs.map((doc) => doc.data())

@@ -4,7 +4,7 @@ const {importData} = require("../firebase/importData")
 
 const router = express.Router()
 
-router.post("/api/import-data", async (req,res) => {
+router.post("/", async (req,res) => {
     try{
        await importData()
        res.status(200).send('Data import completed.');
