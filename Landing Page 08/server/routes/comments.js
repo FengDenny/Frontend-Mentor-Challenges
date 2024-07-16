@@ -1,7 +1,32 @@
 const express = require("express");
 const { db } = require("../firebase/fbConfig");
-const {doc ,collection, where, getDocs, getDoc, query, addDoc, setDoc } = require("firebase/firestore");
+const {
+  doc,
+  collection,
+  where,
+  getDocs,
+  getDoc,
+  query,
+  addDoc,
+  setDoc,
+} = require("firebase/firestore");
 
+// Helper Function
+async function getNextCommentId(db) {
+  const idDocRef = doc(db, "config", "lastCommentId");
+  const idDocSnapshot = await getDoc(idDocRef);
+  let nextId = null;
+
+  if (idDocSnapshot.exists()) {
+    const data = idDocSnapshot.data();
+    nextId = data.lastId + 1;
+  } else {
+    nextId = 5;
+  }
+
+  await setDoc(idDocRef, { lastId: nextId });
+  return nextId;
+}
 
 const router = express.Router();
 
@@ -61,17 +86,29 @@ router.post("/new-comment", async (req, res) => {
       `users/${username}/comments`
     );
 
-     // Check if the user document exists; if not, create it
-     const commentUserDocRef = doc(db, `users/${username}`);
-     const userDocSnapshot = await getDoc(commentUserDocRef);
+    // Check if the user document exists; if not, create it
+    const commentUserDocRef = doc(db, `users/${username}`);
+    const userDocSnapshot = await getDoc(commentUserDocRef);
 
-     if (!userDocSnapshot.exists()) {
-         // Creating user document if it doesn't exist before attempting to add comments
-         await setDoc(commentUserDocRef, { username});
-     }
+    if (!userDocSnapshot.exists()) {
+      // Creating user document if it doesn't exist before attempting to add comments
+      await setDoc(commentUserDocRef, { username });
+    }
+
+    // Get new comment content from request body
+    const { content } = req.body;
+    if (!content) {
+      return res.status(400).json({
+        error: "Comment content is required",
+      });
+    }
+
+    // Generate the next comment ID
+    const commentId = await getNextCommentId(db);
 
     const newComment = {
-      content: req.body.content,
+      id: commentId,
+      content,
       createdAt: now.toISOString(),
       score: 0,
       replies: [],
