@@ -11,22 +11,7 @@ const {
   setDoc,
 } = require("firebase/firestore");
 
-// Helper Function
-async function getNextCommentId(db) {
-  const idDocRef = doc(db, "config", "lastCommentId");
-  const idDocSnapshot = await getDoc(idDocRef);
-  let nextId = null;
-
-  if (idDocSnapshot.exists()) {
-    const data = idDocSnapshot.data();
-    nextId = data.lastId + 1;
-  } else {
-    nextId = 5;
-  }
-
-  await setDoc(idDocRef, { lastId: nextId });
-  return nextId;
-}
+const {getNextCommentId} = require("../helper/comment")
 
 const router = express.Router();
 
