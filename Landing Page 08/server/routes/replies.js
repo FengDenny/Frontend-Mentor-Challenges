@@ -18,6 +18,27 @@ const {
 const {getNextCommentId} = require("../helper/comment")
 const router = express.Router();
 
+router.get('/:username/:postID/comment-replies', async (req, res) => {
+    try {
+        const { username, postID } = req.params;
+        const commentCollectionRef = collection(db, `users/${username}/comments`);
+        const q = query(commentCollectionRef, where("id", "==", parseInt(postID)));
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+            return res.status(404).json({ error: "No replies found" });
+        }
+        // Assuming only one document will match the query
+        const commentDoc = querySnapshot.docs[0]; // Get the first document
+        const commentData = commentDoc.data(); // Get the data from the document
+        const replies = commentData.replies || []; // Extract the replies field
+
+        res.status(200).json({ replies });
+    } catch (error) {
+        console.error('Error getting replies:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
 
 router.post("/:username/:postID/replies", async (req, res) => {
     try {
@@ -29,8 +50,6 @@ router.post("/:username/:postID/replies", async (req, res) => {
         // Query to find the document with the specific postID
         const q = query(commentCollectionRef, where("id", "==", parseInt(postID)));
         const querySnapshot = await getDocs(q);
-
-        console.log("Query Snapshot:", querySnapshot.docs.map(doc => doc.data()));
 
         if (querySnapshot.empty) {
             res.status(404).json({ error: "No post found" });
