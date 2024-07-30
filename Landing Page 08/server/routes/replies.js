@@ -49,8 +49,16 @@ router.patch(
         return res.status(400).json({ error: "Reply content is required" });
       }
 
-      const commentCollectionRef = collection(db, `users/${username}/comments`);
+      // Retrieve the authenticated user
+      const authUserDocRef = doc(db, "authenticated", "current");
+      const authUserSnapshot = await getDoc(authUserDocRef);
+      if (!authUserSnapshot.exists()) {
+        return res.status(401).json({ error: "User not authenticated" });
+      }
+      const currentUser = authUserSnapshot.data().username;
 
+      // Reference to the specific comment document
+      const commentCollectionRef = collection(db, `users/${username}/comments`);
       const q = query(
         commentCollectionRef,
         where("id", "==", parseInt(commentID))
@@ -68,9 +76,9 @@ router.patch(
       const commentData = commentDoc.data();
       const replies = commentData.replies || [];
 
-      // Find the specific reply to update 
+      // Find the specific reply to update
       // Suitable for only small datasets O(n) T.C
-      const replyIndex = commentData.replies.findIndex(
+      const replyIndex = replies.findIndex(
         (reply) => reply.id === parseInt(replyID)
       );
 
@@ -80,24 +88,31 @@ router.patch(
           .json({ error: "No reply found with the specified ID" });
       }
 
-      const updateReplies = [...commentData.replies]
+      // Check if the current user is the one who wrote the reply
+      const replyToUpdate = replies[replyIndex];
+      if (replyToUpdate.user.username !== currentUser) {
+        return res
+          .status(403)
+          .json({ error: "Unauthorized to update this reply" });
+      }
+
+      // If current user, update
+      const updateReplies = [...replies];
 
       updateReplies[replyIndex] = {
         ...updateReplies[replyIndex],
         content: content || updateReplies[replyIndex].content,
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
       };
 
       await updateDoc(commentDocRef, {
-        replies:updateReplies,
+        replies: updateReplies,
       });
 
-      res
-        .status(200)
-        .json({
-          message: "Reply updated successfully",
-          updatedReply: updateReplies[replyIndex],
-        });
+      res.status(200).json({
+        message: "Reply updated successfully",
+        updatedReply: updateReplies[replyIndex],
+      });
     } catch (error) {
       console.error("Error updating reply:", error);
       res.status(500).json({ error: error.message });
