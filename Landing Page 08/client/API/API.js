@@ -1,7 +1,7 @@
 function API(baseURL) {
     this.baseURL = baseURL;
     this.endpoint = "";
-    this.headers = {};
+    this.headers = { "Content-Type": "application/json" };
     this.data = null;
 }
 
