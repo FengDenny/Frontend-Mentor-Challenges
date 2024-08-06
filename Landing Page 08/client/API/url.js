@@ -1,4 +1,8 @@
 import API from './API';
 
-export const api = new API("http://localhost:3000/api")
+const productionURL = "https://commenteer.onrender.com"
+
+const developmentURL = "http://localhost:3000"
+
+export const api = new API(`${developmentURL}/api`)
 
