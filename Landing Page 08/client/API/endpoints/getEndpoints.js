@@ -6,10 +6,21 @@ async function fetchALLComments() {
       .setEndpoint("/user-comments/all-comments")
       .get();
 
-    console.log(allComments);
+    return allComments;
   } catch (err) {
     console.error("Error:", err);
   }
 }
 
-fetchALLComments();
+async function getAuthUser(username) {
+  const response = await api.setEndpoint(`/auth-user/${username}`).get();
+
+  if (response.ok) {
+    return response.data;
+  } else {
+    console.warn("User not found or error:", response.error);
+    return null;
+  }
+}
+
+export { fetchALLComments, getAuthUser };
