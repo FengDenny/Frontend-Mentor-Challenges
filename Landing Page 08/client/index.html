@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="stylesheet" href="./style.css">
-  
-  <title>Frontend Mentor | Interactive comments section</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
 
-  <script src="./API/API.js" type="module" defer></script>
-  <script src="./API/url.js" type="module" defer></script>
-  <script src="./API/endpoints/getEndpoints.js" type="module" defer></script>
-</head>
-<body>
+    <link rel="stylesheet" href="./style.css" />
 
-  <!-- Pull dynamic content from the data.json file -->
-  
-  <!-- <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div> -->
-</body>
+    <title>Frontend Mentor | Interactive comments section</title>
+
+    <script src="./API/render/renderComments.js" type="module" defer></script>
+    <script src="./Components/Button/Buttons.js" type="module" defer></script>
+    <script src="./Components/Card/Card.js" type="module" defer></script>
+    <script src="./Components/Card/CardImport.js" type="module" defer></script>
+    <script src="./API/API.js" type="module" defer></script>
+    <script src="./API/url.js" type="module" defer></script>
+    <script src="./API/endpoints/getEndpoints.js" type="module" defer></script>
+  </head>
+  <body>
+    <main>
+      <div class="comments" id="comment"></div>
+      <div class="write-comment" id="auth-write"></div>
+    </main>
+  </body>
 </html>
