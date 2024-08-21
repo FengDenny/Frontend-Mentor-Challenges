@@ -95,6 +95,7 @@ router.post("/new-comment", async (req, res) => {
       id: commentId,
       content,
       createdAt: now.toISOString(),
+      tag:"you",
       score: 0,
       replies: [],
       user: {
