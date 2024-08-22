@@ -12,8 +12,8 @@ async function fetchALLComments() {
   }
 }
 
-async function getAuthUser(username) {
-  const response = await api.setEndpoint(`/auth-user/${username}`).get();
+async function getAuthUser() {
+  const response = await api.setEndpoint("/auth-user").get();
 
   if (response.ok) {
     return response.data;
