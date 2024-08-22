@@ -7,29 +7,42 @@ function DeleteCommentModal() {
     "Delete comment",
     "Are you sure you want to delete this comment? This will remove the comment and can't be undone."
   );
+  this.postID = null;
+  this.username = null;
 }
 
-DeleteCommentModal.prototype = Object.create(Modal.prototype)
-DeleteCommentModal.prototype.constructor = DeleteCommentModal
+DeleteCommentModal.prototype = Object.create(Modal.prototype);
+DeleteCommentModal.prototype.constructor = DeleteCommentModal;
 
-DeleteCommentModal.prototype.createDeleteCommentModal = function(){
-    const modal = this.createModal()
-    const buttons = new Buttons(true) 
+DeleteCommentModal.prototype.createDeleteCommentModal = function (
+  postID,
+  username
+) {
+  this.postID = postID;
+  this.username = username;
+  const modal = this.createModal();
+  const buttons = new Buttons(true);
 
-    const modalBtnContainer = document.createElement("div")
-    modalBtnContainer.className = "modal-btn-container"
+  const modalBtnContainer = document.createElement("div");
+  modalBtnContainer.className = "modal-btn-container";
 
+  const cancelButton = buttons.createButtonWithText(
+    "No, Cancel",
+    "cancel-btn",
+    "cancel-delete"
+  );
+  const deleteButton = buttons.createButtonWithText(
+    "Yes, Delete",
+    "delete-btn",
+    "continue-delete"
+  );
 
-    const cancelButton = buttons.createButtonWithText("No, Cancel", "cancel-btn", "cancel-delete")
-    const deleteButton = buttons.createButtonWithText("Yes, Delete", "delete-btn", "continue-delete")
+  modalBtnContainer.appendChild(cancelButton);
+  modalBtnContainer.appendChild(deleteButton);
 
-    modalBtnContainer.appendChild(cancelButton)
-    modalBtnContainer.appendChild(deleteButton)
+  this.addButton(modalBtnContainer);
 
-    this.addButton(modalBtnContainer)
+  return modal;
+};
 
-
-    return modal
-}
-
-export default DeleteCommentModal
+export default DeleteCommentModal;
