@@ -47,6 +47,8 @@ main {
   display: flex;
   justify-content: center;
   margin-top: 2rem;
+  flex-direction: column;
+  padding:20px;
 }
 /* Card */
 
@@ -250,4 +252,57 @@ main {
 .modal-btn-container .delete-btn{
   background-color: var(--soft-red);
   color:var(--white);
+}
+
+
+.write-comment{
+  padding:10px;
+  margin-top:20px;
+  background-color: var(--white);
+  border-radius: 5px;
+}
+.comment-form{
+  width:100%;
+}
+.comment-form .comment{
+  width:100%;
+  resize: none;
+  border:1px solid var(--light-gray);
+  border-radius:5px;
+  padding:10px;
+  color:var(--moderate-blue);
+  font-weight: 600;
+  font-size: 1rem;
+}
+.comment-form .comment:focus-within{
+  background-color: var(--light-gray);
+  outline-color: var(--grayish-blue);
+}
+
+.comment-form .comment::placeholder{
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.auth-comment-container{
+  display:flex;
+  justify-content: space-between;
+  padding:5px 0;
+}
+
+
+.auth-comment-container img{
+  width:35px;
+  height:35px;
+}
+.auth-comment-container .send-btn{
+  background-color: var(--moderate-blue);
+  color:var(--white);
+  border:none;
+  border-radius: 5px;
+  padding:5px;
+  width:80px;
+  text-transform: uppercase;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
