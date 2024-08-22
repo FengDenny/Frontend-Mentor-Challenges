@@ -14,29 +14,59 @@ Buttons.prototype.createButtons = function () {
   authBtnContainer.className = "auth-btn-container";
 
   if (this.isAuth) {
-    const deleteBtn = document.createElement("button");
-    deleteBtn.className = "delete-btn";
-    deleteBtn.textContent = this.deleteBtn;
-    const deleteBtnIcon = new DeleteBtnIcon();
-    deleteBtn.appendChild(deleteBtnIcon.createSVGElement());
+    const deleteBtn = this.createButtonWithSVG(
+      this.deleteBtn,
+      DeleteBtnIcon,
+      "delete-btn",
+      "delete-modal-open"
+    );
     authBtnContainer.appendChild(deleteBtn);
 
-    const editBtn = document.createElement("button");
-    editBtn.className = "edit-btn";
-    editBtn.textContent = this.editBtn;
-    const editBtnIcon = new EditBtnIcon();
-    editBtn.appendChild(editBtnIcon.createSVGElement());
+
+    const editBtn = this.createButtonWithSVG(
+      this.editBtn,
+      EditBtnIcon,
+      "edit-btn",
+      "edit-comment"
+    );
     authBtnContainer.appendChild(editBtn);
   } else {
-    const replyBtn = document.createElement("button");
-    replyBtn.className = "reply-btn";
-    replyBtn.textContent = this.replyBtn;
-    const replyBtnIcon = new ReplyBtnIcon();
-    replyBtn.appendChild(replyBtnIcon.createSVGElement());
+    const replyBtn = this.createButtonWithSVG(
+      this.replyBtn,
+      ReplyBtnIcon,
+      "reply-btn"
+    );
     btnContainer.appendChild(replyBtn);
   }
 
-  return {btnContainer ,authBtnContainer};
+  return { btnContainer, authBtnContainer };
+};
+
+Buttons.prototype.createButtonWithSVG = function (
+  text,
+  IconClass,
+  className,
+  buttonID
+) {
+  const button = document.createElement("button");
+  button.id = buttonID
+  button.className = className;
+  button.textContent = text;
+  const icon = new IconClass();
+  button.appendChild(icon.createSVGElement());
+  return button;
+};
+
+Buttons.prototype.createButtonWithText = function (
+  text,
+  className,
+  buttonID
+) {
+  const button = document.createElement("button");
+  button.id = buttonID;
+  button.className = className;
+  button.textContent = text;
+  return button;
 };
 
 export default Buttons;
