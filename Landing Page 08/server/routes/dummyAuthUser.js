@@ -4,10 +4,12 @@ const { collection, where, getDocs, query } = require('firebase/firestore');
 
 const router = express.Router()
 
-router.get("/", async (req,res) => {
+router.get("/:username", async (req,res) => {
     try{
+        const username = req.params.username
         const authUserCollectionRef = collection(db, "authenticated")
-        const querySnapshot = await getDocs(authUserCollectionRef)
+        const q = query(authUserCollectionRef, where("username", "==", username))
+        const querySnapshot = await getDocs(q)
 
         if(querySnapshot.empty){
             res.status(404).json({
