@@ -1,5 +1,4 @@
 import { fetchALLComments } from "../endpoints/getEndpoints";
-import { postNewComment } from "../endpoints/postEndpoints";
 import { formatDate } from "../../Helper/time";
 import CombinedCard from "../../Components/Card/CardImport";
 
@@ -37,5 +36,6 @@ async function renderComments() {
   }
 }
 
-
 renderComments()
+
+export {renderComments}
