@@ -40,6 +40,7 @@ html {
 body {
   background-color: var(--very-light-gray);
   font-family: var(--font-rubik);
+  position: relative;
 }
 
 main {
@@ -177,4 +178,70 @@ main {
   color: var(--light-gray);
   padding:1px 5px;
   border-radius:2px;
+}
+
+/* Modal */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  z-index: 1; 
+}
+
+.modal{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  background-color: var(--white);
+  min-width:250px;
+  max-width:350px;
+  padding:20px;
+  border-radius: 5px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.modal-heading{
+  font-size: 1rem;
+  color:var(--dark-blue);
+  font-weight: 500;
+}
+
+ .modal-description{
+  padding-top:10px;
+  max-width:300px;
+  color:var(--grayish-blue);
+  line-height: 1.4rem;
+  font-size: 0.95rem;
+}
+
+.modal-btn-container{
+  padding-top:12px;
+  display: flex;
+  gap:20px;
+}
+
+.modal-btn-container button{
+  text-transform: uppercase;
+  width:110px;
+  height:35px;
+  padding:5px;
+  border:none;
+  border-radius:5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-btn-container .cancel-btn{
+  background-color: var(--grayish-blue);
+  color:var(--white);
+}
+.modal-btn-container .delete-btn{
+  background-color: var(--soft-red);
+  color:var(--white);
 }
