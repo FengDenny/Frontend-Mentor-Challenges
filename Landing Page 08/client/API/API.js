@@ -66,5 +66,27 @@ API.prototype.post = async function () {
     throw error;
   }
 };
+API.prototype.delete = async function () {
+  try {
+    const response = await fetch(`${this.baseURL}${this.endpoint}`, {
+      method: "DELETE",
+      headers: this.headers
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(
+        `HTTP error! Status: ${response.status}, Response: ${errorText}`
+      );
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error in POST request:", error);
+    throw error;
+  }
+};
+
+
 
 export default API;
