@@ -1,7 +1,8 @@
 function Modal(title, text){
     this.title = title
     this.text = text,
-    this.modalElement = null
+    this.modalElement = null,
+    this.overlay = null
 }
 
 Modal.prototype.createModal = function(){
@@ -23,6 +24,13 @@ Modal.prototype.createModal = function(){
     return modal
 }
 
+Modal.prototype.createOverlay = function(){
+    const overlay = document.createElement('div')
+    overlay.className = "modal-overlay"
+    document.body.appendChild(overlay)
+    return overlay
+}
+
 Modal.prototype.addButton = function(button){
     if(this.modalElement){
         this.modalElement.appendChild(button)
@@ -32,6 +40,7 @@ Modal.prototype.addButton = function(button){
 Modal.prototype.open = function(){
     document.body.appendChild(this.modalElement)
     this.modalElement.style.display = "block"
+    this.overlay = this.createOverlay()
 }
 
 Modal.prototype.close = function(){
@@ -39,6 +48,10 @@ Modal.prototype.close = function(){
         console.log("closed")
         this.modalElement.style.display = "none"
         document.body.removeChild(this.modalElement)
+    }
+
+    if(this.overlay){
+        document.body.removeChild(this.overlay)
     }
 }
 
