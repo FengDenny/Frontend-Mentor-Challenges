@@ -9,6 +9,7 @@ const {
   query,
   addDoc,
   setDoc,
+  updateDoc,
 } = require("firebase/firestore");
 
 const {getNextCommentId} = require("../helper/comment")
@@ -113,6 +114,85 @@ router.post("/new-comment", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+
+router.patch("/edit/:postID", async (req, res) => {
+  try {
+    const postID = req.params.postID;
+
+    // Check for dummy auth user in the authenticated collection
+    const authUserCollectionRef = collection(db, "authenticated");
+    const authUserQuerySnapshot = await getDocs(authUserCollectionRef);
+
+    if (authUserQuerySnapshot.empty) {
+      return res.status(404).json({ error: "No authenticated user found." });
+    }
+
+    // Assuming there's only one authenticated user in the dummy auth setup
+    const authUserData = authUserQuerySnapshot.docs[0].data();
+    const username = authUserData.username;
+
+    // Reference to the user's comments subcollection
+    const userCommentsCollectionRef = collection(db, `users/${username}/comments`);
+
+    // Check if the user document exists
+    const commentUserDocRef = doc(db, `users/${username}`);
+    const userDocSnapshot = await getDoc(commentUserDocRef);
+
+    if (!userDocSnapshot.exists()) {
+      return res.status(404).json({
+        error: "User not found.",
+      });
+    }
+
+    // Get the comment content from request body
+    const { content } = req.body;
+    if (!content) {
+      return res.status(400).json({
+        error: "Comment content is required",
+      });
+    }
+
+    // Find the specific comment by postID but first convert string to int
+    const commentQuery = query(
+      userCommentsCollectionRef,
+      where("id", "==", parseInt(postID))
+    );
+    const commentSnapshot = await getDocs(commentQuery);
+
+    if (commentSnapshot.empty) {
+      return res.status(404).json({
+        error: "Comment not found.",
+      });
+    }
+
+    // Assuming only one comment will match the parseInt(postID)
+    const commentDoc = commentSnapshot.docs[0];
+    const commentData = commentDoc.data();
+
+    // Get the current date and time
+    const now = new Date().toISOString();
+
+    // Update the comment with new content and edit date
+    const updatedComment = {
+      ...commentData,
+      content,
+      edited: now,
+    };
+
+    // Update the comment document in Firestore
+    await updateDoc(commentDoc.ref, updatedComment);
+
+    res.status(200).json({
+      message: "Comment edited successfully",
+      comment: updatedComment,
+    });
+  } catch (error) {
+    console.error("Error editing comment:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 // Define parameterized route after the more specific route
 router.get("/:user", async (req, res) => {
