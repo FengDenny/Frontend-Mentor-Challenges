@@ -1,5 +1,6 @@
 import Card from "./Card";
 import UserProfileCard from "./UserProfileCard";
+import RepliesCard from "./RepliesCard";
 function CombinedCard(
   score,
   comment,
@@ -7,12 +8,14 @@ function CombinedCard(
   usernameID,
   userProfileImg,
   username,
-  datePosted, 
+  datePosted,
   tag,
-  edited
+  edited,
+  replies
 ) {
   Card.call(this, score, comment, dataID, usernameID);
   UserProfileCard.call(this, userProfileImg, username, datePosted, tag, edited);
+  this.replies = replies;
 }
 
 CombinedCard.prototype = Object.create(Card.prototype);
@@ -31,4 +34,18 @@ CombinedCard.prototype.createCardElement = async function () {
   return cardArticle;
 };
 
-export default CombinedCard
+CombinedCard.prototype.createRepliesSection = async function () {
+  const repliesContainer = document.createElement("div");
+  repliesContainer.className = "replies-container";
+
+  // Create and append each reply card
+  for (const reply of this.replies) {
+    const replyCard = new RepliesCard(reply);
+    const replyCardElement = await replyCard.createRepliesCardElement();
+    repliesContainer.appendChild(replyCardElement);
+  }
+
+  return repliesContainer;
+};
+
+export default CombinedCard;
