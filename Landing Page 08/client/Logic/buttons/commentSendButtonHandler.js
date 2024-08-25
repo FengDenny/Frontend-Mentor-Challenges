@@ -33,6 +33,7 @@ async function handleSendButtonEditChanges(
   sendCommentBtn.id = "edit-comment";
   sendCommentBtn.textContent = "Edit Comment";
   sendCommentBtn.style.width = "116px";
+  sendCommentBtn.style.fontWeight ="bold"
 
   sendCommentBtn.addEventListener("click", async function editHandler(event) {
     event.preventDefault();
