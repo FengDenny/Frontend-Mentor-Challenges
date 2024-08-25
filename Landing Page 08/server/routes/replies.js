@@ -85,6 +85,7 @@ router.post("/:username/:postID/replies", async (req, res) => {
       createdAt: Timestamp.now().toDate().toISOString(),
       score: 0,
       replyingTo: username,
+      tag: "you",
       user: {
         username: currentUser,
         image: authUserSnapshot.data().image,
@@ -188,7 +189,7 @@ router.patch(
 
 router.delete("/:commentID/delete", async (req, res) => {
   try {
-    const {  commentID } = req.params;
+    const { commentID } = req.params;
 
     const authUserDocRef = doc(db, "authenticated", "current");
     const authUserSnapshot = await getDoc(authUserDocRef);
@@ -197,11 +198,12 @@ router.delete("/:commentID/delete", async (req, res) => {
     }
     const currentUser = authUserSnapshot.data().username;
 
-    console.log(currentUser)
-
     // Reference to the user's comments collection
     // Here, we'll query all users' comments to find the one belonging to the current user
-    const commentsCollectionRef = collection(db, `users/${currentUser}/comments`);
+    const commentsCollectionRef = collection(
+      db,
+      `users/${currentUser}/comments`
+    );
     const q = query(
       commentsCollectionRef,
       where("id", "==", parseInt(commentID))
@@ -232,66 +234,74 @@ router.delete("/:commentID/delete", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-router.delete("/:username/comments/:commentID/replies/:replyID/delete", async (req, res) => {
-  try {
-    const {username, commentID, replyID } = req.params;
+router.delete(
+  "/:username/comments/:commentID/replies/:replyID/delete",
+  async (req, res) => {
+    try {
+      const { username, commentID, replyID } = req.params;
 
-    const authUserDocRef = doc(db, "authenticated", "current");
-    const authUserSnapshot = await getDoc(authUserDocRef);
-    if (!authUserSnapshot.exists()) {
-      return res.status(401).json({ error: "User not authenticated" });
+      const authUserDocRef = doc(db, "authenticated", "current");
+      const authUserSnapshot = await getDoc(authUserDocRef);
+      if (!authUserSnapshot.exists()) {
+        return res.status(401).json({ error: "User not authenticated" });
+      }
+      const currentUser = authUserSnapshot.data().username;
+
+      // Reference to the user's comments collection
+      const commentsCollectionRef = collection(
+        db,
+        `users/${username}/comments`
+      );
+      const q = query(
+        commentsCollectionRef,
+        where("id", "==", parseInt(commentID))
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        res.status(404).json({ error: "No comment found" });
+        return;
+      }
+
+      // Get the comment document and check if the authenticated user is the author
+      const commentDoc = querySnapshot.docs[0];
+      const commentDocRef = commentDoc.ref;
+      const commentData = commentDoc.data();
+      const replies = commentData.replies || [];
+
+      // Find the specific reply to update
+      const replyIndex = replies.findIndex(
+        (reply) => reply.id === parseInt(replyID)
+      );
+
+      if (replyIndex === -1) {
+        return res
+          .status(404)
+          .json({ error: "No reply found with the specified ID" });
+      }
+
+      // Check if the current user is the one who wrote the reply
+      const replyToDelete = replies[replyIndex];
+      if (replyToDelete.user.username !== currentUser) {
+        return res
+          .status(403)
+          .json({ error: "Unauthorized to delete this reply" });
+      }
+
+      // Remove the reply from the replies array
+      const updatedReplies = replies.filter(
+        (reply) => reply.id !== parseInt(replyID)
+      );
+
+      await updateDoc(commentDocRef, { replies: updatedReplies });
+
+      res.status(200).json({ message: "Reply deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting reply:", error);
+      res.status(500).json({ error: error.message });
     }
-    const currentUser = authUserSnapshot.data().username;
-
-    // Reference to the user's comments collection
-    const commentsCollectionRef = collection(db, `users/${username}/comments`);
-    const q = query(
-      commentsCollectionRef,
-      where("id", "==", parseInt(commentID))
-    );
-
-    const querySnapshot = await getDocs(q);
-
-    if (querySnapshot.empty) {
-      res.status(404).json({ error: "No comment found" });
-      return;
-    }
-
-    // Get the comment document and check if the authenticated user is the author
-    const commentDoc = querySnapshot.docs[0];
-    const commentDocRef = commentDoc.ref;
-    const commentData = commentDoc.data();
-    const replies = commentData.replies || [];
-
-    // Find the specific reply to update
-    const replyIndex = replies.findIndex(
-      (reply) => reply.id === parseInt(replyID)
-    );
-
-    if (replyIndex === -1) {
-      return res
-        .status(404)
-        .json({ error: "No reply found with the specified ID" });
-    }
-
-    // Check if the current user is the one who wrote the reply
-    const replyToDelete = replies[replyIndex];
-    if (replyToDelete.user.username !== currentUser) {
-      return res
-        .status(403)
-        .json({ error: "Unauthorized to delete this reply" });
-    }
-
-    // Remove the reply from the replies array
-    const updatedReplies = replies.filter(reply => reply.id !== parseInt(replyID));
-
-    await updateDoc(commentDocRef, {replies:updatedReplies})
-
-    res.status(200).json({ message: "Reply deleted successfully" });
-  } catch (error) {
-    console.error("Error deleting reply:", error);
-    res.status(500).json({ error: error.message });
   }
-});
+);
 
 module.exports = router;
