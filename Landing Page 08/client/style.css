@@ -333,4 +333,10 @@ main {
 }
 
 
+
+
 /* Replies */
+.replies-container .replying-to{
+  color:var(--moderate-blue);
+  font-weight: 600;
+}

@@ -10,7 +10,8 @@ RepliesCard.prototype.createRepliesCardElement = async function () {
     score: this.reply.score,
     comment: this.reply.content, 
     dataID: this.reply.id, 
-    usernameID: this.reply.user.username 
+    usernameID: this.reply.user.username,
+    replyingTo: this.reply.replyingTo
   });
   replyCard.className += " reply-card";
 
