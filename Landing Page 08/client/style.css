@@ -293,7 +293,7 @@ main {
   font-size: 0.9rem;
 }
 
-.auth-comment-container{
+.auth-comment-container,.auth-write-btn-container{
   display:flex;
   justify-content: space-between;
   padding:5px 0;
@@ -304,14 +304,33 @@ main {
   width:35px;
   height:35px;
 }
-.auth-comment-container .send-btn{
+
+.auth-write-btn-container{
+  gap:10px;
+}
+
+.auth-write-btn-container .send-btn{
   background-color: var(--moderate-blue);
   color:var(--white);
   border:none;
+  width:80px;
+  order:1;
+}
+.auth-write-btn-container .cancel-edit{
+  background-color: transparent;
+  color:var(--soft-red);
+  border:1px solid var(--soft-red);
+}
+
+.auth-write-btn-container .cancel-edit,
+.auth-write-btn-container .send-btn{
   border-radius: 5px;
   padding:5px;
-  width:80px;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: bold;
+  height:40px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+
+
+/* Replies */
