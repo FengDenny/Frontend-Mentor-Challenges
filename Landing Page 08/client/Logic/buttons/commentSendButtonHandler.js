@@ -29,7 +29,7 @@ function handleCancelButtonClicked(commentTextArea, sendCommentBtn){
   cancelEditBtn.addEventListener("click", cancelEdit)
 }
 
-function handleSendCommentButtonClicked(sendCommentBtn, commentTextArea){
+function handleSendCommentButtonClicked(sendCommentBtn, commentTextArea, articleElementDataID){
   sendCommentBtn.addEventListener("click", async function editHandler(event) {
     event.preventDefault();
     const updatedContent = commentTextArea.value.trim();
@@ -88,7 +88,7 @@ async function handleSendButtonEditChanges(commentTextArea, articleElementDataID
 
     handleCancelButtonClicked(commentTextArea, sendCommentBtn)
 
-    handleSendCommentButtonClicked(sendCommentBtn, commentTextArea)
+    handleSendCommentButtonClicked(sendCommentBtn, commentTextArea, articleElementDataID)
   }
 }
 
