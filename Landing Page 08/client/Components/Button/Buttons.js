@@ -18,7 +18,8 @@ Buttons.prototype.createButtons = function () {
       this.deleteBtn,
       DeleteBtnIcon,
       "delete-btn",
-      "delete-modal-open"
+      "delete-modal-open", 
+      true
     );
     authBtnContainer.appendChild(deleteBtn);
 
@@ -27,7 +28,8 @@ Buttons.prototype.createButtons = function () {
       this.editBtn,
       EditBtnIcon,
       "edit-btn",
-      "edit-comment"
+      "edit-comment",
+      true
     );
     authBtnContainer.appendChild(editBtn);
   } else {
@@ -46,10 +48,13 @@ Buttons.prototype.createButtonWithSVG = function (
   text,
   IconClass,
   className,
-  buttonID
+  buttonID,
+  isButtonID  
 ) {
   const button = document.createElement("button");
-  button.id = buttonID
+  if(isButtonID){
+    button.id = buttonID
+  } 
   button.className = className;
   button.textContent = text;
   const icon = new IconClass();
