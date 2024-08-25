@@ -14,7 +14,7 @@ async function renderComments() {
     }
 
     for (const item of response.data) {
-      const { content, createdAt, score, user, tag, id } = item;
+      const { content, createdAt, score, user, tag, id, edited } = item;
       const timeCreated = formatDate(createdAt);
 
       const card = new CombinedCard(
@@ -25,7 +25,8 @@ async function renderComments() {
         user.image.png,
         user.username,
         timeCreated,
-        tag
+        tag, 
+        edited
       );
 
       const cardElement = await card.createCardElement();

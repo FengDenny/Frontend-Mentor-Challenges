@@ -8,10 +8,11 @@ function CombinedCard(
   userProfileImg,
   username,
   datePosted, 
-  tag
+  tag,
+  edited
 ) {
   Card.call(this, score, comment, dataID, usernameID);
-  UserProfileCard.call(this, userProfileImg, username, datePosted, tag);
+  UserProfileCard.call(this, userProfileImg, username, datePosted, tag, edited);
 }
 
 CombinedCard.prototype = Object.create(Card.prototype);

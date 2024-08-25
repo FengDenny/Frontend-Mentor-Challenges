@@ -177,7 +177,8 @@ router.patch("/edit/:postID", async (req, res) => {
     const updatedComment = {
       ...commentData,
       content,
-      edited: now,
+      editedDate: now,
+      edited:true,
     };
 
     // Update the comment document in Firestore
