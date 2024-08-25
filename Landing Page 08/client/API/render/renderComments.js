@@ -1,7 +1,6 @@
 import { fetchALLComments } from "../endpoints/getEndpoints";
 import { formatDate } from "../../Helper/time";
 import CombinedCard from "../../Components/Card/CardImport";
-import RepliesCard from "../../Components/Card/RepliesCard";
 
 async function renderComments() {
   try {
