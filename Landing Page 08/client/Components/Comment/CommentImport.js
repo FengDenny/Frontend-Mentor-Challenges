@@ -12,8 +12,13 @@ async function initializeAuthCommentForm() {
     const authCommentContainer = document.createElement("div");
     authCommentContainer.className = "auth-comment-container";
 
+    const sendButtonContainer = document.createElement("div")
+    sendButtonContainer.className ="auth-write-btn-container"
+
+    sendButtonContainer.appendChild(sendButton)
+
     authCommentContainer.appendChild(imageIcon);
-    authCommentContainer.appendChild(sendButton);
+    authCommentContainer.appendChild(sendButtonContainer);
 
     const authWriteDiv = document.getElementById("auth-write");
 
