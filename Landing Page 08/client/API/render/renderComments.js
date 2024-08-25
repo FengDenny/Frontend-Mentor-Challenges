@@ -1,6 +1,7 @@
 import { fetchALLComments } from "../endpoints/getEndpoints";
 import { formatDate } from "../../Helper/time";
 import CombinedCard from "../../Components/Card/CardImport";
+import RepliesCard from "../../Components/Card/RepliesCard";
 
 async function renderComments() {
   try {
@@ -14,7 +15,8 @@ async function renderComments() {
     }
 
     for (const item of response.data) {
-      const { content, createdAt, score, user, tag, id, edited } = item;
+      const { content, createdAt, score, user, tag, id, edited, replies } =
+        item;
       const timeCreated = formatDate(createdAt);
 
       const card = new CombinedCard(
@@ -25,18 +27,25 @@ async function renderComments() {
         user.image.png,
         user.username,
         timeCreated,
-        tag, 
-        edited
+        tag,
+        edited,
+        replies
       );
 
       const cardElement = await card.createCardElement();
       commentContainer.appendChild(cardElement);
+
+       // Append replies as separate cards
+      if (card.replies.length) {
+        const repliesSection = await card.createRepliesSection();
+        commentContainer.appendChild(repliesSection);
+      }
     }
   } catch (error) {
     console.error(error);
   }
 }
 
-renderComments()
+renderComments();
 
-export {renderComments}
+export { renderComments };
