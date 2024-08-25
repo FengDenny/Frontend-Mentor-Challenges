@@ -36,6 +36,7 @@ Card.prototype.createCardElement = async function () {
   // Add comment and reply button
   const commentElemnt = document.createElement("p");
   commentElemnt.className = "comment-p";
+  commentElemnt.dataset.id = `${this.usernameID}-${this.dataID}-comment`
   commentElemnt.textContent = this.comment;
   cardArticle.appendChild(commentElemnt);
 
