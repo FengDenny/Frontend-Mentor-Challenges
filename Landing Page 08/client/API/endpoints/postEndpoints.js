@@ -5,7 +5,7 @@ async function postNewComment(commentContent){
         const newComment = await api
           .setEndpoint("/user-comments/new-comment")
           .setData({content:commentContent})
-          .post();
+          .request("POST");
     
         return newComment;
       } catch (err) {
