@@ -20,6 +20,29 @@ API.prototype.setData = function (data) {
   return this;
 };
 
+// POST OR PATCH
+API.prototype.request = async function (method) {
+  try {
+    const response = await fetch(`${this.baseURL}${this.endpoint}`, {
+      method: method,
+      headers: this.headers,
+      body: JSON.stringify(this.data),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(
+        `HTTP error! Status: ${response.status}, Response: ${errorText}`
+      );
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(`Error in ${method} request:`, error);
+    throw error;
+  }
+};
+
 API.prototype.get = async function () {
   try {
     const response = await fetch(`${this.baseURL}${this.endpoint}`, {
@@ -45,27 +68,7 @@ API.prototype.get = async function () {
     return { ok: false, error: error.message };
   }
 };
-API.prototype.post = async function () {
-  try {
-    const response = await fetch(`${this.baseURL}${this.endpoint}`, {
-      method: "POST",
-      headers: this.headers,
-      body: JSON.stringify(this.data),
-    });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(
-        `HTTP error! Status: ${response.status}, Response: ${errorText}`
-      );
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Error in POST request:", error);
-    throw error;
-  }
-};
 API.prototype.delete = async function () {
   try {
     const response = await fetch(`${this.baseURL}${this.endpoint}`, {
@@ -82,11 +85,9 @@ API.prototype.delete = async function () {
 
     return await response.json();
   } catch (error) {
-    console.error("Error in POST request:", error);
+    console.error("Error in DELETE request:", error);
     throw error;
   }
 };
-
-
 
 export default API;
