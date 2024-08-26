@@ -13,4 +13,17 @@ async function postNewComment(commentContent){
       }
 }
 
-export {postNewComment}
+async function postNewReply(commentContent, username, postID){
+  try {
+    const newReply = await api
+      .setEndpoint(`/user-comments/${username}/${postID}/replies`)
+      .setData({content:commentContent})
+      .request("POST");
+
+    return newReply;
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+
+export {postNewComment, postNewReply}
