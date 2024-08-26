@@ -1,12 +1,13 @@
 import { createCardElements } from "../../Helper/utils/createCardElements";
 import UserProfileCard from "./UserProfileCard";
+import {formatDate} from "../../Helper/time"
 
 function RepliesCard(reply) {
   this.reply = reply;
   this.userProfileCard = new UserProfileCard(
     reply.user.image.png, 
     reply.user.username,
-    reply.createdAt, 
+    formatDate(reply.createdAt), 
     reply.tag, 
     reply.edited 
   );
