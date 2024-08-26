@@ -340,3 +340,19 @@ main {
   color:var(--moderate-blue);
   font-weight: 600;
 }
+
+.replies-container{
+  padding-left:20px;
+  width: 90vw;
+  max-width: 100%;
+  position:relative;
+}
+.replies-container::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px; 
+  background-color: var(--light-gray); 
+}
