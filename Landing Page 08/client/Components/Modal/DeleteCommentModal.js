@@ -1,7 +1,7 @@
 import Modal from "./Modal";
 import Buttons from "../Button/Buttons";
 
-function DeleteCommentModal() {
+function DeleteCommentModal(isReplyModal) {
   Modal.call(
     this,
     "Delete comment",
@@ -9,6 +9,8 @@ function DeleteCommentModal() {
   );
   this.postID = null;
   this.username = null;
+  this.isReplyModal = isReplyModal
+  this.orignalID = null
 }
 
 DeleteCommentModal.prototype = Object.create(Modal.prototype);
@@ -16,10 +18,15 @@ DeleteCommentModal.prototype.constructor = DeleteCommentModal;
 
 DeleteCommentModal.prototype.createDeleteCommentModal = function (
   postID,
-  username
+  username, 
+  orignalID
 ) {
   this.postID = postID;
   this.username = username;
+
+  if(orignalID){
+    this.orignalID = orignalID
+  }
   const modal = this.createModal();
   const buttons = new Buttons(true);
 
@@ -37,8 +44,18 @@ DeleteCommentModal.prototype.createDeleteCommentModal = function (
     "continue-delete"
   );
 
+  const deleteReplyButton = buttons.createButtonWithText(
+    "Yes, Delete",
+    "delete-btn",
+    "continue-reply-delete"
+  );
   modalBtnContainer.appendChild(cancelButton);
-  modalBtnContainer.appendChild(deleteButton);
+
+  if(!this.isReplyModal){
+    modalBtnContainer.appendChild(deleteButton);
+  }else{
+    modalBtnContainer.appendChild(deleteReplyButton)
+  }
 
   this.addButton(modalBtnContainer);
 

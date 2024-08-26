@@ -1,5 +1,5 @@
 import DeleteCommentModal from "../../Components/Modal/DeleteCommentModal";
-import {deleteAuthUserComment} from "../../API/endpoints/deleteEndpoints";
+import {deleteAuthUserComment , deleteAuthUserReply} from "../../API/endpoints/deleteEndpoints";
 
 /*
 Perform event delegation (bubbling up) 
@@ -23,7 +23,7 @@ async function handleButtonClicked(event) {
     if (cardElement) {
       const postID = cardElement.dataset.id;
       const username = cardElement.dataset.username;
-      const deleteCommentModal = new DeleteCommentModal();
+      const deleteCommentModal = new DeleteCommentModal(false);
       const modalElement = deleteCommentModal.createDeleteCommentModal(
         postID,
         username
@@ -60,6 +60,46 @@ async function handleButtonClicked(event) {
       }
     }
   }
+
+  if(target.matches("#delete-modal-reply-open")){
+    const cardElement = target.closest(".card");
+    if (cardElement) {
+      const postID = cardElement.dataset.id;
+      const originalID = cardElement.dataset.original;
+      const originalUsername = cardElement.dataset.originalUsername;
+      const deleteCommentModal = new DeleteCommentModal(true);
+      const modalElement = deleteCommentModal.createDeleteCommentModal(
+        postID,
+        originalUsername,
+        originalID
+      );
+      document.body.appendChild(modalElement);
+      deleteCommentModal.open();
+      currentModal = deleteCommentModal;
+    }
+  }
+  
+  if(target.matches('#continue-reply-delete')){
+    if (currentModal) {
+      const postID = currentModal.postID;
+      const originalUsername = currentModal.username
+      const originalID = currentModal.orignalID
+      try {
+        await deleteAuthUserReply(originalUsername, originalID,postID);
+        const postElement = document.querySelector(`.card[data-id="${postID}"]`);
+        if (postElement) {
+          postElement.remove();
+        }
+        if (currentModal) {
+          currentModal.close();
+          currentModal = null;
+        }
+      } catch (error) {
+        console.error("Error deleting comment:", error);
+      }
+    }
+  }
+
 }
 
 // Attach a single event listener to the body for event delegation

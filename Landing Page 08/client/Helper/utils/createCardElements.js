@@ -8,11 +8,18 @@ export async function createCardElements({
   usernameID,
   dataID,
   replyingTo,
+  originalID,
+  originalUsername,
 }) {
   const cardArticle = document.createElement("article");
   cardArticle.className = "card";
   cardArticle.dataset.id = dataID;
   cardArticle.dataset.username = usernameID;
+
+  if (originalID && originalUsername) {
+    cardArticle.dataset.original = originalID;
+    cardArticle.dataset.originalUsername = originalUsername;
+  }
 
   // Create and append the score section
   const scoreSection = document.createElement("div");

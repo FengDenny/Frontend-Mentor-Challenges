@@ -11,7 +11,7 @@ function CombinedCard(
   datePosted,
   tag,
   edited,
-  replies
+  replies, 
 ) {
   Card.call(this, score, comment, dataID, usernameID);
   UserProfileCard.call(this, userProfileImg, username, datePosted, tag, edited);

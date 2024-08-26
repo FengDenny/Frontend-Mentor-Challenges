@@ -18,6 +18,13 @@ async function renderComments() {
         item;
       const timeCreated = formatDate(createdAt);
 
+        // Modify replies to include originalID and originalUsername
+        const modifiedReplies = replies.map(reply => ({
+          ...reply,
+          originalID: id, // Add original comment ID
+          originalUsername: user.username // Add original username
+        }));
+
       const card = new CombinedCard(
         score,
         content,
@@ -28,12 +35,12 @@ async function renderComments() {
         timeCreated,
         tag,
         edited,
-        replies
+        modifiedReplies
       );
 
       const cardElement = await card.createCardElement();
       commentContainer.appendChild(cardElement);
-
+  
        // Append replies as separate cards
       if (card.replies.length) {
         const repliesSection = await card.createRepliesSection();
