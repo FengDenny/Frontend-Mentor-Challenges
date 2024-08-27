@@ -247,10 +247,13 @@ router.patch(
       // If current user, update
       const updateReplies = [...replies];
 
+      const now = new Date().toISOString();
+
       updateReplies[replyIndex] = {
         ...updateReplies[replyIndex],
         content: content || updateReplies[replyIndex].content,
-        updatedAt: new Date().toISOString(),
+        editedDate: now,
+        edited:true,
       };
 
       await updateDoc(commentDocRef, {
