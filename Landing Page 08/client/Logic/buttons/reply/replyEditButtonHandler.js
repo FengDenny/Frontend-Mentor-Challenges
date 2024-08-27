@@ -30,9 +30,9 @@ async function handleReplyEditButtonClicked(event) {
 
     if (commentParagraph) {
       const commentTextArea = document.getElementById("add-comment");
-      const currentComment = commentParagraph.textContent.trim();
+      const currentComment = commentTextArea.textContent.trim();
       commentTextArea.placeholder = "Reply comment....";
-      commentTextArea.value = currentComment;
+      commentTextArea.value = currentComment
       commentTextArea.focus();
 
       await handleSendButtonEditChanges(
