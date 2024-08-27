@@ -49,7 +49,19 @@ async function renderComments() {
         const replyContainer = document.querySelectorAll(".replies-container");
 
         if (replyContainer) {
-          replyContainer.forEach((container) => {
+          replyContainer.forEach(container => {
+            const btnContainer = container.querySelectorAll(
+              ".btn-container"
+            );
+
+            btnContainer.forEach(container => {
+              const replyBtn = container.querySelectorAll(".reply-btn")
+
+              replyBtn.forEach(button => button.dataset.id ="reply")
+            })
+          })
+
+          replyContainer.forEach((container) => {            
             const authBtnContainer = container.querySelectorAll(
               ".auth-btn-container"
             );
