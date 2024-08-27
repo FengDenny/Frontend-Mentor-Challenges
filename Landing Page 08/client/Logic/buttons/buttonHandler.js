@@ -18,7 +18,7 @@ async function handleButtonClicked(event) {
   const target = event.target;
 
   // Handle opening the delete modal
-  if (target.matches("#delete-modal-open")) {
+  if (target.matches('[data-action="delete-modal-open"]')) {
     const cardElement = target.closest(".card");
     if (cardElement) {
       const postID = cardElement.dataset.id;
@@ -35,14 +35,14 @@ async function handleButtonClicked(event) {
   }
 
   // Handle cancel button click inside the modal
-  if (target.matches("#cancel-delete")) {
+  if (target.matches('[data-action="cancel-delete"]')) {
     if (currentModal) {
       currentModal.close();
       currentModal = null;
     }
   }
 
-  if (target.matches("#continue-delete")) {
+  if (target.matches('[data-action="continue-delete"]')) {
     if (currentModal) {
       const deletePostID = currentModal.postID;
       try {
@@ -61,7 +61,7 @@ async function handleButtonClicked(event) {
     }
   }
 
-  if(target.matches("#delete-modal-reply-open")){
+  if(target.matches('[data-action="delete-modal-reply-open"]')){
     const cardElement = target.closest(".card");
     if (cardElement) {
       const postID = cardElement.dataset.id;

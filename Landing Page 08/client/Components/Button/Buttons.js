@@ -53,7 +53,7 @@ Buttons.prototype.createButtonWithSVG = function (
 ) {
   const button = document.createElement("button");
   if(isButtonID){
-    button.id = buttonID
+    button.dataset.action = buttonID
   } 
   button.className = className;
   button.textContent = text;
@@ -68,7 +68,7 @@ Buttons.prototype.createButtonWithText = function (
   buttonID
 ) {
   const button = document.createElement("button");
-  button.id = buttonID;
+  button.dataset.action = buttonID;
   button.className = className;
   button.textContent = text;
   return button;
