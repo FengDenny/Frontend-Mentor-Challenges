@@ -105,6 +105,87 @@ router.post("/:username/:postID/replies", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+router.post(
+  "/:username/comments/:commentID/replies/:replyID",
+  async (req, res) => {
+    try {
+      const { username, commentID, replyID } = req.params;
+      const { content } = req.body;
+
+      if (!content) {
+        return res.status(400).json({ error: "Reply content is required" });
+      }
+
+      // Retrieve the authenticated user
+      const authUserDocRef = doc(db, "authenticated", "current");
+      const authUserSnapshot = await getDoc(authUserDocRef);
+      if (!authUserSnapshot.exists()) {
+        return res.status(401).json({ error: "User not authenticated" });
+      }
+      // Reference to the specific comment document
+      const commentCollectionRef = collection(db, `users/${username}/comments`);
+      const q = query(
+        commentCollectionRef,
+        where("id", "==", parseInt(commentID))
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        res.status(404).json({ error: "No comments found" });
+        return;
+      }
+
+      const commentDoc = querySnapshot.docs[0];
+      const commentDocRef = commentDoc.ref;
+      const commentData = commentDoc.data();
+      const replies = commentData.replies || [];
+
+      // Find the specific reply to update
+      // Suitable for only small datasets O(n) T.C
+      const replyIndex = replies.findIndex(
+        (reply) => reply.id === parseInt(replyID)
+      );
+
+      if (replyIndex === -1) {
+        return res
+          .status(404)
+          .json({ error: "No reply found with the specified ID" });
+      }
+
+      // Check if the current user is the one who wrote the reply
+      const replyingToUser = replies[replyIndex].user.username;
+
+      const updateReplies = [...replies];
+
+      console.log(updateReplies);
+
+      updateReplies.push({
+        id: await getNextCommentId(db),
+        content,
+        replyingTo: replyingToUser,
+        createdAt: new Date().toISOString(),
+        score: 0,
+        tag:"you",
+        user: authUserSnapshot.data(),
+      });
+
+      await updateDoc(commentDocRef, {
+        replies:updateReplies
+      })
+
+       res.status(200).json({
+        message: "Reply added successfully",
+        replies: updateReplies,
+      });
+    } catch (error) {
+      console.error("Error updating reply:", error);
+      res.status(500).json({ error: error.message });
+    }
+  }
+);
+
 router.patch(
   "/:username/comments/:commentID/replies/:replyID/update",
   async (req, res) => {
