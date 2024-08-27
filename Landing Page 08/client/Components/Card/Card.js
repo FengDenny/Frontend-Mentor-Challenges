@@ -1,4 +1,4 @@
-import { createCardElements } from "../../Helper/utils/createCardElements";
+import { createCardElements } from "@helper/utils/createCardElements";
 
 function Card(score, comment, dataID, usernameID) {
   this.score = score;

@@ -1,6 +1,6 @@
-import { createCardElements } from "../../Helper/utils/createCardElements";
+import { createCardElements } from "@helper/utils/createCardElements";
 import UserProfileCard from "./UserProfileCard";
-import {formatDate} from "../../Helper/time"
+import {formatDate} from "@helper/time"
 
 function RepliesCard(reply) {
   this.reply = reply;
