@@ -1,7 +1,7 @@
-import { postNewComment } from "../../API/endpoints/postEndpoints";
-import { editComment } from "../../API/endpoints/patchEndpoints";
-import { renderComments } from "../../API/render/renderComments";
-import Buttons from "../../Components/Button/Buttons";
+import { postNewComment } from "@api/endpoints/postEndpoints";
+import { editComment } from "@api/endpoints/patchEndpoints";
+import { renderComments } from "@api/render/renderComments";
+import Buttons from "../../../Components/Button/Buttons";
 
 const writeComment = document.getElementById("auth-write");
 

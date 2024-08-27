@@ -1,7 +1,5 @@
-import { postNewReply } from "../../API/endpoints/postEndpoints";
-import { renderComments } from "../../API/render/renderComments";
-
-const writeComment = document.getElementById("auth-write");
+import { postNewReply } from "@api/endpoints/postEndpoints";
+import { renderComments } from "@api/render/renderComments";
 
 
 function handleSendCommentButtonClicked(sendCommentBtn, commentTextArea, articleElementDataID, articleElementDataUsername){
