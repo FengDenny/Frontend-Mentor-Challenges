@@ -22,6 +22,8 @@ async function handleReplyEditButtonClicked(event) {
       `.comment-p[data-id="${articleElementRepliersUsername}-${articleElementRepliersID}-comment"]`
     );
 
+    console.log(commentParagraph)
+
     console.log(
       articleElementDataID,
       articleElementDataUsername,
@@ -29,8 +31,12 @@ async function handleReplyEditButtonClicked(event) {
     );
 
     if (commentParagraph) {
+      const spanElement = commentParagraph.querySelector(".replying-to");
+      if(spanElement) {
+        spanElement.remove()
+      }
       const commentTextArea = document.getElementById("add-comment");
-      const currentComment = commentTextArea.textContent.trim();
+      const currentComment = commentParagraph.textContent.trim();
       commentTextArea.placeholder = "Reply comment....";
       commentTextArea.value = currentComment
       commentTextArea.focus();
