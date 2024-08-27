@@ -11,7 +11,7 @@ function handleSendCommentButtonClicked(sendCommentBtn, commentTextArea, article
       try {
 
         await postNewReply(updatedContent, articleElementDataUsername, articleElementDataID);
-        sendCommentBtn.id = "send-comment";
+        sendCommentBtn.dataset.action  = "send-comment";
         sendCommentBtn.textContent = "Send";
         commentTextArea.value = "";
         commentTextArea.placeholder = "Add a comment...";
@@ -31,10 +31,13 @@ function handleSendCommentButtonClicked(sendCommentBtn, commentTextArea, article
 
 
 async function handleSendButtonEditChanges(commentTextArea, articleElementDataID, articleElementDataUsername) {
-  let sendCommentBtn = document.getElementById("send-comment") || document.getElementById("reply-comment");
+  let sendCommentBtn = document.querySelector('button[data-action="send-comment"]') || document.querySelector('button[data-action ="reply-comment"]');
 
-  if (sendCommentBtn.id !== "reply-comment") {
-    sendCommentBtn.id = "reply-comment";
+  console.log(sendCommentBtn)
+
+
+  if (sendCommentBtn.dataset.action !== "reply-comment") {
+    sendCommentBtn.dataset.action = "reply-comment";
     sendCommentBtn.textContent = "Reply";
     sendCommentBtn.style.width = "116px";
     sendCommentBtn.style.fontWeight = "bold";

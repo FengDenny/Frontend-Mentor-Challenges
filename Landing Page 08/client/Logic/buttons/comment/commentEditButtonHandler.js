@@ -4,7 +4,7 @@ const comment = document.getElementById("comment");
 async function handleEditButtonClicked(event) {
   const target = event.target;
 
-  if (target.matches("#edit-comment")) {
+  if (target.matches('[data-action="edit-comment"')) {
     event.preventDefault();
 
     const articleElement = target.closest("article");

@@ -13,12 +13,12 @@ function handleCancelButtonClicked(commentTextArea, sendCommentBtn){
   const cancelBtn = button.createButtonWithText("Cancel", "cancel-edit", "cancel-edit-mode")
   const authWriteBtnContainer = document.querySelector(".auth-write-btn-container")
   authWriteBtnContainer.appendChild(cancelBtn)
-  let cancelEditBtn = document.getElementById("cancel-edit-mode");
+  let cancelEditBtn = document.querySelector('[data-action="cancel-edit-mode"]');
   const cancelEdit = () => {
     // Reset the textarea and button states
     commentTextArea.value = "";
     commentTextArea.placeholder = "Add a comment...";
-    sendCommentBtn.id = "send-comment";
+    sendCommentBtn.dataset.action = "send-comment";
     sendCommentBtn.textContent = "Send";
     sendCommentBtn.style.fontWeight = "normal";
 
@@ -37,7 +37,7 @@ function handleSendCommentButtonClicked(sendCommentBtn, commentTextArea, article
     if (updatedContent) {
       try {
         await editComment(updatedContent, articleElementDataID);
-        sendCommentBtn.id = "send-comment";
+        sendCommentBtn.dataset.action = "send-comment";
         sendCommentBtn.textContent = "Send";
         commentTextArea.value = "";
         commentTextArea.placeholder = "Add a comment...";
@@ -58,7 +58,7 @@ function handleSendCommentButtonClicked(sendCommentBtn, commentTextArea, article
 async function handleSendButtonClicked(event) {
   const target = event.target;
 
-  if (target.matches("#send-comment")) {
+  if (target.matches('[data-action="send-comment"]')) {
     event.preventDefault();
     const commentTextArea = document.getElementById("add-comment");
     const commentContent = commentTextArea.value.trim();
@@ -78,10 +78,11 @@ async function handleSendButtonClicked(event) {
 }
 
 async function handleSendButtonEditChanges(commentTextArea, articleElementDataID) {
-  let sendCommentBtn = document.getElementById("send-comment") || document.getElementById("edit-comment");
+  let sendCommentBtn = document.querySelector('button[data-action="send-comment"]') || document.querySelector('button[data-action ="edit-comment"]');
 
-  if (sendCommentBtn.id !== "edit-comment") {
-    sendCommentBtn.id = "edit-comment";
+  console.log(sendCommentBtn)
+  if (sendCommentBtn.dataset.action !== "edit-comment") {
+    sendCommentBtn.dataset.action = "edit-comment";
     sendCommentBtn.textContent = "Edit Comment";
     sendCommentBtn.style.width = "116px";
     sendCommentBtn.style.fontWeight = "bold";
@@ -97,7 +98,7 @@ const comment = document.getElementById("comment");
 async function handleEditButtonClicked(event) {
   const target = event.target;
 
-  if (target.matches("#edit-comment")) {
+  if (target.matches('[data-action="edit-comment"]')) {
     event.preventDefault();
 
     const articleElement = target.closest("article");

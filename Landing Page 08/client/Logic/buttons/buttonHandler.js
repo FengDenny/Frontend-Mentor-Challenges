@@ -61,7 +61,7 @@ async function handleButtonClicked(event) {
     }
   }
 
-  if(target.matches('[data-action="delete-modal-reply-open"]')){
+  if(target.matches('[data-reply-action="delete-modal-reply-open"]')){
     const cardElement = target.closest(".card");
     if (cardElement) {
       const postID = cardElement.dataset.id;
@@ -79,7 +79,7 @@ async function handleButtonClicked(event) {
     }
   }
   
-  if(target.matches('#continue-reply-delete')){
+  if(target.matches('[data-action="continue-reply-delete"]')){
     if (currentModal) {
       const postID = currentModal.postID;
       const originalUsername = currentModal.username
