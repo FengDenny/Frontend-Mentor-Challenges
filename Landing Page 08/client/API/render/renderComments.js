@@ -18,12 +18,12 @@ async function renderComments() {
         item;
       const timeCreated = formatDate(createdAt);
 
-        // Modify replies to include originalID and originalUsername
-        const modifiedReplies = replies.map(reply => ({
-          ...reply,
-          originalID: id, // Add original comment ID
-          originalUsername: user.username // Add original username
-        }));
+      // Modify replies to include originalID and originalUsername
+      const modifiedReplies = replies.map((reply) => ({
+        ...reply,
+        originalID: id, // Add original comment ID
+        originalUsername: user.username, // Add original username
+      }));
 
       const card = new CombinedCard(
         score,
@@ -40,11 +40,31 @@ async function renderComments() {
 
       const cardElement = await card.createCardElement();
       commentContainer.appendChild(cardElement);
-  
-       // Append replies as separate cards
+
+      // Append replies as separate cards
       if (card.replies.length) {
         const repliesSection = await card.createRepliesSection();
         commentContainer.appendChild(repliesSection);
+
+        const replyContainer = document.querySelectorAll(".replies-container");
+
+        if (replyContainer) {
+          replyContainer.forEach((container) => {
+            const authBtnContainer = container.querySelectorAll(
+              ".auth-btn-container"
+            );
+            authBtnContainer.forEach((container) => {
+              const deleteBtn = container.querySelector("button.delete-btn");
+              const editBtn = container.querySelector("button.edit-btn");
+
+              delete deleteBtn.dataset.action;
+              deleteBtn.dataset.replyAction = "delete-modal-reply-open";
+
+              delete editBtn.dataset.action;
+              editBtn.dataset.replyAction = "edit-reply";
+            });
+          });
+        }
       }
     }
   } catch (error) {
