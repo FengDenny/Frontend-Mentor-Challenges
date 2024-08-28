@@ -13,10 +13,22 @@ async function postNewComment(commentContent){
       }
 }
 
-async function postNewReply(commentContent, username, postID){
+async function postNewCommentReply(commentContent, username, postID){
+  try {
+    const newCommentReply = await api
+      .setEndpoint(`/user-comments/${username}/${postID}/replies`)
+      .setData({content:commentContent})
+      .request("POST");
+
+    return newCommentReply;
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+async function postNewReply(commentContent, username, commentID, replyID){
   try {
     const newReply = await api
-      .setEndpoint(`/user-comments/${username}/${postID}/replies`)
+      .setEndpoint(`/user-comments/${username}/comments/${commentID}/replies/${replyID}`)
       .setData({content:commentContent})
       .request("POST");
 
@@ -26,4 +38,4 @@ async function postNewReply(commentContent, username, postID){
   }
 }
 
-export {postNewComment, postNewReply}
+export {postNewComment, postNewReply, postNewCommentReply}
