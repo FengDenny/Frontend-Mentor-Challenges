@@ -80,7 +80,6 @@ async function handleSendButtonClicked(event) {
 async function handleSendButtonEditChanges(commentTextArea, articleElementDataID) {
   let sendCommentBtn = document.querySelector('button[data-action="send-comment"]') || document.querySelector('button[data-action ="edit-comment"]');
 
-  console.log(sendCommentBtn)
   if (sendCommentBtn.dataset.action !== "edit-comment") {
     sendCommentBtn.dataset.action = "edit-comment";
     sendCommentBtn.textContent = "Edit Comment";
