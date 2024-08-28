@@ -29,13 +29,21 @@ export async function createCardElements({
   const plusIcon = new PlusIcon();
   const minusIcon = new MinusIcon();
 
-  scoreSection.appendChild(plusIcon.createSVGElement());
+  // Create the SVG elements
+  const plusSVGElement = plusIcon.createSVGElement();
+  const minusSVGElement = minusIcon.createSVGElement();
+
+  plusSVGElement.dataset.id = "plus-icon";
+  minusSVGElement.dataset.id = "minus-icon";
+  
+  scoreSection.appendChild(plusSVGElement);
 
   const scoreCountElement = document.createElement("span");
   scoreCountElement.textContent = score;
+  scoreCountElement.dataset.id = "score";
   scoreSection.appendChild(scoreCountElement);
 
-  scoreSection.appendChild(minusIcon.createSVGElement());
+  scoreSection.appendChild(minusSVGElement);
 
   cardArticle.appendChild(scoreSection);
 
