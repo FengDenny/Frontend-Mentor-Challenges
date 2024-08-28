@@ -1,4 +1,4 @@
-import { postNewReply } from "@api/endpoints/postEndpoints";
+import { postNewCommentReply } from "@api/endpoints/postEndpoints";
 import { renderComments } from "@api/render/renderComments";
 
 
@@ -10,7 +10,7 @@ function handleSendCommentButtonClicked(sendCommentBtn, commentTextArea, article
     if (updatedContent) {
       try {
 
-        await postNewReply(updatedContent, articleElementDataUsername, articleElementDataID);
+        await postNewCommentReply(updatedContent, articleElementDataUsername, articleElementDataID);
         sendCommentBtn.dataset.action  = "send-comment";
         sendCommentBtn.textContent = "Send";
         commentTextArea.value = "";
@@ -49,10 +49,10 @@ const comment = document.getElementById("comment");
 
 async function handleReplyButtonClicked(event) {
   const target = event.target;
+  const replyButton = event.target.closest('.reply-btn');
 
-  if (target.matches(".reply-btn")) {
+  if (target.matches(".reply-btn") && !replyButton.hasAttribute('data-id')) {
     event.preventDefault();
-
     const articleElement = target.closest("article");
     if (!articleElement) return;
 
