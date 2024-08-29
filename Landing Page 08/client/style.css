@@ -49,6 +49,7 @@ main {
   margin-top: 2rem;
   flex-direction: column;
   padding:20px;
+  align-items: center;
 }
 /* Card */
 
@@ -63,6 +64,8 @@ main {
   border-radius: 5px;
   margin-top: 14px;
 }
+
+
 
 .profile-section {
   order: -1;
@@ -355,4 +358,55 @@ main {
   bottom: 0;
   width: 2px; 
   background-color: var(--light-gray); 
+}
+
+/* MEDIA QUERIES */
+@media screen and (min-width: 768px) {
+
+  .write-comment, 
+  .comments{
+    max-width: 750px;
+  }
+
+  .card{
+    flex-direction: row;
+    align-items: center;
+    justify-items: flex-end;
+  }
+
+
+  .card .btn-container{
+    top:25px;
+  }
+
+  .card .auth-btn-container{
+    top:25px;
+  }
+
+  .card .score-section{
+    order:-1;
+    flex-direction: column;
+    width:35px;
+    height:80px;
+  }
+
+  .card .profile-section{
+    order:0;
+  }
+  .card .comment-p{
+    max-width: 90%;
+  }
+
+  .user-item-container{
+    padding-left:10px;
+  }
+
+  .replies-container{
+    padding-left:90px;
+  }
+
+  .replies-container::before{
+    left:50px;
+  }
+
 }
