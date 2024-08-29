@@ -37,7 +37,7 @@ async function handleReplyEditButtonClicked(event) {
       }
       const commentTextArea = document.getElementById("add-comment");
       const currentComment = commentParagraph.textContent.trim();
-      commentTextArea.placeholder = "Reply comment....";
+      commentTextArea.placeholder = "Edit comment....";
       commentTextArea.value = currentComment
       commentTextArea.focus();
 
@@ -100,7 +100,7 @@ async function handleSendButtonEditChanges(
   console.log(sendCommentBtn);
   if (sendCommentBtn.dataset.action !== "reply-comment") {
     sendCommentBtn.dataset.action = "reply-comment";
-    sendCommentBtn.textContent = "Reply";
+    sendCommentBtn.textContent = "Edit";
     sendCommentBtn.style.width = "116px";
     sendCommentBtn.style.fontWeight = "bold";
     handleSendCommentButtonClicked(
@@ -115,3 +115,5 @@ async function handleSendButtonEditChanges(
 
 // Attach a single event listener to the body for event delegation
 comment.addEventListener("click", handleReplyEditButtonClicked);
+
+
