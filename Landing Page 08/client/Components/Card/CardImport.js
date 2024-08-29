@@ -1,6 +1,7 @@
 import Card from "./Card";
 import UserProfileCard from "./UserProfileCard";
 import RepliesCard from "./RepliesCard";
+import { createCardElements } from "@helper/utils/createCardElements";
 function CombinedCard(
   score,
   comment,
@@ -24,15 +25,22 @@ CombinedCard.prototype.constructor = CombinedCard;
 // Set up inheritance to include methods from ExtendedCard
 Object.assign(CombinedCard.prototype, UserProfileCard.prototype);
 
-// Override createCardElement to include additional elements
-CombinedCard.prototype.createCardElement = async function () {
-  const cardArticle = await Card.prototype.createCardElement.call(this);
-  const userProfileCard = this.createProfileElements();
 
-  cardArticle.appendChild(userProfileCard);
+CombinedCard.prototype.createCardElement = async function () {
+  const userProfileCard = this.createProfileElements(); // Create the profile elements
+
+  // Call createCardElements with userProfileCard as a parameter
+  const cardArticle = await createCardElements({
+    score: this.score,
+    comment: this.comment,
+    dataID: this.dataID,
+    usernameID: this.usernameID,
+    userProfileCard: userProfileCard, // Pass the userProfileCard
+  });
 
   return cardArticle;
 };
+
 
 CombinedCard.prototype.createRepliesSection = async function () {
   const repliesContainer = document.createElement("div");

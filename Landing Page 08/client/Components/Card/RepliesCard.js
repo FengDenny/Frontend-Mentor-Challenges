@@ -13,8 +13,12 @@ function RepliesCard(reply) {
   );
 }
 
+
 RepliesCard.prototype.createRepliesCardElement = async function () {
-  // Use createCardElements for consistent styling
+  // Generate the user profile section
+  const profileSection = this.userProfileCard.createProfileElements();
+
+  // Use createCardElements and pass the profile section
   const replyCard = await createCardElements({
     score: this.reply.score,
     comment: this.reply.content,
@@ -23,13 +27,10 @@ RepliesCard.prototype.createRepliesCardElement = async function () {
     replyingTo: this.reply.replyingTo,
     originalID: this.reply.originalID, // Add original ID
     originalUsername: this.reply.originalUsername, // Add original username
+    userProfileCard: profileSection, // Pass the userProfileCard
   });
-  replyCard.className += " reply-card";
 
-  // Create and append the user profile section
-  const profileSection = this.userProfileCard.createProfileElements();
-  // Insert profile section at the top
-  replyCard.insertBefore(profileSection, replyCard.firstChild);
+  replyCard.className += " reply-card";
 
   return replyCard;
 };

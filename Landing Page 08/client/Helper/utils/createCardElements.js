@@ -10,6 +10,7 @@ export async function createCardElements({
   replyingTo,
   originalID,
   originalUsername,
+  userProfileCard
 }) {
   const cardArticle = document.createElement("article");
   cardArticle.className = "card";
@@ -47,6 +48,16 @@ export async function createCardElements({
 
   cardArticle.appendChild(scoreSection);
 
+  const userItemContainer = document.createElement("div")
+  userItemContainer.className = "user-item-container"
+
+    // Append the user profile card if provided
+    if (userProfileCard) {
+      userItemContainer.appendChild(userProfileCard);
+    }
+  
+
+  
   // Add comment and reply button
   const commentElement = document.createElement("p");
   commentElement.className = "comment-p";
@@ -54,9 +65,9 @@ export async function createCardElements({
 
   const span = document.createElement("span");
   span.className = "replying-to";
-
+  
   span.textContent = `@${replyingTo} `;
-
+  
   if (replyingTo) {
     commentElement.textContent = "";
     // Append the span and the comment text separately
@@ -65,7 +76,10 @@ export async function createCardElements({
   } else {
     commentElement.textContent = comment;
   }
-  cardArticle.appendChild(commentElement);
+
+  userItemContainer.appendChild(commentElement)
+
+  cardArticle.appendChild(userItemContainer)
 
   try {
     const authUser = await getAuthUser(usernameID);
