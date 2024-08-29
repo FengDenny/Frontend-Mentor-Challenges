@@ -31,7 +31,7 @@ function handleSendCommentButtonClicked(sendCommentBtn, commentTextArea, article
 
 
 async function handleSendButtonEditChanges(commentTextArea, articleElementDataID, articleElementDataUsername, replyID) {
-  let sendCommentBtn = document.querySelector('button[data-action="send-comment"]') || document.querySelector('button[data-action="reply-comment"]');
+  let sendCommentBtn = document.querySelector('button[data-action="send-comment"]') || document.querySelector('button[data-action="reply-comment"]') || document.querySelector('button[data-action="edit-reply"]');
 
   console.log(sendCommentBtn)
 
