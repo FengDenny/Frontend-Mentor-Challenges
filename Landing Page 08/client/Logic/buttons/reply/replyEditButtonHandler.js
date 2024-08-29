@@ -96,10 +96,11 @@ async function handleSendButtonEditChanges(
 ) {
   let sendCommentBtn =
     document.querySelector('button[data-action="send-comment"]') ||
-    document.querySelector('button[data-action ="reply-comment"]');
+    document.querySelector('button[data-action ="reply-comment"]') ||
+    document.querySelector('button[data-action ="edit-reply"]');
   console.log(sendCommentBtn);
-  if (sendCommentBtn.dataset.action !== "reply-comment") {
-    sendCommentBtn.dataset.action = "reply-comment";
+  if (sendCommentBtn.dataset.action !== "edit-reply") {
+    sendCommentBtn.dataset.action = "edit-reply";
     sendCommentBtn.textContent = "Edit";
     sendCommentBtn.style.width = "116px";
     sendCommentBtn.style.fontWeight = "bold";
