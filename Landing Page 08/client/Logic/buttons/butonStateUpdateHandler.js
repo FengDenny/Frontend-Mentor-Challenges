@@ -64,6 +64,9 @@ async function handleSendCommentButtonClicked(
   sendCommentBtn.addEventListener("click", async function editHandler(event) {
     event.preventDefault();
     const updatedContent = commentTextArea.value.trim();
+    const cancelEditBtn = document.querySelector(
+        '[data-action="cancel-edit-mode"]'
+      );
 
     if (updatedContent) {
       try {
@@ -95,7 +98,9 @@ async function handleSendCommentButtonClicked(
             );
             break;
         }
-
+        if (cancelEditBtn) {
+            cancelEditBtn.remove();
+          }
         resetButtonAndTextArea(sendCommentBtn, commentTextArea);
         await renderComments();
       } catch (error) {
