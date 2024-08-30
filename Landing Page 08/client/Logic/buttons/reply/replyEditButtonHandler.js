@@ -1,116 +1,46 @@
-import { editReplies } from "@api/endpoints/patchEndpoints";
-import { renderComments } from "@api/render/renderComments";
+import { updateButtonState } from "../butonStateUpdateHandler";
 
 const comment = document.getElementById("comment");
+
 
 async function handleReplyEditButtonClicked(event) {
   const target = event.target;
 
   if (target.matches('[data-reply-action="edit-reply"]')) {
-    event.preventDefault();
+      event.preventDefault();
 
-    const articleElement = target.closest("article");
-    if (!articleElement) return;
+      const articleElement = target.closest("article");
+      if (!articleElement) return;
 
-    // Retrieve the article's orignal posters / repliers ID , username
-    const articleElementDataID = articleElement.dataset.original;
-    const articleElementDataUsername = articleElement.dataset.originalUsername;
-    const articleElementRepliersID = articleElement.dataset.id;
-    const articleElementRepliersUsername = articleElement.dataset.username;
+      const articleElementDataID = articleElement.dataset.original;
+      const articleElementDataUsername = articleElement.dataset.originalUsername;
+      const articleElementRepliersID = articleElement.dataset.id;
+      const articleElementRepliersUsername = articleElement.dataset.username;
 
-    const commentParagraph = document.querySelector(
-      `.comment-p[data-id="${articleElementRepliersUsername}-${articleElementRepliersID}-comment"]`
-    );
-
-    console.log(commentParagraph)
-
-    console.log(
-      articleElementDataID,
-      articleElementDataUsername,
-      articleElementRepliersID
-    );
-
-    if (commentParagraph) {
-      const spanElement = commentParagraph.querySelector(".replying-to");
-      if(spanElement) {
-        spanElement.remove()
-      }
-      const commentTextArea = document.getElementById("add-comment");
-      const currentComment = commentParagraph.textContent.trim();
-      commentTextArea.placeholder = "Edit comment....";
-      commentTextArea.value = currentComment
-      commentTextArea.focus();
-
-      await handleSendButtonEditChanges(
-        commentTextArea,
-        articleElementDataID,
-        articleElementDataUsername,
-        articleElementRepliersID
+      const commentParagraph = document.querySelector(
+          `.comment-p[data-id="${articleElementRepliersUsername}-${articleElementRepliersID}-comment"]`
       );
-    }
-  }
-}
 
-function handleSendCommentButtonClicked(
-  sendCommentBtn,
-  commentTextArea,
-  articleElementDataID,
-  articleElementDataUsername,
-  articleElementRepliersID
-) {
-  sendCommentBtn.addEventListener("click", async function editHandler(event) {
-    event.preventDefault();
-    const updatedContent = commentTextArea.value.trim();
+      if (commentParagraph) {
+          const spanElement = commentParagraph.querySelector(".replying-to");
+          if (spanElement) {
+              spanElement.remove();
+          }
+          const commentTextArea = document.getElementById("add-comment");
+          const currentComment = commentParagraph.textContent.trim();
+          commentTextArea.placeholder = "Edit comment....";
+          commentTextArea.value = currentComment;
+          commentTextArea.focus();
 
-    if (updatedContent) {
-      try {
-        await editReplies(
-          articleElementDataUsername,
-          articleElementDataID,
-          articleElementRepliersID,
-          updatedContent
-        );
-        sendCommentBtn.dataset.action = "send-comment";
-        sendCommentBtn.textContent = "Send";
-        commentTextArea.value = "";
-        commentTextArea.placeholder = "Add a comment...";
-
-        await renderComments();
-      } catch (error) {
-        console.error("Error editing comment:", error);
-      } finally {
-        // Remove the event listener after the edit is done
-        sendCommentBtn.removeEventListener("click", editHandler);
+          await updateButtonState(
+              "edit-reply",
+              "Edit",
+              commentTextArea,
+              articleElementDataID,
+              articleElementDataUsername,
+              articleElementRepliersID,
+          );
       }
-    } else {
-      console.error("Comment content is empty.");
-    }
-  });
-}
-
-async function handleSendButtonEditChanges(
-  commentTextArea,
-  articleElementDataID,
-  articleElementDataUsername,
-  articleElementRepliersID
-) {
-  let sendCommentBtn =
-    document.querySelector('button[data-action="send-comment"]') ||
-    document.querySelector('button[data-action ="reply-comment"]') ||
-    document.querySelector('button[data-action ="edit-reply"]');
-  console.log(sendCommentBtn);
-  if (sendCommentBtn.dataset.action !== "edit-reply") {
-    sendCommentBtn.dataset.action = "edit-reply";
-    sendCommentBtn.textContent = "Edit";
-    sendCommentBtn.style.width = "116px";
-    sendCommentBtn.style.fontWeight = "bold";
-    handleSendCommentButtonClicked(
-      sendCommentBtn,
-      commentTextArea,
-      articleElementDataID,
-      articleElementDataUsername,
-      articleElementRepliersID
-    );
   }
 }
 

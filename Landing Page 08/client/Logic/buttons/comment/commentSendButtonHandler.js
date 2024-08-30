@@ -2,6 +2,7 @@ import { postNewComment } from "@api/endpoints/postEndpoints";
 import { editComment } from "@api/endpoints/patchEndpoints";
 import { renderComments } from "@api/render/renderComments";
 import Buttons from "../../../Components/Button/Buttons";
+import { updateButtonState } from "../butonStateUpdateHandler";
 
 const writeComment = document.getElementById("auth-write");
 
@@ -33,6 +34,7 @@ function handleSendCommentButtonClicked(sendCommentBtn, commentTextArea, article
   sendCommentBtn.addEventListener("click", async function editHandler(event) {
     event.preventDefault();
     const updatedContent = commentTextArea.value.trim();
+    let cancelEditBtn = document.querySelector('[data-action="cancel-edit-mode"]');
 
     if (updatedContent) {
       try {
@@ -41,6 +43,9 @@ function handleSendCommentButtonClicked(sendCommentBtn, commentTextArea, article
         sendCommentBtn.textContent = "Send";
         commentTextArea.value = "";
         commentTextArea.placeholder = "Add a comment...";
+        if(cancelEditBtn){
+          cancelEditBtn.remove()
+        }
 
         await renderComments();
       } catch (error) {

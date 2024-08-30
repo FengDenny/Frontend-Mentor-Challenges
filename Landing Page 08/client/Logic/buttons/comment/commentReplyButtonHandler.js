@@ -1,49 +1,5 @@
-import { postNewCommentReply } from "@api/endpoints/postEndpoints";
-import { renderComments } from "@api/render/renderComments";
+import { updateButtonState } from "../butonStateUpdateHandler";
 
-
-function handleSendCommentButtonClicked(sendCommentBtn, commentTextArea, articleElementDataID, articleElementDataUsername){
-  sendCommentBtn.addEventListener("click", async function editHandler(event) {
-    event.preventDefault();
-    const updatedContent = commentTextArea.value.trim();
-
-    if (updatedContent) {
-      try {
-
-        await postNewCommentReply(updatedContent, articleElementDataUsername, articleElementDataID);
-        sendCommentBtn.dataset.action  = "send-comment";
-        sendCommentBtn.textContent = "Send";
-        commentTextArea.value = "";
-        commentTextArea.placeholder = "Add a comment...";
-
-        await renderComments();
-      } catch (error) {
-        console.error("Error editing comment:", error);
-      } finally {
-        // Remove the event listener after the edit is done
-        sendCommentBtn.removeEventListener("click", editHandler);
-      }
-    } else {
-      console.error("Comment content is empty.");
-    }
-  });
-}
-
-
-async function handleSendButtonEditChanges(commentTextArea, articleElementDataID, articleElementDataUsername) {
-  let sendCommentBtn = document.querySelector('button[data-action="send-comment"]') || document.querySelector('button[data-action ="reply-comment"]');
-
-  console.log(sendCommentBtn)
-
-
-  if (sendCommentBtn.dataset.action !== "reply-comment") {
-    sendCommentBtn.dataset.action = "reply-comment";
-    sendCommentBtn.textContent = "Reply";
-    sendCommentBtn.style.width = "116px";
-    sendCommentBtn.style.fontWeight = "bold";
-    handleSendCommentButtonClicked(sendCommentBtn, commentTextArea, articleElementDataID, articleElementDataUsername)
-  }
-}
 
 const comment = document.getElementById("comment");
 
@@ -69,7 +25,14 @@ async function handleReplyButtonClicked(event) {
     commentTextArea.value = reply;
     commentTextArea.focus();
 
-    await handleSendButtonEditChanges(commentTextArea, articleElementDataID, articleElementDataUsername);
+    
+    await updateButtonState(
+      "new-comment-reply",
+        "Reply",
+        commentTextArea,
+        articleElementDataID,
+        articleElementDataUsername,
+    );
   }
 }
 
