@@ -18,7 +18,7 @@ async function handleButtonClicked(event) {
   const target = event.target;
 
   // Handle opening the delete modal
-  if (target.matches('[data-action="delete-modal-open"]')) {
+  if (target.matches('[data-auth-action="delete-modal-open"]')) {
     const cardElement = target.closest(".card");
     if (cardElement) {
       const postID = cardElement.dataset.id;
