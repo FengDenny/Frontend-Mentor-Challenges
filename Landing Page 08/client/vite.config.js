@@ -7,6 +7,7 @@ export default defineConfig({
     alias: {
       '@api': path.resolve(__dirname, 'API/'),
       '@helper': path.resolve(__dirname, 'Helper/'),
+      '@components': path.resolve(__dirname, 'Components/'),
     },
   },
 });
