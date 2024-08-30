@@ -69,10 +69,10 @@ async function renderComments() {
               const deleteBtn = container.querySelector("button.delete-btn");
               const editBtn = container.querySelector("button.edit-btn");
 
-              delete deleteBtn.dataset.action;
+              delete deleteBtn.dataset.authAction;
               deleteBtn.dataset.replyAction = "delete-modal-reply-open";
 
-              delete editBtn.dataset.action;
+              delete editBtn.dataset.authAction;
               editBtn.dataset.replyAction = "edit-reply";
             });
           });
