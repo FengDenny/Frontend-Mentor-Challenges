@@ -1,4 +1,5 @@
 import { editReplies, editComment } from "@api/endpoints/patchEndpoints";
+import Buttons from "@components/Button/Buttons";
 import {
   postNewReply,
   postNewCommentReply,
@@ -19,13 +20,17 @@ export async function updateButtonState(
     document.querySelector('button[data-action="send-comment"]') ||
     document.querySelector('button[data-action="reply-comment"]') ||
     document.querySelector('button[data-action="edit-reply"]') ||
-    document.querySelector('button[data-action="new-comment-reply"]');
+    document.querySelector('button[data-action="new-comment-reply"]') 
+    // ||
+    // document.querySelector('button[data-action="edit-comment"]') 
 
   if (sendCommentBtn.dataset.action !== newAction) {
     sendCommentBtn.dataset.action = newAction;
     sendCommentBtn.textContent = newTextContent;
     sendCommentBtn.style.width = "116px";
     sendCommentBtn.style.fontWeight = "bold";
+
+    handleCancelButtonClicked(commentTextArea, sendCommentBtn);
 
     // Ensure handleSendCommentButtonClicked is defined and valid
     if (typeof handleSendCommentButtonClicked === "function") {
@@ -63,9 +68,9 @@ async function handleSendCommentButtonClicked(
             case "new-comment-reply":
               await postNewCommentReply(updatedContent, articleElementDataUsername, articleElementDataID);
               break;
-            case "edit-comment":
-              await editComment(updatedContent, articleElementDataID);
-              break;
+            // case "edit-comment":
+            //   await editComment(updatedContent, articleElementDataID);
+            //   break;
             default:
               await postNewReply(updatedContent, articleElementDataUsername, articleElementDataID, replyID);
               break;
@@ -93,3 +98,16 @@ function resetButtonAndTextArea(sendCommentBtn, commentTextArea) {
     commentTextArea.placeholder = "Add a comment...";
   }
   
+
+
+  function handleCancelButtonClicked(commentTextArea, sendCommentBtn) {
+    const button = new Buttons(true);
+    const cancelBtn = button.createButtonWithText("Cancel", "cancel-edit", "cancel-edit-mode");
+    const authWriteBtnContainer = document.querySelector(".auth-write-btn-container");
+    authWriteBtnContainer.appendChild(cancelBtn);
+  
+    cancelBtn.addEventListener("click", () => {
+      resetButtonAndTextArea(sendCommentBtn, commentTextArea);
+      cancelBtn.remove();
+    });
+  }
