@@ -1,10 +1,12 @@
-import {handleSendButtonEditChanges} from "./commentSendButtonHandler"
+
+import { updateButtonState } from "../butonStateUpdateHandler";
 
 const comment = document.getElementById("comment");
+
 async function handleEditButtonClicked(event) {
   const target = event.target;
 
-  if (target.matches('[data-action="edit-comment"')) {
+  if (target.matches('[data-auth-action="edit-comment"')) {
     event.preventDefault();
 
     const articleElement = target.closest("article");
@@ -29,7 +31,13 @@ async function handleEditButtonClicked(event) {
       // Scroll to the textarea or focus on it
       commentTextArea.focus();
 
-      await handleSendButtonEditChanges(commentTextArea, articleElementDataID)
+
+      await updateButtonState(
+        "edit-comment",
+        "Edit Comment",
+        commentTextArea,
+        articleElementDataID
+    );
     }
   }
 }
