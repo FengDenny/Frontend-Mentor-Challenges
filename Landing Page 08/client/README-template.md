@@ -1,115 +1,107 @@
-# Frontend Mentor - Interactive comments section solution
-
-This is a solution to the [Interactive comments section challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
-
 ## Table of contents
 
 - [Overview](#overview)
-  - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
+  - [Screenshot](#screenshot)
+
+  - [Links](#links)
+
+- [My process](#my-process)
+
+  - [Built with](#built-with)
+
+  - [What I learned](#what-i-learned)
+
+  - [Proud of](#What-are-you-most-proud-of-and-what-would-you-do-differently-next-time)
+
+  - [Challenges](#What-challenges-did-you-encounter-and-how-did-you-overcome-them)
+
+  - [Project Help](#What-specific-areas-of-your-project-would-you-like-help-with)
 
 ## Overview
 
-### The challenge
-
-Users should be able to:
-
-- View the optimal layout for the app depending on their device's screen size
-- See hover states for all interactive elements on the page
-- Create, Read, Update, and Delete comments and replies
-- Upvote and downvote comments
-- **Bonus**: If you're building a purely front-end project, use `localStorage` to save the current state in the browser that persists when the browser is refreshed.
-- **Bonus**: Instead of using the `createdAt` strings from the `data.json` file, try using timestamps and dynamically track the time since the comment or reply was posted.
-
 ### Screenshot
 
-![](./screenshot.jpg)
+#### Desktop
 
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
+![Landing Page Desktop Design Final ](/Landing%20Page%2008/public/design/desktop-preview.jpg)
 
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
 
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
+#### Mobile
 
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+
+![Landing Page Mobile Design Final ](/Landing%20Page%2008/public/design/mobile-design.jpg)
+
+
+
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [SCSS Solution](https://github.com/FengDenny/Frontend-Mentor-Challenges/blob/main/Landing%20Page%2008/client/style.css)
+
+- Live Site URL: [Landing Page 08 ](https://commenteer.netlify.app/)
 
 ## My process
 
 ### Built with
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
+### Built with
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+#### Frontend
+
+- Semantic HTML5 markup
+
+- CSS3
+
+- Vite
+
+- Vanilla JavaScript
+
+
+#### Backend
+
+- Node.js
+
+- Express.js
+
+- Firebase
+
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+#### Frontend Development
 
-To see how you can add code snippets, see below:
+- Prototypical Inheritance in Vanilla JavaScript: Gained a deeper understanding of building reusable components using prototypical inheritance, enhancing code organization and maintainability.
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
-```
+- Figma Design Implementation: Effectively translated Figma designs into functional components, focusing on UI/UX best practices to ensure a seamless user experience.
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+- Data Retrieval from Firebase: Integrated Firebase server endpoints to retrieve data, enabling dynamic rendering of frontend components and improving application interactivity.
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+#### Backend Development
 
-### Continued development
+- Full-Stack CRUD Application: Developed a full-stack CRUD application utilizing Firebase, Node.js, and Express.js, solidifying my understanding of RESTful API principles and backend architecture.
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+- Local Data Import to Firebase: Successfully imported local data from a data.json file into Firebase, streamlining the initial setup of the application.
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+- Comment Management System: Implemented functionalities for creating, reading, updating, and deleting comments and replies by authenticated (dummy) users, enhancing user engagement.
 
-### Useful resources
+- Comment Interaction Features: Developed upvote and downvote functionalities for comments, providing users with a way to express their opinions and interact with content.
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- Dynamic Time Tracking: Introduced a time tracker that dynamically records and displays the time for posted comments and replies, adding a layer of interactivity and user engagement.
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+### What are you most proud of, and what would you do differently next time?
 
-## Author
+I am proud to have developed this project as a full-stack application rather than just a simple frontend application using data.json. This approach allowed me to integrate both the frontend and backend seamlessly, providing a more robust user experience and demonstrating my skills in full-stack development.
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+Next time, I would focus on implementing a real authentication system instead of relying on dummy authenticated users. This change would enhance the application's security and provide a more realistic environment for user interactions, ultimately leading to a more reliable and scalable solution. Additionally, I would explore more advanced authentication methods, such as OAuth or JWT, to improve user management and security further.
 
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
 
-## Acknowledgments
+### What challenges did you encounter, and how did you overcome them?
 
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
+During the development of my application, I faced several challenges, particularly when hosting it on Render and transitioning from development to production using live server endpoints. One significant issue I encountered was a CORS (Cross-Origin Resource Sharing) problem, which prevented my frontend from accessing the backend API. To resolve this, I implemented the CORS npm package in my backend, which effectively allowed cross-origin requests and enabled seamless communication between the frontend and backend in the production environment.
 
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+Another challenge arose while building components using prototypical inheritance. While this approach provided a solid foundation for creating reusable components, I found it difficult to adapt those components for different use cases, such as varying buttons or cards. Each time I tried to create a new component, I needed to tweak the existing code to fit the specific requirements. To overcome this, I introduced a boolean variable to check the type of component being rendered. This allowed me to conditionally modify the component's behavior and appearance based on its intended use, streamlining the process and enhancing the maintainability of my code.
+
+
+### What specific areas of your project would you like help with?
+At the moment, none.

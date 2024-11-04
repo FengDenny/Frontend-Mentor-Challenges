@@ -52,7 +52,15 @@
 - JavaScript
 
 ### What I learned
+- Mastered data manipulation and filtering techniques for job listings.
 
+- Developed customizable tablets to display job roles, levels, languages, and tools.
+
+- Created the createTabletOrdering function to manage the order of languages and tools effectively.
+
+- Implemented the alternateOrderingTablet helper function to accommodate varying array lengths.
+
+- Gained experience in tailoring data presentations based on specific requirements for job listings.
 
 
 ### What are you most proud of, and what would you do differently next time?
