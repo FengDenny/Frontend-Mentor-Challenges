@@ -55,6 +55,8 @@
 
 - SASS / SCSS
 
+- Vanilla JavaScript
+
 ### What I learned
 
 - Learned nested grid for outer layout / flexbox for inner layout

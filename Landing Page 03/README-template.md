@@ -50,6 +50,8 @@
 
 - SASS / SCSS
 
+- Vanilla JavaScript
+
 
 ### What I learned
 

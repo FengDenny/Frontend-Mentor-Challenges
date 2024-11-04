@@ -52,6 +52,15 @@
 
 ### What I learned
 
+- Implemented DOM manipulation for dynamic updates of user interface elements such as pledges and modals, enhancing user experience.
+
+- Leveraged Local Storage for data persistence, ensuring user actions are retained across sessions.
+
+- Organized code using encapsulation principles, creating reusable components that improved code maintainability.
+
+- Recognized the importance of performance optimization, especially with large datasets and frequent DOM updates.
+
+- Acknowledged the need for improved accessibility to create a consistent experience for all users across devices.
 
 
 ### What are you most proud of, and what would you do differently next time?
