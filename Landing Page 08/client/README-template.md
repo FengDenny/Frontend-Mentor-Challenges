@@ -24,13 +24,13 @@
 
 #### Desktop
 
-![Landing Page Desktop Design Final ](/Landing%20Page%2008/public/design/desktop-preview.jpg)
+![Landing Page Desktop Design Final ](/Landing%20Page%2008/client/public/design/desktop-preview.jpg)
 
 
 #### Mobile
 
 
-![Landing Page Mobile Design Final ](/Landing%20Page%2008/public/design/mobile-design.jpg)
+![Landing Page Mobile Design Final ](/Landing%20Page%2008/client/public/design/mobile-design.jpg)
 
 
 
