@@ -34,7 +34,6 @@
 
 
 
-
 ### Links
 
 - Solution URL: [SCSS Solution](https://github.com/FengDenny/Frontend-Mentor-Challenges/blob/main/Landing%20Page%2008/client/style.css)
@@ -42,8 +41,6 @@
 - Live Site URL: [Landing Page 08 ](https://commenteer.netlify.app/)
 
 ## My process
-
-### Built with
 
 ### Built with
 
